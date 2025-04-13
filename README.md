@@ -63,7 +63,7 @@ Para dar comienzo a la ejecución de la caja de herramientas, se debe comenzar c
 
 
 
-1. Ingresar al repositorio de github [[https://github.com/Oliversinn/polio-risk](https://github.com/Oliversinn/polio-risk)].
+1. Ingresar al repositorio de github [[Aqui](https://github.com/ucirag/caja_de_herramientas/)].
 2. Presionar el botón verde que dice "Code" o "Código".
 3. Presionar el botón de "Download Zip" o "Descargar Zip".
 4. Descomprimir archivo zip.
