@@ -1,5 +1,3 @@
-
-
 # **<span style="text-decoration:underline;">Caja de herramientas para el análisis epidemiológico de infecciones respiratorias agudas graves (IRAG) utilizando información del Sistema Nacional de Vigilancia</span>**[^1]
 
 **Esta caja de herramientas IRAG es el resultado de la colaboración entre OPS/OMS Argentina y la Unidad Centinela de IRAG del Hospital Zapala “Dr. Juan J. Pose”, Provincia de Neuquén. Abril, año 2025.**
