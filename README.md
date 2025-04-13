@@ -1,18 +1,10 @@
 
 
-<p style="color: red; font-weight: bold">>>>>>  gd2md-html alert:  ERRORs: 0; WARNINGs: 1; ALERTS: 1.</p>
-<ul style="color: red; font-weight: bold"><li>See top comment block for details on ERRORs and WARNINGs. <li>In the converted Markdown or HTML, search for inline alerts that start with >>>>>  gd2md-html alert:  for specific instances that need correction.</ul>
-
-<p style="color: red; font-weight: bold">Links to alert messages:</p><a href="#gdcalert1">alert1</a>
-
-<p style="color: red; font-weight: bold">>>>>> PLEASE check and correct alert issues and delete this message and the inline alerts.<hr></p>
-
-
-**<span style="text-decoration:underline;">Caja de herramientas para el análisis epidemiológico de infecciones respiratorias agudas graves (IRAG) utilizando información del Sistema Nacional de Vigilancia</span>**[^1]
+# **<span style="text-decoration:underline;">Caja de herramientas para el análisis epidemiológico de infecciones respiratorias agudas graves (IRAG) utilizando información del Sistema Nacional de Vigilancia</span>**[^1]
 
 **Esta caja de herramientas IRAG es el resultado de la colaboración entre OPS/OMS Argentina y la Unidad Centinela de IRAG del Hospital Zapala “Dr. Juan J. Pose”, Provincia de Neuquén. Abril, año 2025.**
 
-**_Introducción_**
+## **_Introducción_**
 
 Las decisiones en salud pública deben basarse en la mejor evidencia científica disponible. En este sentido, las emergencias sanitarias como la gripe A(H1N1)pdm09 o la pandemia de COVID-19 resaltaron la importancia de la información generada a partir de la vigilancia rutinaria como evidencia para las recomendaciones y orientación de decisiones en la prevención y control de las infecciones respiratorias agudas (IRA). No obstante, el uso rutinario de la información epidemiológica para contribuir a la toma de estas decisiones de salud pública en la práctica diaria es limitado. 
 
@@ -26,21 +18,21 @@ Tomando en consideración lo antedicho, para fortalecer la competencia en datos 
 
 Esta caja de herramientas no sólo ofrece orientación práctica, sino que también funciona como un repositorio de referencia esencial para la Red Argentina de Vigilancia Centinela de IRAG, compilando documentos técnicos, guías, lineamientos operativos, y marcos de referencia nacionales y regionales. Aquí encontrarás acceso a directrices y guías actualizadas, así como a publicaciones claves y otros recursos valiosos relacionados con esta crucial iniciativa de salud pública.
 
-**_Objetivo de la caja de herramientas IRAG_**
+## **_Objetivo de la caja de herramientas IRAG_**
 
 Apoyar en el  análisis de datos a los equipos de salud de la Red Argentina de Vigilancia Centinela de IRAG al facilitar códigos en R modularizados para el procesamiento, visualización y elaboración de reportes automatizados epidemiológicos de IRAG.
 
-**_Propósito_**
+## **_Propósito_**
 
 El propósito de esta caja de herramientas involucra dejar capacidad instalada en los equipos de los establecimientos de salud que desempeñan tareas de vigilancia epidemiológica de IRAG para el análisis de datos en Rstudio, la generación de visualizaciones efectivas y la utilización de herramientas de automatización de reportes como Quarto, contribuyendo de esta forma a la adherencia a la estrategia y actuación coordinada de los componentes de laboratorio, epidemiología y clínica, además de contribuir a la toma de decisiones por parte de las autoridades locales y/o jurisdiccionales. 
 
-**_Destinatarios_**
+## **_Destinatarios_**
 
 La presente caja de herramientas está orientada a profesionales de distintas disciplinas o integrantes de los equipos de salud y de gestión de la salud que deseen obtener un reporte epidemiológico de la vigilancia centinela de IRAG utilizando la información del SNVS 2.0. 
 
 Como requerimientos mínimos para poder utilizar esta caja de herramientas se necesita la disponibilidad de una computadora con la instalación del programa R y RStudio con permisos para instalar paquetes nuevos. Es valorado el conocimiento básico de manejo de bases de datos y conocimientos en R. Como complemento para el manejo básico de R, ver apartado de “Enlaces de utilidad”.
 
-**_Contenido de la caja de herramientas_**
+## **_Contenido de la caja de herramientas_**
 
 La caja de herramientas contempla una serie de documentos para la ejecución práctica de una base de datos depurada y un reporte automatizado de la información de IRAG:
 
@@ -51,18 +43,13 @@ La caja de herramientas contempla una serie de documentos para la ejecución pr�
 * Código en R modularizado: Scripts en extensiones .R y .qmd. Ver detalle en la **_Guía operativa_**.
 * Template para ingreso de los datos en excel. Ver detalle en la **_Guía operativa_**.
 
-**_Productos esperados _**
+# **_Productos esperados _**
 
 Se espera que los/as profesionales puedan elaborar un informe automatizado en formato html o pdf utilizando la información de vigilancia centinela de IRAG. Además, este documento se acompañará con un repositorio de materiales y documentación, un reporte de calidad de datos y de verificación de los procesos, y un dataset limpio y depurado para análisis adicionales (Figura 1). Se incentiva la adecuación y la reutilización de estos materiales y productos a las necesidades de cada provincia, establecimiento de salud y/o unidad centinela de IRAG, tanto para analizar la información de los virus respiratorios como para otros eventos de salud de importancia sanitaria.
 
-**Figura 1: **Diagrama de flujo sobre los documentos y procesos necesarios para la obtención de determinados resultados al utilizar la caja de herramientas.
+**Figura 1: Diagrama de flujo sobre los documentos y procesos necesarios para la obtención de determinados resultados al utilizar la caja de herramientas.**
 
-
-
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image1.png "image_tooltip")
+IMAGEN
 
 
 Fuente: Elaboración propia.
