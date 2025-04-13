@@ -48,6 +48,7 @@ La caja de herramientas contempla una serie de documentos para la ejecución pr�
 Se espera que los/as profesionales puedan elaborar un informe automatizado en formato html o pdf utilizando la información de vigilancia centinela de IRAG. Además, este documento se acompañará con un repositorio de materiales y documentación, un reporte de calidad de datos y de verificación de los procesos, y un dataset limpio y depurado para análisis adicionales (Figura 1). Se incentiva la adecuación y la reutilización de estos materiales y productos a las necesidades de cada provincia, establecimiento de salud y/o unidad centinela de IRAG, tanto para analizar la información de los virus respiratorios como para otros eventos de salud de importancia sanitaria.
 
 **Figura 1: Diagrama de flujo sobre los documentos y procesos necesarios para la obtención de determinados resultados al utilizar la caja de herramientas.**
+
 ![esquema](esquema.Readme.png)
 Fuente: Elaboración propia.
 
