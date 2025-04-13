@@ -60,8 +60,7 @@ Fuente: Elaboración propia.
 Para dar comienzo a la ejecución de la caja de herramientas, se debe comenzar con su descarga. Para ello, existen dos opciones que se detallan a continuación:
 
 
-# 
-    **1) Navegador Web**
+### **1) Navegador Web**
 
 
     Si se desea descargar la caja de herramientas desde el navegador web:
@@ -73,28 +72,21 @@ Para dar comienzo a la ejecución de la caja de herramientas, se debe comenzar c
 3. Presionar el botón de "Download Zip" o "Descargar Zip".
 4. Descomprimir archivo zip.
 
-## 
-    **2) Utilizando git**
+###  **2) Utilizando git**
 
-
+```
     git clone https://github.com/ucirag/caja_de_herramientas
-
-
-    ```
-Es importante destacar que todos los documentos deben estar contenidos en una única carpeta de trabajo, denominada "Caja de herramientas IRAG".
 ```
 
+Es importante destacar que todos los documentos deben estar contenidos en una única carpeta de trabajo, denominada "Caja de herramientas IRAG".
 
-
-**_¡Comencemos!_**
+## **_¡Comencemos!_**
 
 Para dar comienzo al uso de la caja de herramientas, se debe leer y seguir los pasos descriptos en la **<span style="text-decoration:underline;">Guía Operativa.</span>**
 
-**_Enlaces de utilidad para quienes se inician en R_**
+## **_Enlaces de utilidad para quienes se inician en R_**
 
 A continuación encontrarán enlaces de módulos, denominados “cápsulas”, que agrupan contenidos y habilidades de manera encadenada para el desarrollo de proyectos de automatización de reportes. Dichos materiales sientan las bases necesarias para un manejo básico del software R, facilitando la ejecución de la presente caja de herramientas.
-
-
 
 * ["Cápsula 1": Introducción básica a R y Rstudio.](https://vigilanciaenr.github.io/VigilanciaenR/Sesi%C3%B3n%201/C%C3%A1psula%201.html)
 * ["Cápsula 2": Objetos, funciones, principales paquetes y librerías.](https://vigilanciaenr.github.io/VigilanciaenR/Sesi%C3%B3n%201/C%C3%A1psula%202.html)
@@ -110,13 +102,8 @@ A continuación encontrarán enlaces de módulos, denominados “cápsulas”, q
 
 [https://vigilanciaenr.github.io/VigilanciaenR/Sesi%C3%B3n%204/mapas_neuquen.html](https://vigilanciaenr.github.io/VigilanciaenR/Sesi%C3%B3n%204/mapas_neuquen.html)
 
-**_Enlaces nacionales y regionales de utilidad sobre la prevención, vigilancia y control de IRA_**
+## **_Enlaces nacionales y regionales de utilidad sobre la prevención, vigilancia y control de IRA_**
 
-
-
-* 
-
-<!-- Footnotes themselves at the bottom. -->
 ## Notes
 
 [^1]:
