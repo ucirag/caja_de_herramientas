@@ -1,0 +1,292 @@
+
+
+<h1><strong>Guía operativa para el uso de la caja de herramientas para el análisis epidemiológico de Infecciones Respiratorias Agudas Graves (IRAG)</strong></h1>
+
+
+<h2><strong>Introducción</strong></h2>
+
+
+<p>
+Esta guía operativa forma parte de la "Caja de Herramientas IRAG" y describe paso a paso cómo ejecutar el análisis estandarizado de vigilancia centinela de IRAG a partir de datos del SNVS 2.0.
+</p>
+<p>
+Se recomienda su lectura luego de consultar el documento <strong>README.md</strong> y de manera complementaria con la <strong>Guía teórico-conceptual</strong>.
+</p>
+<hr>
+<h2><strong>1. Requisitos previos e instalación de dependencias</strong></h2>
+
+
+<p>
+Para ejecutar el análisis es necesario contar con:
+</p>
+<ul>
+
+<li>Navegador web (Firefox, Chrome, Safari)</li>
+
+<li>Microsoft Excel</li>
+
+<li>R (https://cran.r-project.org/)</li>
+
+<li>RStudio (https://posit.co/download/rstudio-desktop/)</li>
+
+<li>Quarto (https://quarto.org/)</li>
+</ul>
+<p>
+Instalar las dependencias antes de avanzar. Para facilitar este paso, el repositorio incluye el script <code>scripts/install.packages.R</code>, que instala automáticamente los paquetes necesarios en R.
+</p>
+<p>
+Para ejecutarlo:
+</p>
+<ol>
+
+<li>Abrir el archivo <code>install.packages.R</code> en RStudio.</li>
+
+<li>Hacer clic en "Run".</li>
+
+<li>Confirmar cualquier solicitud escribiendo <code>y</code> y presionando Enter en la consola.</li>
+</ol>
+<hr>
+<h2><strong>2. Estructura del proyecto</strong></h2>
+
+
+<p>
+Los archivos principales del proyecto se encuentran organizados en las siguientes carpetas:
+</p>
+<p>
+.
+</p>
+<p>
+├── salidas/
+</p>
+<p>
+├── scripts/
+</p>
+<p>
+├── templates/
+</p>
+<p>
+├── Unidad centinela Zapala.qmd
+</p>
+<p>
+├── Unidad centinela Zapala.html (aparecerá una vez generado)
+</p>
+<p>
+├── Unidad-Centinela.Rproj
+</p>
+<p>
+<strong>Archivos y carpetas clave:</strong>
+</p>
+<ul>
+
+<li><code>Unidad-Centinela.Rproj</code>: archivo del proyecto en RStudio.</li>
+
+<li><code>Unidad centinela Zapala.qmd</code>: documento Quarto con el informe final.</li>
+
+<li><code>scripts/</code>: contiene scripts en R para la ejecución del análisis.</li>
+
+<li><code>templates/</code>: contiene archivos Excel necesarios como insumos.</li>
+
+<li><code>salidas/</code>: carpeta donde se generan los resultados del análisis.</li>
+</ul>
+<hr>
+<h2><strong>3. Descripción de scripts y archivos</strong></h2>
+
+
+<h3><strong>Scripts principales (<code>/scripts</code>):</strong></h3>
+
+
+<ul>
+
+<li><code>input.R</code>: script que define los insumos y parámetros clave del análisis. Se divide en dos secciones:</li> 
+<ul>
+ 
+<li><strong>Lectura de datos:</strong> carga archivos desde la carpeta <code>templates/</code>, incluyendo:</li>  
+<ul>
+  
+<li><code>VR_NOMINAL.csv</code>: base de datos nominal de eventos respiratorios.</li>
+  
+<li><code>AREA PROGRAMA.xls</code>: mapeo de localidades a áreas programa.</li>
+  
+<li><code>EFECTORES.xlsx</code>: establecimientos de salud.</li>
+  
+<li><code>NEUQUEN_CLI_INTERNACIONES.csv</code>: base agrupada (ajustar nombre si se cambia provincia).</li>
+  
+<li><code>INTERNACION POR SERVICIO.csv</code>: datos por servicio hospitalario (opcional).</li>  
+</ul>
+ 
+<li><strong>Parámetros a modificar:</strong> variables definidas por el usuario para adaptar el análisis:</li>  
+<ul>
+  
+<li><code>PROVINCIA</code>: código INDEC de la provincia.</li>
+  
+<li><code>DEPTOS_ANALISIS</code>: lista de códigos de los departamentos a incluir.</li>
+  
+<li><code>area_seleccionada_titulos</code>: nombre de la región para títulos de salida.</li>
+  
+<li><code>edad_max</code>: límite superior para valores extremos de edad.</li>
+  
+<li><code>anio_de_analisis</code>: año del análisis; si es el actual, se excluyen semanas recientes.</li>
+  
+<li><code>num_semana_previas_no_incluidas</code>: número de semanas excluidas por posibles demoras en carga.</li>
+  
+<li><code>determinacion_UCIRAG</code>: lista de determinaciones consideradas positivas para vigilancia centinela (COVID-19, Influenza, VSR). <strong>Importante:</strong> verificar coincidencia exacta con nombres en la base.</li>  
+</ul></li>  
+</ul>
+
+<li><code>IRAS.R</code>: script principal que coordina el análisis epidemiológico; ejecuta <code>input.R</code>, <code>funciones.R</code>, y <code>output_file_consideraciones.R</code>.</li>
+
+<li><code>funciones.R</code>: contiene funciones auxiliares para procesar y transformar los datos.</li>
+
+<li><code>estrategiaCentinela.R</code>, <code>estrategiasVigi.R</code>: scripts que definen lógicas para diferentes enfoques de vigilancia.</li>
+
+<li><code>generacion_mapas.R</code>, <code>MAPAS.R</code>, <code>mapa_efectores.R</code>: scripts para generar mapas estáticos e interactivos con los resultados.</li>
+
+<li><code>output_file_consideraciones.R</code>: script que genera un archivo de texto con mensajes clave del análisis, incluyendo alertas, registros incompletos y validaciones del procesamiento. Este archivo actúa como un resumen de control de calidad y debe ser revisado al finalizar la ejecución del script <code>IRAS.R</code>. El archivo generado se guarda automáticamente en la carpeta <code>salidas/</code> con el nombre <code>Consideraciones_YYYY-MM-DD.txt</code>. Su contenido incluye:</li> 
+<ul>
+ 
+<li>Identificación de la provincia y departamentos analizados.</li>
+ 
+<li>Localidades sin correspondencia con un Área Programa.</li>
+ 
+<li>Registros sin localidad o con edad inválida.</li>
+ 
+<li>Identificadores de eventos con determinaciones conflictivas o faltantes.</li>
+ 
+<li>Validación de determinaciones utilizadas en la estrategia centinela.</li> 
+</ul></li> 
+</ul>
+<p>
+Este resumen es fundamental para identificar problemas en la carga de datos o inconsistencias en el procesamiento antes de continuar con la visualización o difusión de los resultados.
+</p>
+<ul>
+
+<li><code>CLI.R</code>: script auxiliar para el análisis de la base <code>NEUQUEN_CLI_INTERNACIONES.csv</code>.</li>
+
+<li><code>input_colors.R</code>: este script contiene una lista (<code>parametros_css</code>) con todos los colores utilizados en la personalización visual del informe Quarto (<code>Unidad centinela Zapala.qmd</code>). Los usuarios pueden cambiar fácilmente el aspecto del reporte modificando los valores de color definidos en este archivo (por ejemplo, <code>color_fondo</code>, <code>color_link</code>, <code>color_tabla_fondo</code>, etc.). Una vez realizados los cambios deseados, basta con volver a hacer clic en "Render" sobre el archivo <code>.qmd</code> para que se actualicen los estilos.</li>
+
+<li><code>generacion_css.R</code>: este script utiliza los parámetros definidos en <code>input_colors.R</code> para generar automáticamente el archivo CSS utilizado por el informe. <strong>Este archivo no debe ser modificado manualmente.</strong></li>
+</ul>
+<h3><strong>Templates y datos (<code>/templates</code>):</strong></h3>
+
+
+<ul>
+
+<li><code>VR_NOMINAL.csv</code>: base nominal de eventos respiratorios.</li>
+
+<li><code>AREA PROGRAMA.xls</code>: listado de localidades y su asignación a áreas programa.</li>
+
+<li><code>EFECTORES.xlsx</code>: establecimientos de salud con información clave para mapas.</li>
+
+<li><code>INTERNACION POR SERVICIO.csv</code>: cantidad y características de eventos por servicio hospitalario.</li>
+
+<li><code>NEUQUEN_CLI_INTERNACIONES.csv</code>: base de datos agrupados por laboratorio.</li>
+
+<li><code>style.css</code>, <code>header.html</code>: recursos de estilo para el reporte Quarto.</li>
+</ul>
+<hr>
+<h2><strong>4. Preparación de insumos</strong></h2>
+
+
+<h3>
+        <strong>4.1 Datos nominales y templates</strong></h3>
+
+
+<ol>
+
+<li>Copiar el archivo <code>VR_NOMINAL.csv</code> recibido desde SNVS 2.0 en la carpeta <code>templates/</code>.</li>
+
+<li>Editar el archivo <code>AREA PROGRAMA.xls</code> con las localidades de análisis y sus áreas programa, en mayúsculas y sin tildes.</li>
+
+<li>Verificar que <code>EFECTORES.xlsx</code> y <code>INTERNACION POR SERVICIO.csv</code> contengan los establecimientos correctos.
+<h3>
+        <strong>4.2 Apertura del proyecto</strong></h3>
+
+</li>
+
+<li>Hacer doble clic en <code>Unidad-Centinela.Rproj</code> para abrir el entorno.</li>
+
+<li>Abrir el script <code>input.R</code> y modificar:</li> 
+<ul>
+ 
+<li>Nombre exacto de los archivos en las primeras líneas.</li>
+ 
+<li><code>PROVINCIA</code> y <code>DEPTOS_ANALISIS</code> según la región de interés.</li>
+ 
+<li>Verificar y ajustar los nombres de las determinaciones en <code>determinacion_UCIRAG</code>.
+<hr></li> 
+</ul></li> 
+</ol>
+<h2><strong>5. Ejecución del análisis IRAG</strong></h2>
+
+
+<p>
+Una vez completada la preparación de archivos:
+</p>
+<ol>
+
+<li>Abrir <code>scripts/IRAS.R</code>.</li>
+
+<li>Ejecutar el script completo (Ctrl + Shift + Enter o seleccionando todo y clic en "Run").</li>
+
+<li>Los resultados se guardarán en la carpeta <code>salidas/</code> e incluirán:</li> 
+<ul>
+ 
+<li>Archivos .xlsx con la base transformada.</li>
+ 
+<li>Archivos .txt con consideraciones del análisis generados por <code>output_file_consideraciones.R</code>.</li>
+ 
+<li></li> 
+</ul></li> 
+</ol>
+<hr>
+<h2><strong>6. Generación de mapas</strong></h2>
+
+
+<p>
+El script <code>scripts/generacion_mapas.R</code> permite crear mapas temáticos de indicadores IRAG y distribución por establecimiento.
+</p>
+<p>
+Los límites administrativos se descargan automáticamente desde el Instituto Geográfico Nacional (IGN) mediante servicio WFS, usando una función personalizada. Esto asegura el uso de capas actualizadas y estandarizadas, evitando que el usuario deba buscar shapefiles manualmente. Además, garantiza compatibilidad con codificaciones oficiales del país.
+</p>
+<p>
+Los resultados incluyen:
+</p>
+<ul>
+
+<li>Mapas por departamento con tasas y frecuencias.</li>
+
+<li>Mapas de efectores de salud.</li>
+
+<li>Salida en formatos .png, .html y .qmd.</li>
+</ul>
+<hr>
+<h2><strong>7. Visualización y exportación del informe</strong></h2>
+
+
+<p>
+El archivo <code>Unidad centinela Zapala.qmd</code> genera un informe automatizado de vigilancia centinela con texto, tablas, gráficos y mapas.
+</p>
+<p>
+Para compilar el informe:
+</p>
+<ol>
+
+<li>Abrir <code>Unidad centinela Zapala.qmd</code>.</li>
+
+<li>Seleccionar "Render" en RStudio o presionar Ctrl + Shift + K.</li>
+
+<li>El resultado se guarda como <code>Unidad centinela Zapala.html</code>.</li>
+</ol>
+<hr>
+<h2><strong>8. Consideraciones finales</strong></h2>
+
+
+<ul>
+
+<li>Verificar las definiciones de variables y supuestos teóricos en la <strong>Guía teórico-conceptual</strong>.</li>
+
+<li>Utilizar nombres de archivos consistentes en el script <code>input.R</code>.</li>
+
+<li>Si aparecen errores, revisar los mensajes generados en <code>salidas/</code>.</li>
+</ul>
+<hr>
