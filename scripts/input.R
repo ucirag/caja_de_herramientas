@@ -19,7 +19,6 @@ CLI_agrupados <- read.csv("templates/NEUQUEN_CLI_INTERNACIONES.csv", sep = ";", 
 datos_servicio <- read.csv("templates/INTERNACION POR SERVICIO.csv", sep=";")
 
 
-
 ###parte dos, parametros a madificar######
 
 PROVINCIA <- 58 # CODIGO DE LA PROVINCIA DE nqn
@@ -33,7 +32,7 @@ DEPTOS_ANALISIS <- c("58007","58021","58105","58112") # SELECCION DE LA REGION D
 EFECTOR_CARGA <- c("nombre completo de establecimiento1","nombre completo de establecimiento2")#### variables de nombre del establecimeinto."ESTABLECIMIENTO_CARGA"
 
 area_seleccionada_titulos <- "la Región del Pehuén"
-nombre_establecimiento_centinela <- "Hospital de Zapala"
+nombre_establecimiento_centinela <- "Hospital de Zapala blablabla"
 
 # Limite de edad para considerar a un registro sin dato de edad
 edad_max <- 110

@@ -34,7 +34,7 @@ source("scripts/install.packages.R")
 source("scripts/input_colors.R")
 source("scripts/generacion_css.R")
 source("scripts/IRAS.R")
-source("scripts/CLI.r")
+#source("scripts/CLI.r")
 source("scripts/estrategiaCentinela.R")
 
 knitr::opts_chunk$set(
@@ -155,7 +155,7 @@ Además, cuando se notifique en el SNVS 2.0, es necesario completar la informaci
 Se deberá notificar de forma nominal, en la solapa evento, la clasificación manual del caso como IRAG o IRAG extendida, según corresponda (Ver [ANEXO IV](#anexo-iv)).
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| #### \*  {#section}                                                                                                                                                                                                                                                                                      |
+| #### \* {#section}                                                                                                                                                                                                                                                                                       |
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | #### IMPORTANTE: **Todo caso internado y/o fallecido con diagnóstico por laboratorio de SARS-CoV-2, Influenza y/o VSR (fuera de la estrategia de las Unidades centinela de IRAG) debe ser notificado bajo el evento de vigilancia universal: “SARS-COV-2, Influenza y VSR en Internado y/o fallecido”.** |
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -168,7 +168,7 @@ Gráfico 1. Ingresos totales a internacion por otras causas y por IRAG por seman
 
 ```{r agrupado 1}
 #| echo: false
-grafico_1
+# grafico_1
 ```
 
 ## Vigilancia centinela de IRAG - Notificación nominal
