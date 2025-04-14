@@ -1,0 +1,664 @@
+---
+title: ""
+author: "Area de Epidemiología"
+format: 
+  html:
+    embed-resources: true # esto no debe modificarse nunca
+    published-title: "Fecha:"  # Cambia "Published" por "Fecha"
+    author-title: 
+    toc: true                # Habilita la tabla de contenidos
+    toc-title: "Índice de Contenidos"  # Título del índice
+    toc-depth: 3             # Nivel de profundidad del índice (hasta h3)
+    toc-location: left       # Ubicación del índice (izquierda)
+    include-in-header: templates/header.html
+    css: templates/CSS/styles.css
+editor: visual
+execute:
+  warning: false
+  message: false
+footnotes-hover: true # muestra notas al pie
+smooth-scroll: true # suaviza el scroll
+code-copy: true # Permite copiar el código desde el documento
+    
+ 
+# css: "CSS/style.css"
+# resources: 
+#   - boletin.pdf
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+#| echo: false
+source("scripts/install.packages.R")
+source("scripts/input_colors.R")
+source("scripts/generacion_css.R")
+source("scripts/IRAS.R")
+source("scripts/CLI.r")
+source("scripts/estrategiaCentinela.R")
+
+knitr::opts_chunk$set(
+  dev = "png",
+  dpi = 96,
+  dev.args = list(bg = "transparent")  
+)
+```
+
+# Vigilancia centinela de Infecciones Respiratorias Agudas Graves (IRAG) - `r area_seleccionada_titulos`
+
+La vigilancia centinela implica la recolección de datos en forma sistemática y oportuna, a través de un número limitado de establecimientos seleccionados en base a ciertos criterios preespecificados.
+
+El hospital `r nombre_establecimiento_centinela` , de la provincia `r PROVINCIA`, fue seleccionado para pertenecer a la Red Argentina de Vigilancia Centinela de IRAG.
+
+Dentro de este marco, se realizó el presente reporte, el cual contiene un análisis de la información epidemiológica, clínica y de laboratorio de la estrategia de vigilancia centinela de infecciones respiratorias agudas graves (IRAG) del Hospital `r nombre_establecimiento_centinela`, de la provincia `r PROVINCIA`, desde la SE `r SE_MAX_UCI`al `r SE_MAX_UCI` del año `r max_anio`.\
+
+En resumen, este material tiene el objetivo de difundir la información a los equipos de salud sobre el monitoreo de indicadores de transmisibilidad, severidad e impacto de las IRAG, así como la estimación de la efectividad de las intervenciones contribuyendo a la toma de decisiones e implementación de medidas de prevención y control ante eventos causados por virus respiratorios (VR) (Ver [Anexo I](#anexo-i) para mayor detalle).
+
+Figura 1: Mapa de establecimiento de salud d ela provincia: Distribución geográfica y caracterización según tipo . Provincia de `r PROVINCIA`, `r mes_SE_MAX_UCI_nombre` año `r mes_SE_MAX_UCI_nombre`.
+
+```{r}
+#| echo: false
+source("scripts/mapa_efectores.R")
+mapa_efectores
+```
+
+```{=html}
+<p style="font-size: smaller; font-style: italic;">
+  *Nota: La vigilancia de virus respiratorios con potencial pandémico y epidémico, integra un mosaico de estrategias compuesto por los siguientes componentes: universal, centinela y por redes de vigilancia jurisdiccionales. Todos los establecimientos de salud de la provincia realizan las estrategias de vigilancia universal y por redes jurisdiccionales, mientras que unos pocos son seleccionados para ser Unidades Centinela de IRAG (UC IRAG) y/o Unidades de Monitoreo Ambulatorio de Enfermedad Tipo Influenza (UMA).
+```
+
+Fuente: Elaboración propia a partir de información jurisdiccional.
+
+## Metodología
+
+Para el análisis de la información se trabajó con bases exportadas del SNVS 2.0, correspondientes a la notificación individualizada del evento “Unidad Centinela de Infección Respiratoria Aguda Grave (UC IRAG)”, y con datos agrupados recolectados a partir de una combinación de diferentes fuentes dentro de cada establecimiento centinela.
+
+### Identificación de los casos- DEFINICIONES[^1]
+
+[^1]: Guía Operativa de la Vigilancia Centinela de Infecciones Respiratorias Agudas Graves (IRAG) - Dirección de Epidemiología, Ministerio de Salud de la República Argentina, 2024.
+
+**IRAG:** Toda persona de cualquier edad que ingrese a internación con:
+
+-   Fiebre referida o constatada mayor o igual a 38°C; y
+
+-   Tos; e
+
+-   Inicio del cuadro en los 10 días precedentes; y
+
+-   Requerimiento de internación por criterio clínico[^2]. 
+
+[^2]: Pacientes con requerimiento de internación por índole social o por necesidad de aislamiento no se encuentra contemplado en la definición de caso.
+
+**IRAG Extendida:** Toda persona menor de 2 años y mayor o igual a 60 años que ingrese a internación con:
+
+-   Infección respiratoria: definida por tos o dificultad respiratoria; e
+
+-   Inicio del cuadro en los 10 días precedentes; y
+
+-   Requerimiento de internación por criterio clínico[^3].
+
+[^3]: Pacientes con requerimiento de internación por índole social o por necesidad de aislamiento no se encuentra contemplado en la definición de caso.
+
+En lactantes menores de 6 meses también considerar:
+
+-   Apnea (Cese temporal de la respiración por cualquier causa), o
+
+-   Sepsis (fiebre/hipotermia[^4] y shock[^5], y gravemente enfermo sin causa aparente)
+
+[^4]: La fiebre se define como una temperatura ≥37,5 C. La hipotermia se define como una temperatura \<35,5 C.
+
+[^5]: El shock se define por letargo, respiración rápida, piel fría, llenado capilar prolongado y pulso rápido y débil.
+
+<!-- -->
+
+#### Población objetivo de la vigilancia centinela de IRAG (Ver [ANEXO II](#anexo-ii))
+
+Criterios de inclusión:
+
+<!-- -->
+
+-   Pacientes que cumplen con las definiciones de caso antedichas[^6] e;
+
+-   Inicio de los síntomas en la comunidad dentro de los 10 días previos a la internación.
+
+-   Estadía hospitalaria con internación[^7] mínima de 24hs o que haya fallecido en menos de ese plazo.
+
+-   Incluye casos con enfermedad respiratoria crónica que presente signos de reagudización.
+
+[^6]: Incluye casos con enfermedad respiratoria crónica que presente signos de reagudización.
+
+[^7]: Se excluye la internación abreviada como por ejemplo la observación en hospital de día, centro de diálisis, cirugía ambulatoria, entre otros.
+
+<!-- -->
+
+Criterio de exclusión[\*]:
+
+<!-- -->
+
+-   Pacientes internados previamente en otra institución y posteriormente derivado al hospital por la gravedad del caso o falta de cama;
+
+-   Infección respiratoria de posible origen nosocomial con fecha de inicio de síntomas 24hs posterior al ingreso o antecedente de internación por cualquier causa dentro de los 14 días previos al nuevo ingreso por IRAG.
+
+-   Sintomatología que pueda explicarse por procesos no infecciosos (por ejemplo, insuficiencia cardiaca aguda o tromboembolismo pulmonar).
+
+-   Se excluye la internación abreviada como por ejemplo la observación en hospital de día, centro de diálisis, cirugía ambulatoria, entre otros.
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| IMPORTANTE                                                                                                                                                                                                                                                                                           |
++======================================================================================================================================================================================================================================================================================================+
+| Las UC IRAG deberán estudiar las muestras para **SARS-CoV-2, Influenza y VSR por métodos moleculares**, y notificar a todas las personas internadas con criterio clínico de internación por IRAG e IRAG extendida (en \<2 años y \>= 60 años) (Ver [ANEXO III](#anexo-iii) y [ANEXO IV](#anexo-iv)). |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Además, cuando se notifique en el SNVS 2.0, es necesario completar la información clínica (signos y síntomas, comorbilidades y factores de riesgo, tratamientos) y los antecedentes epidemiológicos incluyendo los antecedentes de vacunación, según los protocolos vigentes. En la sección tratamiento, consignar los tratamientos de Oseltamivir administrados en cada caso. 
+
+\
+Se deberá notificar de forma nominal, en la solapa evento, la clasificación manual del caso como IRAG o IRAG extendida, según corresponda (Ver [ANEXO IV](#anexo-iv)).
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| #### \*                                                                                                                                                                                                                                                                             |
+|                                                                                                                                                                                                                                                                                     |
+| IMPORTANTE                                                                                                                                                                                                                                                                          |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Todo caso internado y/o fallecido con diagnóstico por laboratorio de SARS-CoV-2, Influenza y/o VSR (fuera de la estrategia de las Unidades centinela de IRAG) debe ser notificado bajo el evento de vigilancia universal: “SARS-COV-2, Influenza y VSR en Internado y/o fallecido”. |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Para mayor información de la estrategia de vigilancia centinela de IRAG consultar en: <https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-vff.pdf>
+
+## Vigilancia centinela de IRAG - Notificación agrupada
+
+Gráfico 1. Ingresos totales a internacion por otras causas y por IRAG por semana y Año. Hasta `r ultima_semana_incluida`.N= Ver que n poner
+
+```{r agrupado 1}
+#| echo: false
+grafico_1
+```
+
+## Vigilancia centinela de IRAG - Notificación nominal
+
+**Figura 2: Casos acumulados y % de positividad de IRAG notificados, estudiados por laboratorio y confirmados para SARS-CoV-2, Influenza y/o VSR, según agente etiológico. UCIRAG** `r nombre_establecimiento_centinela`**, SE `r SE_MIN_UCI` a SE`r SE_MAX_UCI`. Año `r anio_de_analisis`. N= `r N_testeos_UCI`.**
+
+```{r tabla 4}
+#| echo: false
+
+# Configura las opciones predeterminadas
+set_flextable_defaults(
+font.size = 10,
+padding = 6
+)
+# Crear la tabla con los datos y aplicar estilos
+tabla_estilizada <- flextable(head(tabla_UCI)) %>%
+# Aplicar un color de fondo al encabezado
+bg(part = "header", bg = "#2b908f") %>%
+# Ajustar el ancho de la primera columna
+width(j = 1, width = 2) %>% # Cambia el ancho a 2 pulgadas
+# Agregar bordes para el encabezado y el cuerpo de la tabla
+border(part = "all", border = fp_border(color = "#fde0dd", width = 1)) %>%
+# Aplicar el tema vanilla
+theme_vanilla()
+# Mostrar la tabla
+
+# Configura las opciones predeterminadas
+set_flextable_defaults(
+font.size = 10,
+padding = 6
+)
+# Crear la tabla con los datos y aplicar estilos
+tabla_estilizada2 <- flextable(head(tabla_UCI_por_virus)) %>%
+# Aplicar un color de fondo al encabezado
+bg(part = "header", bg = "#2b908f") %>%
+# Ajustar el ancho de la primera columna
+width(j = 1, width = 2) %>% # Cambia el ancho a 2 pulgadas
+# Agregar bordes para el encabezado y el cuerpo de la tabla
+border(part = "all", border = fp_border(color = "#fde0dd", width = 1)) %>%
+# Aplicar el tema vanilla
+theme_vanilla()
+# Mostrar la tabla
+tabla_estilizada
+tabla_estilizada2
+```
+
+### Análisis por semana epidemiológica
+
+**Figura 3: Distribución temporal de Casos de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por semana epidemiológica. UCIRAG** `r nombre_establecimiento_centinela`**, SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`.**
+
+```{r}
+#| echo: false
+
+# Crear etiqueta combinada para el eje X
+casos_sepi_graf1 <- casos_sepi_graf1 %>%
+  arrange(AÑO, SEPI_CREADA) %>%
+  mutate(sepi_label = paste0(AÑO, " - SE ", SEPI_CREADA))
+
+# Gráfico de columnas apiladas
+highchart() %>%
+  hc_chart(type = "column") %>%
+  hc_xAxis(
+    categories = casos_sepi_graf1$sepi_label,
+    title = list(text = "Semana Epidemiológica"),
+    labels = list(rotation = 90)  # Gira etiquetas si hay muchas
+  ) %>%
+  hc_yAxis(title = list(text = "Número de Casos")) %>%
+  hc_plotOptions(column = list(stacking = "normal")) %>%
+   hc_add_series(name = "Sin datos", data = casos_sepi_graf1$`Sin datos`, color = "#7f7f7f") %>%
+  hc_add_series(name = "No detectable", data = casos_sepi_graf1$`No detectable`, color = "#1f77b4") %>%
+  hc_add_series(name = "Detectable", data = casos_sepi_graf1$Detectable, color = "#ff7f0e")
+  #hc_title(text = "Distribución semanal de casos incluidos en la estrategia centinela por semana y año") %>% 
+  
+```
+
+```{=html}
+<p style="font-size: smaller; font-style: italic;">
+  *Nota: El resultado se clasifica como “Detectable” cuando se confirma por métodos moleculares la presencia de SARS-CoV-2, Influenza y/o VSR. De la misma forma, el resultado “No detectable” significa ausencia de estos tres virus respiratorios, independientemente de la presencia de otros.
+```
+
+Figura 4: Casos acumulados de IRAG con muestra respiratoria, según servicio hospitalario. UCIRAG XX, SE 18/24 a SE xx/25.
+
+COMPLETAR ACA CON TABLA POR SERVICIO
+
+Fuente: elaboración propia con datos de .....
+
+#### Por agente etiológico
+
+**Figura 5. Distribución temporal de % de positividad y determinaciones notificadas de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por semana epidemiológica y agente etiológico. UCIRAG `r nombre_establecimiento_centinela`, SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
+
+```{r Gráfico 13}
+#| echo: false
+
+
+# Preparar los datos para el gráfico
+DATOS_UCI <- CASOS_UCI_SE_det %>%
+  select(-No_detectable, -Total_testeos, -positividad) %>% 
+pivot_wider(names_from = DETERMINACION, values_from = Detectable)
+
+colores <- c(
+  "Influenza A" = "#1f77b4",   # azul
+  "Influenza B" = "#ff7f0e",   # naranja
+  "Sars-Cov-2"   = "#2ca02c",   # verde
+  "VSR"          = "#d62728"    # rojo
+)
+
+# Crear gráfico de barras apiladas con highcharter
+highchart() %>%
+  hc_chart(type = "column") %>%
+  hc_colors(unname(colores)) %>%
+  hc_xAxis(categories = DATOS_UCI$SEPI_CREADA, title = list(text = "SE")) %>%
+  hc_yAxis_multiples(
+    list( # Eje primario (izquierda)
+      title = list(text = "Nº de determinaciones positivas"),
+      opposite = FALSE
+    ),
+    list( # Eje secundario (derecha)
+      title = list(text = "% de Positividad"),
+      opposite = TRUE,
+      max = 100 # Si estás usando porcentaje
+    )
+  ) %>%
+  hc_plotOptions(column = list(stacking = "normal")) %>%
+  hc_add_series(name = "Influenza A", data = DATOS_UCI$`Influenza A`) %>%
+  hc_add_series(name = "Influenza B", data = DATOS_UCI$`Influenza B`) %>%
+  hc_add_series(name = "Sars-Cov-2", data = DATOS_UCI$`Sars-Cov-2`) %>%
+  hc_add_series(name = "VSR", data = DATOS_UCI$VSR) %>%
+  hc_add_series(
+    name = "% de Positividad",
+    data = CASOS_UCI_SE_det_totales$positividad,
+    color = "black",
+    type = "line",
+    yAxis = 1, # Referencia al eje secundario
+    marker = list(enabled = FALSE)
+  )
+ 
+
+```
+
+**Figura 6. Distribución de proporcion semanal de determinaciones de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por semana epidemiológica y etiología. UCIRAG `r nombre_establecimiento_centinela`, SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
+
+```{r}
+#| echo: false
+
+# Virus que queremos incluir
+virus_validos <- c("Influenza A", "Influenza B", "Sars-Cov-2", "VSR")
+
+# Preparar datos
+df_plot <- CASOS_UCI_SE_det %>%
+  filter(DETERMINACION %in% virus_validos) %>%
+  group_by(SEPI_CREADA) %>%
+  mutate(Detectable_label = DETERMINACION) %>%
+  ungroup() %>%
+  select(SEPI_CREADA, Detectable_label, Detectable, No_detectable) %>%
+  
+  # Agrupar los no detectables en una sola categoría
+  group_by(SEPI_CREADA) %>%
+  mutate(No_detectables_total = sum(No_detectable, na.rm = TRUE)) %>%
+  ungroup() %>%
+  
+  select(SEPI_CREADA, Detectable_label, Detectable, No_detectables_total) %>%
+  distinct() %>%  # Evita duplicados por grupo y virus
+  pivot_wider(names_from = Detectable_label, values_from = Detectable, values_fill = 0) %>%
+  distinct() %>%
+  relocate(No_detectables_total, .after = SEPI_CREADA)
+
+# Crear vector de colores: virus por color y gris para los no detectables
+colores_series <- c(
+  "No_detectables_total" = "#D3D3D3",  # gris
+  "Influenza A" = "#1f77b4",           # azul
+  "Influenza B" = "#ff7f0e",           # naranja
+  "Sars-Cov-2" = "#2ca02c",            # verde
+  "VSR" = "#d62728"                    # rojo
+)
+
+# Crear el gráfico
+hc <- highchart() %>%
+  hc_chart(type = "column") %>%
+  hc_plotOptions(column = list(stacking = "percent")) %>%
+  hc_xAxis(categories = df_plot$SEPI_CREADA, title = list(text = "Semana Epi")) %>%
+  hc_yAxis(title = list(text = "% de determinanciones"), labels = list(format = "{value}%")) %>%
+  hc_colors(unname(colores_series))
+
+# Agregar series (la columna de no detectables + cada virus detectable)
+for (serie in names(df_plot)[-1]) {
+  nombre_legible <- ifelse(serie == "No_detectables_total", "No detectables", serie)
+  hc <- hc %>% hc_add_series(name = nombre_legible, data = df_plot[[serie]])
+}
+
+# Tooltip
+hc <- hc %>% hc_tooltip(shared = TRUE, pointFormat = "{series.name}: <b>{point.y}</b><br/>")
+hc
+
+```
+
+### Análisis por grupo de edad
+
+**Figura 7: Distribución por grupo de edad de Casos de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR,. UCIRAG `r nombre_establecimiento_centinela`, SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`.**
+
+```{r}
+#| echo: false
+    
+  highchart() %>%
+  hc_chart(type = "bar") %>%  # <- CAMBIO CLAVE: de column a bar
+  hc_xAxis(
+    categories = casos_gru_edad_graf$GRUPO_ETARIO2,
+    title = list(text = "Grupo de edad")
+  ) %>%
+  hc_yAxis(title = list(text = "Cantidad de casos")) %>%
+  hc_plotOptions(bar = list(stacking = "normal")) %>%  # <- también cambiar plotOptions
+  hc_add_series(name = "Sin datos", data = casos_gru_edad_graf$`Sin datos`, color = "#7f7f7f") %>%
+  hc_add_series(name = "No detectable", data = casos_gru_edad_graf$`No detectable`, color = "#1f77b4") %>%
+  hc_add_series(name = "Detectable", data = casos_gru_edad_graf$Detectable, color = "#ff7f0e")
+
+```
+
+```{=html}
+<p style="font-size: smaller; font-style: italic;">
+  *Nota: El resultado se clasifica como “Detectable” cuando se confirma por métodos moleculares la presencia de SARS-CoV-2, Influenza y/o VSR. De la misma forma, el resultado “No detectable” significa ausencia de estos tres virus respiratorios, independientemente de la presencia de otros.
+```
+
+#### Por agente etiológico
+
+**Figura 8:  Distribución por grupo de edad de determinaciones notificadas de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por agente etiológico. UCIRAG `r nombre_establecimiento_centinela`, SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
+
+```{r}
+#| echo: false
+
+# Virus que queremos incluir
+virus_validos <- c("Influenza A", "Influenza B", "Sars-Cov-2", "VSR")
+
+# Preparar datos
+df_plot <- CONTEO_UCI_edad %>%
+  filter(DETERMINACION %in% virus_validos) %>%
+  group_by(GRUPO_ETARIO2) %>%
+  mutate(Detectable_label = DETERMINACION) %>%
+  ungroup() %>%
+  select(GRUPO_ETARIO2, Detectable_label, Detectable, No_detectable) %>%
+  
+  # Agrupar los no detectables en una sola categoría
+  group_by(GRUPO_ETARIO2) %>%
+  mutate(No_detectables_total = sum(No_detectable, na.rm = TRUE)) %>%
+  ungroup() %>%
+  
+  select(GRUPO_ETARIO2, Detectable_label, Detectable, No_detectables_total) %>%
+  distinct() %>%  # Evita duplicados por grupo y virus
+  pivot_wider(names_from = Detectable_label, values_from = Detectable, values_fill = 0) %>%
+  distinct() %>%
+  relocate(No_detectables_total, .after = GRUPO_ETARIO2)
+
+# Crear el gráfico
+# Crear el gráfico rotado (barras horizontales)
+hc_horizontal <- highchart() %>%
+  hc_chart(type = "bar") %>%  # ✅ Cambia de 'column' a 'bar' para barras horizontales
+  hc_plotOptions(bar = list(stacking = "normal")) %>%  # ✅ plotOptions ajustado a 'bar'
+  hc_xAxis(categories = df_plot$GRUPO_ETARIO2, title = list(text = "Grupo de edad")) %>%  # ✅ Grupo etario en eje Y
+  hc_yAxis(title = list(text = "Número de casos"), labels = list(format = "{value}")) %>%  # ✅ Casos en eje X
+  hc_colors(unname(colores_series))  # Colores predefinidos
+
+# Agregar series al gráfico (virus + no detectables)
+for (serie in names(df_plot)[-1]) {
+  nombre_legible <- ifelse(serie == "No_detectables_total", "No detectables", serie)
+  hc_horizontal <- hc_horizontal %>%
+    hc_add_series(name = nombre_legible, data = df_plot[[serie]])
+}
+
+# Agregar tooltip compartido
+hc_horizontal <- hc_horizontal %>%
+  hc_tooltip(shared = TRUE, pointFormat = "{series.name}: <b>{point.y}</b><br/>")
+
+hc_horizontal
+
+```
+
+**Figura 9:  Distribución por grupo de edad de % de positividad de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por agente etiológico. UCIRAG `r nombre_establecimiento_centinela`, SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
+
+```{r GRAFICO 14}
+#| echo: false
+
+
+# Preparar los datos para el gráfico
+DATOS_EDAD_UCI <- CONTEO_UCI_edad %>%
+  select(-Detectable, -No_detectable, -Total_testeos) %>% 
+  mutate(positividad=round(positividad,2)) %>% 
+pivot_wider(names_from = `DETERMINACION`, values_from = positividad)
+  
+# Crear gráfico delineas con highcharter
+plot <- highchart() %>%
+hc_chart(type = "line") %>%
+hc_colors(unname(colores))%>%
+hc_xAxis(categories = DATOS_EDAD_UCI$GRUPO_ETARIO2, 
+         title = list(text = "Rango etario"),
+         labels = list(rotation = -45, style = list(fontSize = "12px"))) %>% 
+hc_yAxis(title = list(text = "% de positividad")) %>%
+hc_plotOptions(column = list(stacking = "normal")) %>%
+hc_add_series(name = "Influenza A", data = DATOS_EDAD_UCI$`Influenza A`)%>%
+hc_add_series(name = "Influenza B", data = DATOS_EDAD_UCI$`Influenza B`) %>%
+hc_add_series(name = "Sars-Cov-2", data = DATOS_EDAD_UCI$`Sars-Cov-2`) %>%
+hc_add_series(name = "VSR", data = DATOS_EDAD_UCI$VSR)
+plot
+
+```
+
+```{r}
+#| echo: false
+
+
+# # Crear vector de colores: virus por color y gris para los no detectables
+# colores_series <- c(
+#   "No_detectables_total" = "#D3D3D3",  # gris
+#   "Influenza A" = "#1f77b4",           # azul
+#   "Influenza B" = "#ff7f0e",           # naranja
+#   "Sars-Cov-2" = "#2ca02c",            # verde
+#   "VSR" = "#d62728"                    # rojo
+# )
+# 
+# # Crear el gráfico
+# hc <- highchart() %>%
+#   hc_chart(type = "column") %>%
+#   hc_plotOptions(column = list(stacking = "percent")) %>%
+#   hc_xAxis(categories = df_plot$GRUPO_ETARIO2, title = list(text = "Grupo etario")) %>%
+#   hc_yAxis(title = list(text = "% de positividad"), labels = list(format = "{value}%")) %>%
+#   hc_colors(unname(colores_series))
+# 
+# # Agregar series (la columna de no detectables + cada virus detectable)
+# for (serie in names(df_plot)[-1]) {
+#   nombre_legible <- ifelse(serie == "No_detectables_total", "No detectables", serie)
+#   hc <- hc %>% hc_add_series(name = nombre_legible, data = df_plot[[serie]])
+# }
+# 
+# # Tooltip
+# hc <- hc %>% hc_tooltip(shared = TRUE, pointFormat = "{series.name}: <b>{point.y}</b><br/>")
+# hc
+```
+
+
+
+```{r}
+#| echo: false
+
+# resultado_centinela %>%
+#   filter(DETERMINACION != "Otro", Detectable > 0) %>%
+#   ggplot(aes(x = GRUPO_ETARIO2, y = Detectable, fill = DETERMINACION)) +
+#   geom_col(position = "stack") +
+#   labs(
+#     title = "Determinaciones Detectables por Grupo Etario",
+#     x = "Grupo Etario",
+#     y = "Cantidad de Determinaciones Detectables",
+#     fill = "Determinación"
+#   ) +
+#   facet_wrap(vars(DETERMINACION))+
+#   coord_flip()+
+#   theme_minimal() +
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+#   theme(
+#     axis.text.x = element_text(angle = 0, vjust = 0.5, size = 7),
+#     legend.position = "bottom",
+#     plot.background = element_rect(fill = "transparent", color = NA),
+#     panel.background = element_rect(fill = "transparent", color = NA),
+#     legend.background = element_rect(fill = "transparent", color = NA),
+#     legend.box.background = element_rect(fill = "transparent", color = NA)
+#   )
+```
+
+## Signos, síntomas y comorbilidades
+
+```{=html}
+<div class="recuadro-transparente">
+  <p style="font-size: smaller; font-style: italic;">
+    *Nota: Los gráficos presentados a continuación muestran las combinaciones más frecuentes de signos/síntomas (arriba) y comorbilidades (abajo) entre los casos positivos. Cada columna representa una combinación específica de variables, indicada por los puntos conectados en la matriz inferior. La altura de las barras señala la cantidad de casos que presentan esa combinación. Se utiliza color para distinguir la dimensión relacionada con la presencia o ausencia de datos consignados, destacando los registros incompletos o vacíos. Este tipo de visualización combinada resulta especialmente útil en contextos donde la información es multivariable y dispersa, permitiendo identificar patrones de coocurrencia y evaluar la completitud del registro epidemiológico.
+  </p>
+</div>
+```
+
+Figura 10: Combinaciones de signos y síntomas registrados en casos positivos de IRAG confirmados por laboratorio, UCIRAG XX, SE 18/24 a SE XX/25.N= `r N_testeos_positivos_UCI`
+
+```{r}
+#| echo: false
+#| fig-height: 10
+#| fig-width: 10
+signos_upset
+
+```
+
+Figura 11: Combinaciones de comorbilidades registradas en casos positivos de IRAG confirmados por laboratorio, UCIRAG XX, SE 18/24 a SE XX/25.N= `r N_testeos_positivos_UCI`
+
+```{r}
+#| echo: false
+#| fig-height: 10
+#| fig-width: 10
+comorb_upset
+```
+
+### Días de internación
+
+Figura 12. Dias de internación según tipo de requerimiento de cuidado y determinación en casos positivos para la Unidad Centinela de Infección Respiratoria Aguda Grave (UC-IRAG) notificados en la Región del Pehuén. SE `r SE_MIN_UCI` a `r SE_MAX_UCI`.Año 2024. N= `r N_testeos_positivos_UCI`
+
+```{r tabla 5}
+#| echo: false
+
+# Establecer los valores predeterminados para flextable
+set_flextable_defaults(
+  font.size = 10,
+  padding = 6
+)
+
+# Crear la tabla completa con estilos
+tabla_estilizada <- flextable(Tabla_dias_internacion_determinacion) %>%
+  # Aplicar un color de fondo al encabezado
+  bg(part = "header", bg = "#2b908f") %>%
+  # Ajustar el ancho de la primera columna
+ # width(j = 1, width = 2) %>% # Cambia el ancho a 2 pulgadas
+  # Agregar bordes para el encabezado y el cuerpo de la tabla
+  border(part = "all", border = fp_border(color = "#fde0dd", width = 1)) %>%
+  bg(i = ~ `DETERMINACION` == "Totales", bg = "#fde0dd") %>% # Fondo distinto para totales
+  bold(i = ~ `DETERMINACION` == "Totales", bold = TRUE)%>%
+  # Aplicar el tema vanilla
+  theme_vanilla()
+
+# Mostrar la tabla
+tabla_estilizada
+
+```
+
+Tabla 6. N° de hisopados realizados en la Unidad Centinela de Infección Respiratoria Aguda Grave (UC-IRAG) según servicio. SE `r SE_MIN_UCI` a `r SE_MAX_UCI`. Año 2024.N= `r N_testeos_positivos_UCI`
+
+```{r tabla 6}
+#| echo: false
+# # Establecer los valores predeterminados para flextable
+# set_flextable_defaults(
+#   font.size = 10,
+#   padding = 6
+# )
+# 
+# # Crear la tabla completa con estilos
+# tabla_estilizada <- flextable(Tabla_servicios) %>%
+#   # Aplicar un color de fondo al encabezado
+#   bg(part = "header", bg = "#2b908f") %>%
+#   # Ajustar el ancho de la primera columna
+#   width(j = 1, width = 2) %>% # Cambia el ancho a 2 pulgadas
+#   # Agregar bordes para el encabezado y el cuerpo de la tabla
+#   border(part = "all", border = fp_border(color = "#fde0dd", width = 1)) %>%
+#   bg(i = ~ `Servicio` == "Totales", bg = "#fde0dd") %>% # Fondo distinto para totales
+#   bold(i = ~ `Servicio` == "Totales", bold = TRUE)%>%
+#   # Aplicar el tema vanilla
+#   theme_vanilla()
+# 
+# # Mostrar la tabla
+# tabla_estilizada
+
+```
+
+## Anexos
+
+### Anexo I {#anexo-i}
+
+#### **Objetivos de esta vigilancia**[^8]
+
+[^8]: Guía Operativa de la Vigilancia Centinela de Infecciones Respiratorias Agudas Graves (IRAG) - Dirección de Epidemiología, Ministerio de Salud de la República Argentina, 2024. Disponible en <https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-vff.pdf>
+
+-   Caracterizar las tendencias de los casos de IRAG a través de variables epidemiológicas, clínicas y del diagnóstico etiológico.  
+
+-   Identificar la frecuencia, distribución e impacto de los agentes etiológicos bajo vigilancia (VSR, Influenza, SARS CoV-2) en la internación y mortalidad por IRAs.  
+
+-   Identificar y analizar grupos de riesgo y comorbilidades de los casos.  
+
+-   Monitorear las características de los virus circulantes (Influenza, variantes de SARS-CoV-2 y VSR) en la enfermedad grave y mortalidad.  
+
+-   Disponer de la caracterización de los virus influenza que potencialmente puedan ser considerados para la composición vacunal.  
+
+-   Estimar la efectividad e impacto de las intervenciones como la vacuna frente a influenza estacional y frente a COVID-19 así como la implementación de la vacunación a embarazadas frente a VSR.  
+
+-   Establecer niveles de actividad umbral que sean de referencia para evaluar la transmisibilidad, gravedad e impacto de las epidemias de infecciones respiratorias agudas.  
+
+-   Estimar la carga de enfermedad por infecciones respiratorias agudas asociadas a virus respiratorios para informar la asignación de recursos y contribuir a la toma de decisiones en salud pública.
+
+### Anexo II {#anexo-ii}
+
+**Algoritmo para la selección de casos en Unidades Centinela de IRAG.**![](templates/imagenes/algoritmo1.png)
+
+Fuente: Guía Operativa de la Vigilancia Centinela de Infecciones Respiratorias Agudas Graves (IRAG) - Dirección de Epidemiología, Ministerio de Salud de la República Argentina, 2024. Disponible en <https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-vff.pdf>
+
+### Anexo III {#anexo-iii}
+
+**Algoritmo para estudio de virus respiratorios en UC IRAG.![](templates/imagenes/algoritmo2.png)**
+
+Fuente: Guía Operativa de la Vigilancia Centinela de Infecciones Respiratorias Agudas Graves (IRAG) - Dirección de Epidemiología, Ministerio de Salud de la República Argentina, 2024. Disponible en <https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-vff.pdf>
+
+### Anexo IV
+
+**Modalidades de notificación de la vigilancia centinela de IRAG.**![](templates/imagenes/tabla_notificacion_snvs.png)Fuente: Infecciones respiratorias agudas: Guía para la vigilancia epidemiológica y recomendaciones para la prevención y control 2024 - Dirección de Epidemiología, Ministerio de Salud de la República Argentina, 2024. Disponible en <https://www.argentina.gob.ar/sites/default/files/guia_para_la_vigilancia_prevencion_y_control_ira-2024.pdf>

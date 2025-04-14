@@ -1,0 +1,52 @@
+body {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  background-color: white;
+  color: #2C3E4C;
+}
+
+a {
+  color: #79A762;
+  text-decoration: none;
+}
+a:hover {
+  color: #2C3E4C;
+  text-decoration: underline;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #F4DFB9;
+}
+th {
+  background-color: #2C3E4C;
+  color: #F4DFB9;
+  padding: 10px;
+}
+td {
+  padding: 8px;
+  border: 1px solid #2C3E4C;
+}
+
+.recuadro-transparente {
+  background-color: rgba(135, 206, 235, 0.3); /* celeste claro con transparencia */
+  border: 1px solid rgba(135, 206, 235, 0.9); /* borde más fuerte */
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 6px;
+  font-style: italic;
+}
+
+button, .btn {
+  background-color: #79A762;
+  color: #F4DFB9;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover, .btn:hover {
+  background-color: #2C3E4C;
+  color: #F4DFB9;
+}
