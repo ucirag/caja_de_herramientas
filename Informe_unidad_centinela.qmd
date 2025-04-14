@@ -131,7 +131,7 @@ Criterios de inclusión:
 
 <!-- -->
 
-Criterio de exclusión[\*]:
+Criterio de exclusión[\*](#section):
 
 <!-- -->
 
@@ -154,13 +154,11 @@ Además, cuando se notifique en el SNVS 2.0, es necesario completar la informaci
 \
 Se deberá notificar de forma nominal, en la solapa evento, la clasificación manual del caso como IRAG o IRAG extendida, según corresponda (Ver [ANEXO IV](#anexo-iv)).
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| #### \*                                                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                     |
-| IMPORTANTE                                                                                                                                                                                                                                                                          |
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Todo caso internado y/o fallecido con diagnóstico por laboratorio de SARS-CoV-2, Influenza y/o VSR (fuera de la estrategia de las Unidades centinela de IRAG) debe ser notificado bajo el evento de vigilancia universal: “SARS-COV-2, Influenza y VSR en Internado y/o fallecido”. |
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| #### \*  {#section}                                                                                                                                                                                                                                                                                      |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| #### IMPORTANTE: **Todo caso internado y/o fallecido con diagnóstico por laboratorio de SARS-CoV-2, Influenza y/o VSR (fuera de la estrategia de las Unidades centinela de IRAG) debe ser notificado bajo el evento de vigilancia universal: “SARS-COV-2, Influenza y VSR en Internado y/o fallecido”.** |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Para mayor información de la estrategia de vigilancia centinela de IRAG consultar en: <https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-vff.pdf>
 
@@ -394,7 +392,7 @@ hc
 
 #### Por agente etiológico
 
-**Figura 8:  Distribución por grupo de edad de determinaciones notificadas de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por agente etiológico. UCIRAG `r nombre_establecimiento_centinela`, SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
+**Figura 8: Distribución por grupo de edad de determinaciones notificadas de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por agente etiológico. UCIRAG `r nombre_establecimiento_centinela`, SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
 
 ```{r}
 #| echo: false
@@ -445,7 +443,7 @@ hc_horizontal
 
 ```
 
-**Figura 9:  Distribución por grupo de edad de % de positividad de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por agente etiológico. UCIRAG `r nombre_establecimiento_centinela`, SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
+**Figura 9: Distribución por grupo de edad de % de positividad de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por agente etiológico. UCIRAG `r nombre_establecimiento_centinela`, SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
 
 ```{r GRAFICO 14}
 #| echo: false
@@ -505,8 +503,6 @@ plot
 # hc <- hc %>% hc_tooltip(shared = TRUE, pointFormat = "{series.name}: <b>{point.y}</b><br/>")
 # hc
 ```
-
-
 
 ```{r}
 #| echo: false
@@ -659,6 +655,6 @@ Fuente: Guía Operativa de la Vigilancia Centinela de Infecciones Respiratorias 
 
 Fuente: Guía Operativa de la Vigilancia Centinela de Infecciones Respiratorias Agudas Graves (IRAG) - Dirección de Epidemiología, Ministerio de Salud de la República Argentina, 2024. Disponible en <https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-vff.pdf>
 
-### Anexo IV
+### Anexo IV {#anexo-iv}
 
 **Modalidades de notificación de la vigilancia centinela de IRAG.**![](templates/imagenes/tabla_notificacion_snvs.png)Fuente: Infecciones respiratorias agudas: Guía para la vigilancia epidemiológica y recomendaciones para la prevención y control 2024 - Dirección de Epidemiología, Ministerio de Salud de la República Argentina, 2024. Disponible en <https://www.argentina.gob.ar/sites/default/files/guia_para_la_vigilancia_prevencion_y_control_ira-2024.pdf>

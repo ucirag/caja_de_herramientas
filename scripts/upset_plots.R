@@ -43,23 +43,42 @@ datos_sintomas_coloreado <- datos_sintomas_filtrados %>%
 vars_sintomas <- colnames(datos_sintomas_filtrados)[-1]
 
 # Graficar UpSet de síntomas con colores
+
 signos_upset <- upset(
   datos_sintomas_coloreado,
   intersect = vars_sintomas,
   name = "Signos y Síntomas",
+  
   base_annotations = list(
     'Intersecciones' = intersection_size(
-      mapping = aes(fill = grupo_color, col = "black")
+      mapping = aes(fill = grupo_color, col = "black"),
+      text = list(size = 7)
     ) +
       scale_fill_manual(values = c(
         "Sin dato" = "blue",
         "Con dato de signo/síntoma" = "#87CEEB"
       )) +
-      theme(legend.title = element_blank(),
-            legend.position = "top"
+      theme(
+        legend.position = "top",
+        legend.title = element_blank(),
+        legend.text = element_text(size = 18) 
+        
       )
+  ),
+  
+  themes = upset_modify_themes(
+    list(
+      'intersections_matrix' = theme(
+        axis.text.y = element_text(size = 18),
+        axis.title.x = element_text(size=)
+      ),
+      'overall_sizes' = theme(
+        axis.text.x = element_text(angle = 90, size=14)
+      )
+    )
   )
 )
+
 
 # ==========================
 # 🔹 Análisis de comorbilidades
@@ -106,18 +125,33 @@ comorb_upset <- upset(
   datos_comorb_coloreado,
   intersect = vars_comorb,
   name = "Comorbilidades",
+  
   base_annotations = list(
     'Intersecciones' = intersection_size(
-      mapping = aes(fill = grupo_color, col = "black")
+      mapping = aes(fill = grupo_color, col = "black"),
+      text = list(size = 7)  # igual que en signos_upset
     ) +
       scale_fill_manual(values = c(
-        "Sin comorbilidades" = "#4682B4",         # Azul medio
-        "Sin dato de comorbilidad" = "blue",      # Azul fuerte
-        "Con dato de comorbilidad" = "#87CEEB"    # Celeste
+        "Sin comorbilidades" = "#4682B4",
+        "Sin dato de comorbilidad" = "blue",
+        "Con dato de comorbilidad" = "#87CEEB"
       )) +
       theme(
+        legend.position = "top",
         legend.title = element_blank(),
-        legend.position = "top"
+        legend.text = element_text(size = 18)  # igual que en signos_upset
       )
+  ),
+  
+  themes = upset_modify_themes(
+    list(
+      'intersections_matrix' = theme(
+        axis.text.y = element_text(size = 18),
+        axis.title.x = element_text(size = 13)  # completamos el valor que faltaba
+      ),
+      'overall_sizes' = theme(
+        axis.text.x = element_text(angle = 90, size = 14)
+      )
+    )
   )
 )
