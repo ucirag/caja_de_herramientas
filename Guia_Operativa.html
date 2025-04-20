@@ -66,6 +66,7 @@
 
 
 
+
 <h1><strong>Guía operativa para el uso de la caja de herramientas UCIRAG</strong></h1>
 
 
@@ -83,11 +84,11 @@ Se recomienda su lectura luego de consultar el documento <strong>README.md</stro
 
 
 <p>
-La caja de herramientas UCIRAG fue programada utilizando el lenguaje de programación R. Las dependencias para ejecutar esta caja son:
+La caja de herramientas UCIRAG fue desarrollada en el lenguaje de programación <strong>R</strong>, y se recomienda utilizarla dentro del entorno <strong>RStudio</strong>. Para su correcto funcionamiento, es necesario contar previamente con las siguientes herramientas instaladas en el equipo:
 </p>
 <ul>
 
-<li>Navegador web (Firefox, Chrome, Safari)</li>
+<li>Un navegador web moderno (Firefox, Chrome, Safari)</li>
 
 <li>Microsoft Excel</li>
 
@@ -95,30 +96,49 @@ La caja de herramientas UCIRAG fue programada utilizando el lenguaje de programa
 
 <li>RStudio (https://posit.co/download/rstudio-desktop/)</li>
 
-<li>Quarto (https://quarto.org/)</li>
+<li>Quarto (https://quarto.org/)(ya incluido por defecto en versiones recientes de RStudio)</li>
 </ul>
 <p>
-Es necesaria la instalación previa de todas estas dependencias para continuar con el segundo paso.
+Nota: La mayoría de estos programas suelen estar instalados en los entornos de trabajo habituales. No es necesario instalarlos desde cero si ya están disponibles.
 </p>
+<h3><strong>Paquetes de R</strong></h3>
+
+
 <p>
-Para facilitar este paso, el repositorio incluye el script <code>scripts/install.packages.R</code>, que instala automáticamente los paquetes necesarios en R.
+La caja de herramientas requiere un conjunto de <strong>paquetes de R</strong> que serán utilizados a lo largo del proyecto. Para facilitar su instalación, el repositorio incluye el script <code>scripts/install.packages.R</code>, que:
 </p>
+<ul>
+
+<li>Instala todos los paquetes necesarios automáticamente (si no están instalados).<br></li>
+
+<li>Incluye llamadas a <code>library()</code> para cargar cada paquete.<br></li>
+</ul>
 <p>
-Para ejecutarlo:
+Aunque no es obligatorio ejecutar este script de forma manual en este momento, <strong>se recomienda hacerlo la primera vez que se utilice el repositorio</strong>, ya que:
 </p>
+<ul>
+
+<li>Permite identificar anticipadamente si existe algún paquete que no se puede instalar por motivos técnicos (por ejemplo, restricciones de red, permisos, o versiones incompatibles).<br></li>
+
+<li>Evita que la primera ejecución del documento <code>.qmd</code> (que invoca este script automáticamente) demore más de lo esperado por la instalación simultánea de varios paquetes.<br></li>
+</ul>
+<h3><strong>Para ejecutarlo manualmente:</strong></h3>
+
+
 <ol>
 
-<li>Abrir el archivo <code>install.packages.R</code> en RStudio.</li>
+<li>Abrir el archivo <code>scripts/install.packages.R</code> en RStudio.<br></li>
 
-<li>Hacer clic en "Run".</li>
+<li>Hacer clic en "Run" o presionar <code>Ctrl + Shift + Enter</code>.<br></li>
 
-<li>Confirmar cualquier solicitud escribiendo <code>y</code> presionando Enter en la consola.</li>
-</ol>
+<li>Confirmar cualquier solicitud escribiendo <code>y</code> y presionando Enter en la consola.<br>
 <p>
-*Recomendamos el uso de computadoras con una memoria RAM de 8 GB.
+
+    <em>Sugerimos utilizar computadoras con al menos <strong>8 GB de memoria RAM</strong> para una experiencia fluida, especialmente al trabajar con grandes volúmenes de datos.</em>
+</p></li>
+</ol>
 <hr>
-</p>
-<h2><strong>2. Estructura de la caja de herramientas UCIRAGl proyecto</strong></h2>
+<h2><strong>2. Estructura de la caja de herramientas UCIRAG</strong></h2>
 
 
 <p>
