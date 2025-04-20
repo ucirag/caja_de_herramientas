@@ -78,7 +78,7 @@ Es importante destacar que todos los documentos deben estar contenidos en una ú
 
 ## **_¡Comencemos!_**
 
-Para dar comienzo al uso de la caja de herramientas, se debe leer y seguir los pasos descriptos en la [Guía Operativa](https://ucirag.github.io/caja_de_herramientas/Guia_Operativa.html)
+Para dar comienzo al uso de la caja de herramientas, se debe leer y seguir los pasos descriptos en la [Guía Operativa](https://ucirag.github.io/caja_de_herramientas/Documentación%20adicional/Guia_Operativa.html)
 
 # Anexo
 ## Enlaces de utilidad para quienes se inician en R
