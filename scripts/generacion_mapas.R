@@ -24,6 +24,6 @@ PROVINCIA <- as.character(PROVINCIA)
 # Departamentos de provincia con códigos que comienzan en 58
 DEPTOS_dataframe <- descargar_departamentos_por_in1_prefijo(PROVINCIA)
 
-plot(DEPTOS_dataframe$id)
+plot(DEPTOS_dataframe)
 
 head(DEPTOS_dataframe)

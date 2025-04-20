@@ -5,6 +5,10 @@
 #VR_NOMINAL
 VR_NOMINAL <- read.csv2("templates/VR_NOMINAL.csv",encoding = "UTF-8", na.strings = c("","*SIN DATO* (*SIN DATO*)"))
 
+dia_de_corte_de_datos <- "03-04-2025" # explicar que es en este formato
+
+num_ultimas_semana_no_incluidas <- 2 #agregar en explicacion que son las semanas q no se incluyen en caso que se elija el anio actual.
+
 # MAPEO LOCALIDAD
 ruta_excel_area <- "templates/AREA PROGRAMA.xls"  
 
@@ -32,16 +36,12 @@ DEPTOS_ANALISIS <- c("58007","58021","58105","58112") # SELECCION DE LA REGION D
 EFECTOR_CARGA <- c("nombre completo de establecimiento1","nombre completo de establecimiento2")#### variables de nombre del establecimeinto."ESTABLECIMIENTO_CARGA"
 
 area_seleccionada_titulos <- "la Región del Pehuén"
-nombre_establecimiento_centinela <- "Hospital de Zapala blablabla"
+nombre_establecimiento_centinela <- "Hospital de Zapala blablabla y bccc"
 
 # Limite de edad para considerar a un registro sin dato de edad
 edad_max <- 110
 
 anio_de_analisis <- 2024 #agregar en algun lado que las dos sepis previas se borran
-
-dia_de_corte_de_datos <- "03-04-2025"
-
-num_ultimas_semana_no_incluidas <- 1 #agregar en explicacion que son las semanas q no se incluyen en caso que se elija el anio actual.
 
 
 #Definir las columnas a evaluar para centinela

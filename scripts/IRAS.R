@@ -138,6 +138,7 @@ VR_NOMINAL <- VR_NOMINAL %>%
 
 
 ###creo una nueva variable de fecha 
+
 VR_NOMINAL <- VR_NOMINAL %>% 
   mutate(FECHA_CREADA = coalesce(FIS, FECHA_CONSULTA, FECHA_ESTUDIO, FECHA_APERTURA),
          AÑO= year(FECHA_CREADA),
@@ -171,9 +172,6 @@ VER <-  VR_NOMINAL_EVENTOCASO[is.na(VR_NOMINAL_EVENTOCASO$GRUPO_ETARIO2),
 mensaje6 <- VR_NOMINAL_EVENTOCASO_RESULTADO$mensaje4
 mensaje7 <- VR_NOMINAL_EVENTOCASO_RESULTADO$mensaje5
 
-# Verificar el mensaje
-print(mensaje6)
-print(mensaje7)
 
 VR_NOMINAL_EVENTOCASO <- VR_NOMINAL_EVENTOCASO %>%
   mutate(
