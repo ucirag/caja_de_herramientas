@@ -1,6 +1,7 @@
 # **<span style="text-decoration:underline;">Caja de herramientas para el análisis epidemiológico de infecciones respiratorias agudas graves (IRAG) utilizando información del Sistema Nacional de Vigilancia</span>**[^1]
 
-**Esta caja de herramientas IRAG es el resultado de la colaboración entre OPS/OMS Argentina y la Unidad Centinela de IRAG del Hospital Zapala “Dr. Juan J. Pose”, Provincia de Neuquén. Abril, año 2025.**
+**Esta caja de herramientas IRAG es el resultado de la colaboración entre OPS/OMS Argentina y las Unidades Centinela de IRAG del Hospital Zapala “Dr. Juan J. Pose”, Provincia de Neuquén, y del Hospital Zonal de Trelew “Dr. Adolfo Margara”, Provincia de Chubut. 
+Abril, año 2025.**
 
 ## **_Introducción_**
 
@@ -14,7 +15,7 @@ Al implementar las distintas estrategias de fortalecimiento, se observó que las
 
 Tomando en consideración lo antedicho, para fortalecer la competencia en datos y respaldar la toma de decisiones basadas en evidencia, la OPS/OMS propone compartir una caja de herramientas para el análisis epidemiológico de las infecciones respiratorias agudas graves (IRAG) utilizando los datos del SNVS 2.0 y aplicando herramientas gratuitas y de código abierto como R y Quarto.
 
-Esta caja de herramientas no sólo ofrece orientación práctica, sino que también funciona como un repositorio de referencia esencial para la Red Argentina de Vigilancia Centinela de IRAG, compilando documentos técnicos, guías, lineamientos operativos, y marcos de referencia nacionales y regionales. Aquí encontrarás acceso a directrices y guías actualizadas, así como a publicaciones claves y otros recursos valiosos relacionados con esta crucial iniciativa de salud pública.
+Esta caja de herramientas no sólo ofrece orientación práctica, sino que también funciona como un repositorio de referencia esencial para la Red Argentina de Vigilancia Centinela de IRAG. Aquí encontrarás acceso a directrices y guías técnicas actualizadas, así como a publicaciones claves y otros recursos valiosos relacionados con esta crucial iniciativa de salud pública.
 
 ## **_Objetivo de la caja de herramientas IRAG_**
 
@@ -22,24 +23,26 @@ Apoyar en el  análisis de datos a los equipos de salud de la Red Argentina de V
 
 ## **_Propósito_**
 
-El propósito de esta caja de herramientas involucra dejar capacidad instalada en los equipos de los establecimientos de salud que desempeñan tareas de vigilancia epidemiológica de IRAG para el análisis de datos en Rstudio, la generación de visualizaciones efectivas y la utilización de herramientas de automatización de reportes como Quarto, contribuyendo de esta forma a la adherencia a la estrategia y actuación coordinada de los componentes de laboratorio, epidemiología y clínica, además de contribuir a la toma de decisiones por parte de las autoridades locales y/o jurisdiccionales. 
+El propósito de esta caja de herramientas involucra dejar capacidad instalada en los equipos de los establecimientos de salud que desempeñan tareas de vigilancia epidemiológica de vigilancia centinela de IRAG para el análisis de datos en Rstudio, la generación de visualizaciones efectivas y la utilización de herramientas de automatización de reportes como Quarto, contribuyendo de esta forma a la adherencia a la estrategia y actuación coordinada de los componentes de laboratorio, epidemiología y clínica, además de contribuir a la toma de decisiones por parte de las autoridades locales y/o jurisdiccionales. 
 
 ## **_Destinatarios_**
 
 La presente caja de herramientas está orientada a profesionales de distintas disciplinas o integrantes de los equipos de salud y de gestión de la salud que deseen obtener un reporte epidemiológico de la vigilancia centinela de IRAG utilizando la información del SNVS 2.0. 
 
-Como requerimientos mínimos para poder utilizar esta caja de herramientas se necesita la disponibilidad de una computadora con la instalación del programa R y RStudio con permisos para instalar paquetes nuevos. Es valorado el conocimiento básico de manejo de bases de datos y conocimientos en R. Como complemento para el manejo básico de R, ver apartado de “Enlaces de utilidad”.
+Como requerimientos mínimos para poder utilizar esta caja de herramientas se necesita la disponibilidad de una computadora con la instalación del programa R y RStudio con permisos para instalar paquetes nuevos. Es valorado el conocimiento básico de manejo de bases de datos y conocimientos en R. Como complemento para el manejo básico de R, ver apartado de [Enlaces de utilidad](#enlaces-de-utilidad).
 
 ## **_Contenido de la caja de herramientas_**
 
-La caja de herramientas contempla una serie de documentos para la ejecución práctica de una base de datos depurada y un reporte automatizado de la información de IRAG:
+La caja de herramientas contempla una serie de documentos para la ejecución práctica de una base de datos depurada y un reporte automatizado de la información de la vigilancia centinela de IRAG:
 
 
 
-* **Guía Operativa:** De manera resumida se indican los pasos a seguir para realizar el análisis epidemiológico de IRAG.
-* **Guía teórica-conceptual: **Detalla las variables que las bases de datos contienen, sus respectivas definiciones, las decisiones metodológicas tomadas en el curso del análisis y las consideraciones que hay que tener en cuenta al ejecutar la caja de herramienta IRAG.
-* Código en R modularizado: Scripts en extensiones .R y .qmd. Ver detalle en la **_Guía operativa_**.
-* Template para ingreso de los datos en excel. Ver detalle en la **_Guía operativa_**.
+* **Guía Operativa:** De manera resumida indica los pasos a seguir para realizar el análisis epidemiológico de vigilancia centinela de IRAG.
+* **Guía teórica-conceptual:** Detalla las variables que las bases de datos contienen, sus respectivas definiciones, las decisiones metodológicas tomadas en el curso del análisis y las consideraciones que hay que tener en cuenta al ejecutar la caja de herramienta UCIRAG.
+* Carpeta de scripts: Código en R modularizado que contiene scripts en extensiones .R . Ver detalle en la **_Guía operativa_**.
+* Carpeta templates: Contiene templates en excel para ingreso de los datos. Ver detalle en la **_Guía operativa_**.
+* Carpeta salidas: Una vez realizado el análisis, contendrá los productos del mismo como archivos de texto para las consideraciones y la base de datos depurada.
+
 
 # **_Productos esperados _**
 
@@ -103,4 +106,4 @@ A continuación encontrarán enlaces de módulos, denominados “cápsulas”, q
 ## Notes
 
 [^1]:
-     Esta caja de herramientas se denominará de forma abreviada en el documento como **“Caja de herramientas IRAG”**.
+     Esta caja de herramientas se denominará de forma abreviada en el documento como **“Caja de herramientas UCIRAG”**.
