@@ -54,17 +54,14 @@ Se espera que los/as profesionales puedan elaborar un informe automatizado en fo
 Fuente: Elaboración propia.
 
 
-# **_Descarga de caja de herramientas_**
+# **_Descarga de caja de herramientas UCIRAG_**
 
 Para dar comienzo a la ejecución de la caja de herramientas, se debe comenzar con su descarga. Para ello, existen dos opciones que se detallan a continuación:
 
 
 ### **1) Navegador Web**
 
-
-    Si se desea descargar la caja de herramientas desde el navegador web:
-
-
+Si se desea descargar la caja de herramientas desde el navegador web:
 
 1. Ingresar al repositorio de github [[Aqui](https://github.com/ucirag/caja_de_herramientas/)].
 2. Presionar el botón verde que dice "Code" o "Código".
@@ -77,12 +74,13 @@ Para dar comienzo a la ejecución de la caja de herramientas, se debe comenzar c
     git clone https://github.com/ucirag/caja_de_herramientas
 ```
 
-Es importante destacar que todos los documentos deben estar contenidos en una única carpeta de trabajo, denominada "Caja de herramientas IRAG".
+Es importante destacar que todos los documentos deben estar contenidos en una única carpeta de trabajo, denominada "Caja de herramientas UCIRAG".
 
 ## **_¡Comencemos!_**
 
 Para dar comienzo al uso de la caja de herramientas, se debe leer y seguir los pasos descriptos en la [Guía Operativa](https://ucirag.github.io/caja_de_herramientas/Guia_Operativa.html)
 
+# Anexo
 ## **_Enlaces de utilidad para quienes se inician en R_**
 
 A continuación encontrarán enlaces de módulos, denominados “cápsulas”, que agrupan contenidos y habilidades de manera encadenada para el desarrollo de proyectos de automatización de reportes. Dichos materiales sientan las bases necesarias para un manejo básico del software R, facilitando la ejecución de la presente caja de herramientas.
@@ -102,8 +100,19 @@ A continuación encontrarán enlaces de módulos, denominados “cápsulas”, q
 [https://vigilanciaenr.github.io/VigilanciaenR/Sesi%C3%B3n%204/mapas_neuquen.html](https://vigilanciaenr.github.io/VigilanciaenR/Sesi%C3%B3n%204/mapas_neuquen.html)
 
 ## **_Enlaces nacionales y regionales de utilidad sobre la prevención, vigilancia y control de IRA_**
-
-## Notes
+* Ministerio de Salud de la Nación (AR). Diccionario de variables para la vigilancia de infecciones respiratorias agudas graves (IRAG) en unidades centinela [Internet]. Buenos Aires: Ministerio de Salud de la Nación; 2023 [citado 2025 abr 19]. Disponible en: [https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-diccionario-de-variables.pdf](https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-diccionario-de-variables.pdf)
+* Ministerio de Salud de la Nación (AR). Guía para la implementación y fortalecimiento de unidades centinela de IRAG en establecimientos de salud [Internet]. Buenos Aires: Ministerio de Salud de la Nación; 2023 [citado 2025 abr 19]. Disponible en: [https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-vff.pdf](https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-vff.pdf)
+* Ministerio de Salud de la Nación (AR). Guía para la vigilancia epidemiológica y recomendaciones para la prevención y control de las infecciones respiratorias agudas 2024 [Internet]. Buenos Aires: Ministerio de Salud de la Nación; 2024 [citado 2025 abr 19]. Disponible en: [https://www.argentina.gob.ar/sites/default/files/guia_para_la_vigilancia_prevencion_y_control_ira-2024.pdf](https://www.argentina.gob.ar/sites/default/files/guia_para_la_vigilancia_prevencion_y_control_ira-2024.pdf)
+* Organización Mundial de la Salud (OMS). Directrices de práctica clínica para la influenza [Internet]. Ginebra: OMS; 2024 [citado 2025 abr 19]. Disponible en: [https://www.who.int/publications/i/item/9789240097759](https://www.who.int/publications/i/item/9789240097759)
+* Organización Mundial de la Salud (OMS). Elaboración del mosaico: un marco para la vigilancia resiliente de virus respiratorios con potencial epidémico y pandémico [Internet]. Ginebra: OMS; 2023 [citado 2025 abr 19]. Disponible en: [https://iris.who.int/bitstream/handle/10665/372845/9789240075863-spa.pdf](https://iris.who.int/bitstream/handle/10665/372845/9789240075863-spa.pdf)
+* Organización Mundial de la Salud (OMS). Implementación de la vigilancia centinela integrada de la influenza y otros virus respiratorios: guía operativa [Internet]. Ginebra: OMS; 2024 [citado 2025 abr 19]. Disponible en: [https://www.who.int/publications/i/item/9789240101432](https://www.who.int/publications/i/item/9789240101432)
+* Organización Mundial de la Salud (OMS). Pandemic influenza severity assessment (PISA): a WHO guide to assess the severity of influenza in seasonal epidemics and pandemics [Internet]. Ginebra: OMS; 2024 [citado 2025 abr 19]. Disponible en: [https://www.who.int/publications/i/item/9789240093881](https://www.who.int/publications/i/item/9789240093881)
+* Organización Mundial de la Salud (OMS). Preparación y resiliencia frente a amenazas emergentes: un enfoque operativo para la preparación ante pandemias basado en modos de transmisión – Módulo 1: enfermedades respiratorias [Internet]. Ginebra: OMS; 2023 [citado 2025 abr 19]. Disponible en: [https://www.who.int/publications/i/item/9789240076525](https://www.who.int/publications/i/item/9789240076525)
+* Organización Panamericana de la Salud (OPS). Avian Influenza A(H5N1) dashboard [Internet]. Washington, D.C.: OPS; [citado 2025 abr 19]. Disponible en: [https://shiny.paho-phe.org/h5n1/](https://shiny.paho-phe.org/h5n1/)
+* Organización Panamericana de la Salud (OPS). Informe de la Consulta Regional para el fortalecimiento del trabajo intersectorial en la interfaz humano-animal-ambiente [Internet]. Washington, D.C.: OPS; 2023 [citado 2025 abr 19]. Disponible en: [https://www.paho.org/es/documentos/informe-consulta-regional-para-fortalecimiento-trabajo-intersectorial-interfaz-humano](https://www.paho.org/es/documentos/informe-consulta-regional-para-fortalecimiento-trabajo-intersectorial-interfaz-humano)
+* Organización Panamericana de la Salud (OPS). Nota técnica: Diagnóstico de laboratorio de la infección humana por influenza A/H5 [Internet]. Washington, D.C.: OPS; 2023 [citado 2025 abr 19]. Disponible en: [https://www.paho.org/es/documentos/nota-tecnica-diagnostico-laboratorio-infeccion-humana-por-influenza-ah5](https://www.paho.org/es/documentos/nota-tecnica-diagnostico-laboratorio-infeccion-humana-por-influenza-ah5)
+* Organización Panamericana de la Salud (OPS). Timeline: Influenza A(H5N1) in the Americas Region [Internet]. Washington, D.C.: OPS; [citado 2025 abr 19]. Disponible en: [https://www.paho.org/en/timeline-influenza-ah5n1-americas-region](https://www.paho.org/en/timeline-influenza-ah5n1-americas-region)
+## Notas
 
 [^1]:
      Esta caja de herramientas se denominará de forma abreviada en el documento como **“Caja de herramientas UCIRAG”**.
