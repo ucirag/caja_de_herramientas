@@ -65,14 +65,15 @@
 </head>
 
 
-<h1><strong>Guía operativa para el uso de la caja de herramientas para el análisis epidemiológico de Infecciones Respiratorias Agudas Graves (IRAG)</strong></h1>
+
+<h1><strong>Guía operativa para el uso de la caja de herramientas UCIRAG</strong></h1>
 
 
 <h2><strong>Introducción</strong></h2>
 
 
 <p>
-Esta guía operativa forma parte de la "Caja de Herramientas IRAG" y describe paso a paso cómo ejecutar el análisis estandarizado de vigilancia centinela de IRAG a partir de datos del SNVS 2.0.
+Esta guía operativa forma parte de la "Caja de Herramientas UCIRAG" y describe paso a paso cómo ejecutar el análisis estandarizado de vigilancia centinela de IRAG a partir de datos del SNVS 2.0.
 </p>
 <p>
 Se recomienda su lectura luego de consultar el documento <strong>README.md</strong> y de manera complementaria con la <strong>Guía teórico-conceptual</strong>.
@@ -82,7 +83,7 @@ Se recomienda su lectura luego de consultar el documento <strong>README.md</stro
 
 
 <p>
-Para ejecutar el análisis es necesario contar con:
+La caja de herramientas UCIRAG fue programada utilizando el lenguaje de programación R. Las dependencias para ejecutar esta caja son:
 </p>
 <ul>
 
@@ -97,7 +98,10 @@ Para ejecutar el análisis es necesario contar con:
 <li>Quarto (https://quarto.org/)</li>
 </ul>
 <p>
-Instalar las dependencias antes de avanzar. Para facilitar este paso, el repositorio incluye el script <code>scripts/install.packages.R</code>, que instala automáticamente los paquetes necesarios en R.
+Es necesaria la instalación previa de todas estas dependencias para continuar con el segundo paso.
+</p>
+<p>
+Para facilitar este paso, el repositorio incluye el script <code>scripts/install.packages.R</code>, que instala automáticamente los paquetes necesarios en R.
 </p>
 <p>
 Para ejecutarlo:
@@ -108,53 +112,32 @@ Para ejecutarlo:
 
 <li>Hacer clic en "Run".</li>
 
-<li>Confirmar cualquier solicitud escribiendo <code>y</code> y presionando Enter en la consola.</li>
+<li>Confirmar cualquier solicitud escribiendo <code>y</code> presionando Enter en la consola.</li>
 </ol>
+<p>
+*Recomendamos el uso de computadoras con una memoria RAM de 8 GB.
 <hr>
-<h2><strong>2. Estructura del proyecto</strong></h2>
+</p>
+<h2><strong>2. Estructura de la caja de herramientas UCIRAGl proyecto</strong></h2>
 
 
 <p>
-Los archivos principales del proyecto se encuentran organizados en las siguientes carpetas:
-</p>
-<p>
-.
-</p>
-<p>
-├── salidas/
-</p>
-<p>
-├── scripts/
-</p>
-<p>
-├── templates/
-</p>
-<p>
-├── Unidad centinela Zapala.qmd
-</p>
-<p>
-├── Unidad centinela Zapala.html (aparecerá una vez generado)
-</p>
-<p>
-├── Unidad-Centinela.Rproj
-</p>
-<p>
-<strong>Archivos y carpetas clave:</strong>
+Además de los ya mencionados documentos README, guía operativa y guía teórico-conceptual, los archivos principales de la caja de herramientasse encuentran organizados en las siguientes carpetas y documentos claves:
 </p>
 <ul>
 
-<li><code>Unidad-Centinela.Rproj</code>: archivo del proyecto en RStudio.</li>
+<li><code>caja_de_herramientas.Rproj</code>: Proyecto en Rstudio que permite trabajar con múltiples tipos de archivos de código, entre ellos R scripts, Documentos Quarto, archivos HTML, etc.</li>
 
-<li><code>Unidad centinela Zapala.qmd</code>: documento Quarto con el informe final.</li>
+<li><code>Informe_unidad_centinela.qmd</code>: Archivo quarto que contiene texto seleccionado y códigos para la obtención de un boletín epidemiológico automatizado de vigilancia centinela de IRAG. </li>
 
-<li><code>scripts/</code>: contiene scripts en R para la ejecución del análisis.</li>
+<li><code>Carpeta scripts (/scripts)</code>: Contiene scripts en R para la ejecución del análisis.</li>
 
-<li><code>templates/</code>: contiene archivos Excel necesarios como insumos.</li>
+<li><code>Carpeta templates (/templates):</code> Contiene archivos Excel necesarios como insumos.</li>
 
-<li><code>salidas/</code>: carpeta donde se generan los resultados del análisis.</li>
+<li><code>Carpeta salidas (/salidas)</code>: Carpeta donde se generarán los productos del análisis.</li>
 </ul>
 <hr>
-<h2><strong>3. Descripción de scripts y archivos</strong></h2>
+<h2><strong>3. Descripción de scripts y templates</strong></h2>
 
 
 <h3><strong>Scripts principales (<code>/scripts</code>):</strong></h3>
@@ -162,74 +145,93 @@ Los archivos principales del proyecto se encuentran organizados en las siguiente
 
 <ul>
 
+<li><code>1. install.packages.R:</code>script que instala automáticamente los paquetes necesarios en R.</li>
+
+<li><code>input_colors.R</code>: este script contiene una lista (<code>parametros_css</code>) con todos los colores utilizados en la personalización visual del informe Quarto (<code>Informe_unidad_centinela.qmd</code>).</li>
+
+<li><code>generacion_css.R</code>: este script utiliza los parámetros definidos en <code>input_colors.R</code> para generar automáticamente el archivo CSS utilizado por el informe. </li>
+
+<li><code>IRAS.R</code>: script que realiza el principal procesamiento de los datos, tranformacions de variables y exportacion de archivo de consideraciones (consideraciones.txt) que contiene observaciones sobre ese analisis. Se alimenta de los scripts <code>input.R</code>, <code>funciones.R</code>, y <code>output_file_consideraciones.R</code>  para su fucnionamiento.</li> 
+<ul>
+ 
 <li><code>input.R</code>: script que define los insumos y parámetros clave del análisis. Se divide en dos secciones:</li> 
-<ul>
- 
-<li><strong>Lectura de datos:</strong> carga archivos desde la carpeta <code>templates/</code>, incluyendo:</li>  
-<ul>
-  
-<li><code>VR_NOMINAL.csv</code>: base de datos nominal de eventos respiratorios.</li>
-  
-<li><code>AREA PROGRAMA.xls</code>: mapeo de localidades a áreas programa.</li>
-  
-<li><code>EFECTORES.xlsx</code>: establecimientos de salud.</li>
-  
-<li><code>NEUQUEN_CLI_INTERNACIONES.csv</code>: base agrupada (ajustar nombre si se cambia provincia).</li>
-  
-<li><code>INTERNACION POR SERVICIO.csv</code>: datos por servicio hospitalario (opcional).</li>  
 </ul>
- 
-<li><strong>Parámetros a modificar:</strong> variables definidas por el usuario para adaptar el análisis:</li>  
+
+<li><strong>Lectura de datos:</strong> carga archivos desde la carpeta <code>templates/</code>, incluyendo:</li>   
 <ul>
-  
+   
+<li><code>VR_NOMINAL.csv</code>: base de datos nominal de eventos respiratorios del SNVS 2.0.</li>
+   
+<li><code>AREA PROGRAMA.xls</code>: mapeo de localidades o departamentos  a áreas programa<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>.</li>
+   
+<li><code>EFECTORES.xlsx</code>: establecimientos de salud incluidos en el análisis.</li>
+   
+<li><code>NEUQUEN_CLI_INTERNACIONES.csv</code>: base de datos agrupados de la vigilancia centinela de IRAG (ajustar nombre si se cambia provincia).</li>
+   
+<li><code>INTERNACION POR SERVICIO.csv</code>: datos por servicio hospitalario (opcional).</li>   
+</ul>
+
+<li><strong>Parámetros a modificar:</strong> variables definidas por el usuario para adaptar el análisis:</li>   
+<ul>
+   
 <li><code>PROVINCIA</code>: código INDEC de la provincia.</li>
-  
-<li><code>DEPTOS_ANALISIS</code>: lista de códigos de los departamentos a incluir.</li>
-  
+   
+<li>filtro_depto_o_estab: Colocar “DEPARTAMENTO” o “ESTABLECIMIENTO”, dependiendo si se va a analizar por departamento o por establecimiento de salud de carga.</li>
+   
+<li>area_progama_depto_localidad: Colocar “DEPARTAMENTO” o “LOCALIDAD”, dependiendo cómo se dividen las áreas programa.</li>
+   
+<li><code>DEPTOS_ANALISIS</code>: lista de códigos del INDEC de los departamentos a incluir.</li>
+   
+<li>EFECTOR_CARGA: lista de nombres completos de los establecimientos de salud que son Unidades Centinela de IRAG de Argentina.  </li>
+   
 <li><code>area_seleccionada_titulos</code>: nombre de la región para títulos de salida.</li>
-  
-<li><code>edad_max</code>: límite superior para valores extremos de edad.</li>
-  
-<li><code>anio_de_analisis</code>: año del análisis; si es el actual, se excluyen semanas recientes.</li>
-  
-<li><code>num_semana_previas_no_incluidas</code>: número de semanas excluidas por posibles demoras en carga.</li>
-  
-<li><code>determinacion_UCIRAG</code>: lista de determinaciones consideradas positivas para vigilancia centinela (COVID-19, Influenza, VSR). <strong>Importante:</strong> verificar coincidencia exacta con nombres en la base.</li>  
-</ul></li>  
-</ul>
-
-<li><code>IRAS.R</code>: script principal que coordina el análisis epidemiológico; ejecuta <code>input.R</code>, <code>funciones.R</code>, y <code>output_file_consideraciones.R</code>.</li>
-
+   
+<li>nombre_establecimiento_centinela: nombre del establecimiento de salud UCIRAG del que se hará el presente análisis epidemiológico.</li>
+   
+<li><code>edad_max</code>: límite superior para valores extremos de edad, a partir del cual se consideraría un registro sin dato de edad.</li>
+   
+<li><code>anio_de_analisis</code>: año del análisis; si es el actual, se excluyen semanas epidemiológicas recientes con el parámetro <code>num_semana_previas_no_incluidas, explicado a continuación</code>.</li>
+   
+<li>dia_de_corte_de_datos: día mes y año en el que se realizó la exportación de datos del SNVS 2.0 (mantener formatode fecha del ejemplo). </li>
+   
+<li><code>num_semana_previas_no_incluidas</code>: número de semanas epidemiológicas excluidas por posibles demoras de carga en el SNVS 2.0. Por ejemplo, el número 1 significa que únicamente la semana epidemiológica del dia_de_corte_de_datos está siendo excluida; y el número 2 significa que la semana actual (o en curso segun fecha de descarga “dia_de_corte_de_datos”)  y la previa están siendo excluidas. Valores subsiguientes respetan la misma logica.</li>
+   
+<li><code>determinacion_UCIRAG</code>: lista de determinaciones consideradas para en análisis de la información de la vigilancia centinela de IRAG (métodos moleculares, como PCR, de detección de SARS-CoV-2, Influenza, VSR). <strong>Importante:</strong> verificar coincidencia exacta con nombres en la base de datos exportada del SNVS 2.0.</li>
+ 
 <li><code>funciones.R</code>: contiene funciones auxiliares para procesar y transformar los datos.</li>
-
-<li><code>estrategiaCentinela.R</code>, <code>estrategiasVigi.R</code>: scripts que definen lógicas para diferentes enfoques de vigilancia.</li>
-
-<li><code>generacion_mapas.R</code>, <code>MAPAS.R</code>, <code>mapa_efectores.R</code>: scripts para generar mapas estáticos e interactivos con los resultados.</li>
-
-<li><code>output_file_consideraciones.R</code>: script que genera un archivo de texto con mensajes clave del análisis, incluyendo alertas, registros incompletos y validaciones del procesamiento. Este archivo actúa como un resumen de control de calidad y debe ser revisado al finalizar la ejecución del script <code>IRAS.R</code>. El archivo generado se guarda automáticamente en la carpeta <code>salidas/</code> con el nombre <code>Consideraciones_YYYY-MM-DD.txt</code>. Su contenido incluye:</li> 
+ 
+<li><code>output_file_consideraciones.R</code>: script que genera un archivo de texto con mensajes clave del análisis, incluyendo alertas, registros incompletos y validaciones del procesamiento. Este archivo actúa como un resumen de control de calidad y debe ser revisado al finalizar la ejecución del script <code>IRAS.R</code>. El archivo generado se guarda automáticamente en la carpeta <code>salidas/</code> con el nombre <code>Consideraciones_YYYY-MM-DD.txt</code>. Su contenido incluye:</li>  
 <ul>
- 
-<li>Identificación de la provincia y departamentos analizados.</li>
- 
-<li>Localidades sin correspondencia con un Área Programa.</li>
- 
-<li>Registros sin localidad o con edad inválida.</li>
- 
+  
+<li>Identificación de la provincia, departamentos y efectores analizados.</li>
+  
+<li>Localidades o departamentos sin correspondencia con un Área Programa.</li>
+  
+<li>Registros sin localidad o departamento de residencia o con edad inválida.</li>
+  
 <li>Identificadores de eventos con determinaciones conflictivas o faltantes.</li>
+  
+<li>Validación de determinaciones utilizadas en la estrategia de vigilancia centinela de IRAG.
+<p>
+
+        Este resumen es fundamental para identificar problemas en la carga de datos o inconsistencias en el procesamiento antes de continuar con la visualización o difusión de los resultados.
+</p></li>  
+</ul>
  
-<li>Validación de determinaciones utilizadas en la estrategia centinela.</li> 
+<li><code>estrategiaCentinela.R</code>:  script que describe el análisis a realizarse que aparecerá en el reporte automatizado de quarto.</li>
+ 
+<li><code>PARA BORRAR —--estrategiasVigi.R</code>: scripts que definen lógicas para diferentes enfoques de vigilancia.</li>
+ 
+<li><code>PARA BORRAR —----generacion_mapas.R</code>, <code>MAPAS.R</code>, script para generar mapas estáticos e interactivos con los resultados.</li>
+ 
+<li><code>mapa_efectores.R</code>: script para generar un mapas interactivo de la distribución geográfica de hospitales, establecimientos de salud rurales, laboratorio provincial y UCIRAG.</li> 
 </ul></li> 
 </ul>
-<p>
-Este resumen es fundamental para identificar problemas en la carga de datos o inconsistencias en el procesamiento antes de continuar con la visualización o difusión de los resultados.
-</p>
 <ul>
 
 <li><code>CLI.R</code>: script auxiliar para el análisis de la base <code>NEUQUEN_CLI_INTERNACIONES.csv</code>.</li>
 
-<li><code>input_colors.R</code>: este script contiene una lista (<code>parametros_css</code>) con todos los colores utilizados en la personalización visual del informe Quarto (<code>Unidad centinela Zapala.qmd</code>). Los usuarios pueden cambiar fácilmente el aspecto del reporte modificando los valores de color definidos en este archivo (por ejemplo, <code>color_fondo</code>, <code>color_link</code>, <code>color_tabla_fondo</code>, etc.). Una vez realizados los cambios deseados, basta con volver a hacer clic en "Render" sobre el archivo <code>.qmd</code> para que se actualicen los estilos.</li>
-
-<li><code>generacion_css.R</code>: este script utiliza los parámetros definidos en <code>input_colors.R</code> para generar automáticamente el archivo CSS utilizado por el informe. <strong>Este archivo no debe ser modificado manualmente.</strong></li>
+<li></li>
 </ul>
 <h3><strong>Templates y datos (<code>/templates</code>):</strong></h3>
 
@@ -278,9 +280,15 @@ Este resumen es fundamental para identificar problemas en la carga de datos o in
 <li><code>PROVINCIA</code> y <code>DEPTOS_ANALISIS</code> según la región de interés.</li>
  
 <li>Verificar y ajustar los nombres de las determinaciones en <code>determinacion_UCIRAG</code>.
-<hr></li> 
-</ul></li> 
+<h3>
+        <strong>4.3 Estilo del reporte</strong></h3>
+
+</li> 
+</ul>
+
+<li>Los usuarios pueden cambiar fácilmente el aspecto del reporte modificando los valores de color definidos en <code>input_colors.R </code>(por ejemplo, <code>color_fondo</code>, <code>color_link</code>, <code>color_tabla_fondo</code>, etc.). Una vez realizados los cambios deseados, basta con volver a hacer clic en "Render" sobre el archivo <code>.qmd</code> para que se actualicen los estilos.</li>
 </ol>
+<hr>
 <h2><strong>5. Ejecución del análisis IRAG</strong></h2>
 
 
@@ -355,3 +363,15 @@ Para compilar el informe:
 <li>Si aparecen errores, revisar los mensajes generados en <code>salidas/</code>.</li>
 </ul>
 <hr>
+
+<!-- Footnotes themselves at the bottom. -->
+
+<h2>Notes</h2>
+<div class="footnotes">
+<hr>
+<ol><li id="fn1">
+
+<p>
+     Ver definición en Guía teórica-conceptual.&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a>
+
+</ol></div>
