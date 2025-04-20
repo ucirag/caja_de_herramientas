@@ -29,7 +29,7 @@ El propósito de esta caja de herramientas involucra dejar capacidad instalada e
 
 La presente caja de herramientas está orientada a profesionales de distintas disciplinas o integrantes de los equipos de salud y de gestión de la salud que deseen obtener un reporte epidemiológico de la vigilancia centinela de IRAG utilizando la información del SNVS 2.0. 
 
-Como requerimientos mínimos para poder utilizar esta caja de herramientas se necesita la disponibilidad de una computadora con la instalación del programa R y RStudio con permisos para instalar paquetes nuevos. Es valorado el conocimiento básico de manejo de bases de datos y conocimientos en R. Como complemento para el manejo básico de R, ver apartado de [Enlaces de utilidad](#enlaces-de-utilidad).
+Como requerimientos mínimos para poder utilizar esta caja de herramientas se necesita la disponibilidad de una computadora con la instalación del programa R y RStudio con permisos para instalar paquetes nuevos.Además, sugerimos utilizar computadoras con al menos 8 GB de memoria RAM para una experiencia fluida, especialmente al trabajar con grandes volúmenes de datos. Es valorado el conocimiento básico de manejo de bases de datos y conocimientos en R. Como complemento para el manejo básico de R, ver apartado de [Enlaces de utilidad](#anexo).
 
 ## **_Contenido de la caja de herramientas_**
 
@@ -81,7 +81,7 @@ Es importante destacar que todos los documentos deben estar contenidos en una ú
 Para dar comienzo al uso de la caja de herramientas, se debe leer y seguir los pasos descriptos en la [Guía Operativa](https://ucirag.github.io/caja_de_herramientas/Guia_Operativa.html)
 
 # Anexo
-## **_Enlaces de utilidad para quienes se inician en R_**
+## Enlaces de utilidad para quienes se inician en R
 
 A continuación encontrarán enlaces de módulos, denominados “cápsulas”, que agrupan contenidos y habilidades de manera encadenada para el desarrollo de proyectos de automatización de reportes. Dichos materiales sientan las bases necesarias para un manejo básico del software R, facilitando la ejecución de la presente caja de herramientas.
 
