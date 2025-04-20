@@ -50,7 +50,7 @@ Se espera que los/as profesionales puedan elaborar un informe automatizado en fo
 
 **Figura 1: Diagrama de flujo sobre los documentos y procesos necesarios para la obtención de determinados resultados al utilizar la caja de herramientas.**
 
-![esquema](Documentación-adicional/esquema.Readme.png)
+![esquema](Documentación%20adicional/esquema.Readme.png)
 Fuente: Elaboración propia.
 
 
