@@ -1,1 +1,444 @@
+<head>
+  <meta charset="utf-8">
+  <title>Guía UCIRAG</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
 
+    body {
+      font-family: 'IBM Plex Mono', monospace;
+      background-color: #f9f9f9;
+      color: #2c3e50;
+      line-height: 1.6;
+      max-width: 850px;
+      margin: auto;
+      padding: 40px;
+    }
+
+    h1, h2, h3 {
+      color: #1a5276;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.3em;
+    }
+
+    code {
+      background-color: #eee;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #eee;
+      padding: 1em;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+
+    ul, ol {
+      padding-left: 2em;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin: 2em 0;
+    }
+
+    a {
+      color: #007acc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footnotes {
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    .footnotes hr {
+      margin-top: 3em;
+    }
+  </style>
+</head>
+
+
+
+<h1><strong>Guía teórico-conceptual para el análisis epidemiológico de Infecciones Respiratorias Agudas Graves (IRAG)</strong></h1>
+
+
+<p>
+<strong>Utilizando información del SNVS 2.0</strong>
+</p>
+<h2><strong>Introducción</strong></h2>
+
+
+<p>
+Esta guía forma parte de la caja de herramientas desarrollada para el análisis estandarizado de IRAG a partir de datos provenientes del SNVS 2.0. Su objetivo es brindar un marco teórico-metodológico que respalde el desarrollo del boletín epidemiológico automatizado, incluyendo supuestos, transformaciones y definiciones utilizadas en los scripts de procesamiento.
+</p>
+<p>
+Se recomienda su lectura luego de consultar el documento <strong>README.md</strong> y de manera complementaria a la <strong>Guía Operativa</strong>.
+</p>
+<h2><strong>1. Origen y características de los datos</strong></h2>
+
+
+<h3><strong>1.1 Base VR_NOMINAL</strong></h3>
+
+
+<p>
+Los datos nominales de casos IRAG se extraen de la base <code>VR_NOMINAL.csv</code>. La mayoría de sus variables están definidas en el documento:<br> <strong>Guía Operativa Vigilancia Centinela de IRAG. Anexo: Diccionario de variables (Mayo 2024)<br></strong> 📎<a href="https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-diccionario-de-variables.pdf"> Enlace al anexo</a>
+</p>
+<h3><strong>1.2 Archivos de soporte</strong></h3>
+
+
+<ul>
+
+<li><code>AREA_PROGRAMA.xls</code>: archivo que permite mapear cada localidad a un área programa, asociada al hospital cabecera.<br></li>
+
+<li><code>EFECTORES.xlsx</code>: listado de efectores utilizado para georreferenciación.<br></li>
+
+<li><code>NEUQUEN_CLI_INTERNACIONES.csv</code>: datos agrupados por internación, ajustables a cada provincia.<br></li>
+
+<li><code>INTERNACION POR SERVICIO.csv</code>: opcional, describe internaciones y % de hisopados por servicio.</li>
+</ul>
+<h2><strong>2. Parámetros del análisis</strong></h2>
+
+
+<p>
+r
+</p>
+<p>
+CopiarEditar
+</p>
+
+
+
+<pre class="prettyprint">PROVINCIA &lt;- 58
+DEPTOS_ANALISIS &lt;- c("58007","58021","58105","58112")
+anio_de_analisis &lt;- 2024
+fecha_de_descarga &lt;- 2024 # poner aca la fecha en la que se descargo el dataset
+num_semana_previas_no_incluidas &lt;- 2
+edad_max &lt;- 110
+
+<ul>
+
+<li>PROVINCIA: código de provincia a analizar seleccionado por el usuario. Todos los resultados tendrán aplicado este filtro. 
+</pre>
+
+</li>
+
+<li><strong>DEPTOS_ANALISIS</strong>: ID de departamentos a incluir.Todos los resultados tendrán aplicado este filtro al departamento de residencia.</li>
+
+<li><strong>anio_de_analisis</strong>: año del análisis seleccionado para el estudio. Los resultados se presentaran para este año seleccionado. En determinados analisis se incluira el año previo al año seleccionado para su comparación.</li>
+
+<li><strong>num_semana_previas_no_incluidas</strong>: Todos los resultados incluiran el filtro de semanas excluidas para evitar sesgos por demora en la carga.  Por ejemplo, si este parametro vale  2, se excluyen del analisis las 2 ultimas semanas epidemiologicas (la semana en curso + la semana cerrada previa) respecto a la <code>fecha_de_descarga </code>del sistema de información. </li>
+</ul>
+<h2><strong>3. Transformaciones de datos y nuevas variables</strong></h2>
+
+
+<p>
+A continuacion se listan y definien todas las nuevas variables generadas para el analisis que estaran disponibles en VR_NOMINAL_EVENTOCASO_FECHA.xlsx en la carpeta de salidas. 
+</p>
+<h3><strong>3.1 Variables de fechas</strong></h3>
+
+
+<ul>
+
+<li><strong>FECHA_CREADA</strong>: se genera con prioridad sobre FIS → FECHA_CONSULTA → DIAGNÓSTICO → APERTURA.<br></li>
+
+<li><strong>SEPI_CREADA</strong>: semana epidemiológica correspondiente a la FECHA_CREADA .<br></li>
+
+<li><strong>AÑO</strong>: extraído de FECHA_CREADA.<br></li>
+
+<li><strong>EDAD</strong>: calculada como diferencia entre FECHA_CREADA y FECHA_NACIMIENTO. Lo valores NA de esta variables corresponde a datos faltantes en variable  FECHA_NACIMIENTO o a un valor de edad que supera el parametro <code>edad_max</code>, que por defecto es 110. <br></li>
+
+<li><strong>UNIDEDAD</strong>: Representa la unidad en la que se registra la edad en la variable EDAD. Toma los siguientes valores :  1 si edad está registrada en meses, 2 si está registrada en años.<br></li>
+</ul>
+<h3><strong>3.2 Grupos de edad</strong></h3>
+
+
+<ul>
+
+<li><strong>GRUPO_ETARIO2</strong>: pensado para evaluar efectividad de vacuna VSR.<br></li> 
+<ul>
+ 
+<li>&lt;6 meses, 6m-&lt;2a, 2–4a, 5–9a, 10–14a, 15–19a, etc.<br></li> 
+</ul>
+
+<li><strong>GRUPO</strong>: genérico para análisis poblacional.<br></li> 
+<ul>
+ 
+<li>10–14, 25–34, 35–44, >65.</li> 
+</ul></li> 
+</ul>
+<h2><strong>4. Transformación de registros múltiples.</strong></h2>
+
+
+<p>
+En el sistema de vigilancia IRAG, las variables <strong>SIGNO_SINTOMAS</strong>, <strong>COMORBILIDAD</strong> y <strong>DETERMINACIÓN</strong> se registran en formato multiregistro, es decir, cada evento puede tener múltiples registros asociados a distintas categorías de cada una de estas variables (que fueros registradas con opcion multiple). Este formato, aunque útil para carga y almacenamiento, no es óptimo para el análisis automatizado o tabulación directa. Por ello, se implementa un proceso de transformación que convierte a los niveles de estas variables en columnas dicotómicas de una base plana, donde cada fila representa un evento único (IDEVENTOCASO unico).
+</p>
+<h4><strong>Objetivo de la transformación</strong></h4>
+
+
+<p>
+La finalidad de este proceso es:
+</p>
+<ul>
+
+<li>Facilitar el análisis por evento (unidad de análisis).<br></li>
+
+<li>Permitir la aplicación directa de funciones estadísticas, filtros y visualizaciones sobre síntomas, comorbilidades y determinaciones.<br></li>
+
+<li>Estandarizar la estructura de la base para mejorar su legibilidad y compatibilidad con otras herramientas.</li>
+</ul>
+<h4><strong>Descripción del proceso</strong></h4>
+
+
+<p>
+Para las variables <code>SIGNO_SINTOMAS</code> y <code>COMORBILIDAD</code>, cada categoría observada se transforma en una <strong>columna binaria</strong> que indica su presencia (<code>1</code>) o ausencia (<code>0</code>) en ese evento.
+</p>
+<p>
+En cambio, en el caso de <code>DETERMINACIÓN</code>, cada categoría se transforma en una columna <strong>que toma el valor del resultado asociado</strong> (por ejemplo: <code>"Detectable"</code>, <code>"No detectable"</code>, <code>"Positivo"</code>), extraído de la columna <code>RESULTADO</code>.
+</p>
+
+<table>
+  <tr>
+   <td><strong>Variable original</strong>
+   </td>
+   <td><strong>Prefijo generado</strong>
+   </td>
+   <td><strong>Ejemplo de columna creada</strong>
+   </td>
+   <td><strong>Valor posible</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>SIGNO_SINTOMAS
+   </td>
+   <td><code>SINTOMA_</code>
+   </td>
+   <td><code>SINTOMA_Fiebre</code>
+   </td>
+   <td>1 / 0
+   </td>
+  </tr>
+  <tr>
+   <td>COMORBILIDAD
+   </td>
+   <td><code>COMORB_</code>
+   </td>
+   <td><code>COMORB_Asma</code>
+   </td>
+   <td>1 / 0
+   </td>
+  </tr>
+  <tr>
+   <td>DETERMINACIÓN
+   </td>
+   <td><code>DETERMINACION_</code>
+   </td>
+   <td><code>DETERMINACION_Genoma_SARS_CoV2</code>
+   </td>
+   <td>"Detectable", "No detectable", etc.
+   </td>
+  </tr>
+</table>
+
+
+<p>
+🔍 Importante: las nuevas variables <strong>no se basan en un diccionario predefinido</strong>, sino que se generan dinámicamente según las categorías existentes en el conjunto de datos original (VR_NOMINAL). Esto implica que nuevos niveles detectadas en futuras cargas generarán automáticamente nuevas columnas.
+</p>
+<h4><strong>Lógica de asignación</strong></h4>
+
+
+<ul>
+
+<li>Para las columnas <code>SINTOMA_</code> y <code>COMORB_</code>, se asigna:<br></li> 
+<ul>
+ 
+<li><code>1</code> si la categoría está presente para el evento.<br></li>
+ 
+<li><code>0</code> si está ausente.<br></li> 
+</ul>
+
+<li>Para las columnas <code>DETERMINACION_</code>, los valores pueden ser:<br></li> 
+<ul>
+ 
+<li><code>"Positivo"</code> o <code>"Detectable"<br></code></li>
+ 
+<li><code>"Negativo"</code> o <code>"No detectable"<br></code></li>
+ 
+<li><code>"Pendiente de revisión"</code>: utilizado como marca de alerta ante datos incompletos o contradictorios.</li>
+ 
+<li><code>NA : </code>Sin registro de determinación.</li> 
+</ul></li> 
+</ul>
+<p>
+
+
+<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline drawings not supported directly from Docs. You may want to copy the inline drawing to a standalone drawing and export by reference. See <a href="https://github.com/evbacher/gd2md-html/wiki/Google-Drawings-by-reference">Google Drawings by reference</a> for details. The img URL below is a placeholder. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
+
+
+<img src="https://docs.google.com/drawings/d/12345/export/png" width="80%" alt="drawing">
+
+</p>
+<h4><strong>Variables complementarias generadas</strong></h4>
+
+
+<ul>
+
+<li><code>DETERMINACION_SIN_DATO</code>:<br> Variable que toma el valor <code>1</code> cuando <strong>no hay ninguna determinación cargada</strong> para el evento. Esta información es clave para evaluar la completitud del registro y para excluir casos no estudiados.<br></li>
+
+<li><code>determinacion_dico</code>:<br> Variable resumen que toma:<br></li> 
+<ul>
+ 
+<li><code>1</code> si <strong>alguna</strong> columna <code>DETERMINACION_</code> tiene resultado Positivo/Detectable.<br></li>
+ 
+<li><code>0</code> si <strong>todas</strong> las determinaciones presentes son Negativas/No detectables.<br></li>
+ 
+<li><code>99</code> si <code>DETERMINACION_NINGUNA == 1</code>.<br>
+<h4>
+        <strong>Automatización del proceso</strong></h4>
+
+</li> 
+</ul></li> 
+</ul>
+<p>
+Todo el procedimiento está encapsulado en la función <code>funcion_procesa_sintomas_mejorada.R</code>, la cual:
+</p>
+<ul>
+
+<li>Aplica la transformación multiregistro → base plana.<br></li>
+
+<li>Crea automáticamente las columnas necesarias.<br></li>
+
+<li>Maneja casos incompletos o inconsistentes.<br></li>
+
+<li>Devuelve una base de eventos lista para análisis.</li> 
+<ul>
+ 
+<li></li> 
+</ul></li> 
+</ul>
+<h2><strong>5. Variables clave del análisis</strong></h2>
+
+
+<ul>
+
+<li><strong>DETERMINACION_NINGUNA</strong>: vale 1 si el evento no tiene determinaciones cargadas.<br></li>
+
+<li><strong>determinacion_dico</strong>: variable resumen:<br></li> 
+<ul>
+ 
+<li>1 si hay al menos un resultado Positivo/Detectable<br></li>
+ 
+<li>0 si todos los resultados son Negativos/No detectables<br></li>
+ 
+<li>99 si no hay ninguna determinación<br></li> 
+</ul>
+
+<li><strong>CALIDAD_TOMA_PCR</strong>: vale 1 si hay PCR para los tres virus centinela (COVID, Influenza, VSR).</li>
+</ul>
+<h2><strong>6. Análisis espacial y generación de mapas</strong></h2>
+
+
+<p>
+Como parte del informe final, se incluyó una sección con mapas temáticos que permiten visualizar la distribución de casos, signos y síntomas, determinaciones positivas y otras variables relevantes, según unidades geográficas subnacionales.
+</p>
+<h4><strong>Obtención de límites administrativos</strong></h4>
+
+
+<p>
+Para la construcción de los mapas, se utilizaron límites administrativos de segundo nivel (departamentos) provistos por el Instituto Geográfico Nacional (IGN). Se desarrolló una <strong>función personalizada en R</strong> que accede dinámicamente a los datos geoespaciales mediante el servicio <strong>WFS (Web Feature Service)</strong> del IGN, montado sobre una plataforma GeoServer.
+</p>
+<p>
+Esta función permite <strong>filtrar y descargar directamente desde el servidor solo la información geográfica correspondiente a la provincia de interés</strong>, utilizando el campo <code>in1</code> como código territorial de referencia. Este enfoque optimiza el uso de recursos y reduce los tiempos de procesamiento, evitando la descarga de capas innecesarias.
+</p>
+<p>
+La capa utilizada corresponde a <strong><code>ign:departamento</code></strong>, que contiene información detallada de cada unidad administrativa departamental, incluyendo:
+
+<ul>
+
+<li><code>id</code> y <code>gid</code>: identificadores únicos.<br></li>
+
+<li><code>objeto</code>: tipo de entidad geográfica.<br></li>
+
+<li><code>fna</code> y <code>gna</code>: nombres del departamento.<br></li>
+
+<li><code>nam</code>: nombre de la provincia.<br></li>
+
+<li><code>in1</code>: código territorial del departamento.<br></li>
+
+<li><code>fdc</code>: fuente de los datos cartográficos.<br></li>
+
+<li><code>sag</code>: sistema de actualización geográfica.<br></li>
+
+<li><code>geometry</code>: geometría en formato multipolígono, sistema de referencia WGS 84 (EPSG:4326).<br></li>
+</ul>
+<h4><strong>Integración y visualización</strong></h4>
+
+
+<p>
+Este enfoque presenta múltiples ventajas metodológicas. En primer lugar, permite acceder de forma automatizada y dinámica a la capa oficial de límites administrativos departamentales del país, evitando la necesidad de que el usuario busque, descargue y cargue manualmente archivos shapefile desde fuentes externas. Al utilizar directamente el servicio WFS del Instituto Geográfico Nacional, se garantiza la utilización de la versión más actualizada, estandarizada y validada a nivel nacional de los datos geoespaciales. Esto no solo mejora la eficiencia del flujo de trabajo, sino que también asegura la coherencia territorial con otras fuentes oficiales y contribuye a la reproducibilidad y comparabilidad del análisis en distintos contextos jurisdiccionales.
+</p>
+<h2><strong>7. Vigilancia Centinela</strong></h2>
+
+
+<p>
+Para construir la variable <strong>COLUMNA_CENTINELA</strong>, se consideran las siguientes determinaciones:
+</p>
+<p>
+r
+</p>
+
+
+
+<pre class="prettyprint">columnas_centinela &lt;- c(
+  "DETERMINACION_Detección de Antígeno de SARS CoV-2",
+  "DETERMINACION_Genoma viral SARS-CoV-2",
+  "DETERMINACION_Detección molecular de Bocavirus",
+  "DETERMINACION_Genoma viral de Enterovirus",
+  "DETERMINACION_Genoma viral de Parainfluenza 4"
+)
+</pre>
+
+
+<p>
+Podés modificar la lista según cambios en la estrategia..
+</p>
+<h2><strong>7. Asignación de área programa</strong></h2>
+
+
+<p>
+La variable <strong>LOCALIDAD_RESIDENCIA_AREA</strong> agrupa pequeñas localidades y parajes según su hospital de referencia.<br> Se crea utilizando <code>AREA_PROGRAMA.xlsx</code>. Si alguna localidad no tiene asignación, se genera un reporte para su corrección manual.
+</p>
+<h2><strong>8. Resultados esperados del script</strong></h2>
+
+
+<ul>
+
+<li>Dataset de eventos con estructura limpia y transformada.<br></li>
+
+<li>Variables listas para análisis de síntomas, comorbilidades y determinaciones.<br></li>
+
+<li>Grupos de edad definidos para múltiples fines.<br></li>
+
+<li>Reporte automatizado de calidad de datos.<br></li>
+
+<li>Modularización del código para facilitar su adaptación.<br></li>
+
+<li>Funciones para la creación automática de tablas y gráficos.</li>
+</ul>
+<h2><strong>9. Observaciones finales</strong></h2>
+
+
+<ul>
+
+<li>El procesamiento de síntomas, comorbilidades y determinaciones  se realiza con la funcion <code>algoritmo_1()</code>que se encuentra en el archivo <code>funciones.R</code><br></li>
+
+<li>Se recomienda revisar con frecuencia el archivo de áreas programa y adaptar los templates al contexto local.<br></li>
+
+<li>Esta guía debe actualizarse ante cambios en el modelo de datos, nomenclatura o estrategias de vigilancia.<br></li>
+</ul>
