@@ -33,8 +33,8 @@ editor_options:
 source("scripts/install.packages.R")
 source("scripts/input_colors.R")
 source("scripts/generacion_css.R")
-source("scripts/IRAS.R")
-source("scripts/estrategiaCentinela.R")
+source("scripts/procesamiento_IRA.R")
+source("scripts/analisis_UCIRAG.R")
 source("scripts/nombre_prov.R")
 #source("scripts/CLI.r")
 
@@ -46,17 +46,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Vigilancia centinela de Infecciones Respiratorias Agudas Graves (IRAG) - `r area_seleccionada_titulos`
+# Vigilancia centinela de Infecciones Respiratorias Agudas Graves (IRAG) - `r area_seleccionada_titulos` - `r nombre_provincia`
 
 La vigilancia centinela implica la recolección de datos en forma sistemática y oportuna, a través de un número limitado de establecimientos seleccionados en base a ciertos criterios preespecificados.
 
 El hospital `r nombre_establecimiento_centinela` , de la provincia `r nombre_provincia`, fue seleccionado para pertenecer a la Red Argentina de Vigilancia Centinela de IRAG.
 
-Dentro de este marco, se realizó el presente reporte, el cual contiene un análisis de la información epidemiológica, clínica y de laboratorio de la estrategia de vigilancia centinela de infecciones respiratorias agudas graves (IRAG) del Hospital `r nombre_establecimiento_centinela`, de la provincia `r PROVINCIA`, desde la SE `r SE_MAX_UCI`al `r SE_MAX_UCI` del año `r max_anio`.\
+Dentro de este marco, se realizó el presente reporte, el cual contiene un análisis de la información epidemiológica, clínica y de laboratorio de la estrategia de vigilancia centinela de infecciones respiratorias agudas graves (IRAG) del Hospital `r nombre_establecimiento_centinela`, de la provincia de `r PROVINCIA`, desde la SE `r SE_MIN_UCI`al `r SE_MAX_UCI` del año `r max_anio`.\
 
 En resumen, este material tiene el objetivo de difundir la información a los equipos de salud sobre el monitoreo de indicadores de transmisibilidad, severidad e impacto de las IRAG, así como la estimación de la efectividad de las intervenciones contribuyendo a la toma de decisiones e implementación de medidas de prevención y control ante eventos causados por virus respiratorios (VR) (Ver [Anexo I](#anexo-i) para mayor detalle).
 
-Figura 1: Mapa de establecimiento de salud d ela provincia: Distribución geográfica y caracterización según tipo . `r nombre_provincia`, `r mes_SE_MAX_UCI_nombre` año `r mes_SE_MAX_UCI_nombre`.
+**Figura 1: Mapa de establecimiento de salud d ela provincia: Distribución geográfica y caracterización según tipo . `r nombre_provincia`, `r mes_SE_MAX_UCI_nombre` año `r mes_SE_MAX_UCI_nombre`.**
 
 ```{r}
 #| echo: false
@@ -145,28 +145,27 @@ Criterio de exclusión[\*](#section):
 
 -   Se excluye la internación abreviada como por ejemplo la observación en hospital de día, centro de diálisis, cirugía ambulatoria, entre otros.
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| IMPORTANTE                                                                                                                                                                                                                                                                                           |
-+======================================================================================================================================================================================================================================================================================================+
+| IMPORTANTE |
+|------------------------------------------------------------------------|
 | Las UC IRAG deberán estudiar las muestras para **SARS-CoV-2, Influenza y VSR por métodos moleculares**, y notificar a todas las personas internadas con criterio clínico de internación por IRAG e IRAG extendida (en \<2 años y \>= 60 años) (Ver [ANEXO III](#anexo-iii) y [ANEXO IV](#anexo-iv)). |
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Además, cuando se notifique en el SNVS 2.0, es necesario completar la información clínica (signos y síntomas, comorbilidades y factores de riesgo, tratamientos) y los antecedentes epidemiológicos incluyendo los antecedentes de vacunación, según los protocolos vigentes. En la sección tratamiento, consignar los tratamientos de Oseltamivir administrados en cada caso. 
 
 \
 Se deberá notificar de forma nominal, en la solapa evento, la clasificación manual del caso como IRAG o IRAG extendida, según corresponda (Ver [ANEXO IV](#anexo-iv)).
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| #### \* {#section}                                                                                                                                                                                                                                                                              |
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| IMPORTANTE: Todo caso internado y/o fallecido con diagnóstico por laboratorio de SARS-CoV-2, Influenza y/o VSR (fuera de la estrategia de las Unidades centinela de IRAG) debe ser notificado bajo el evento de vigilancia universal: “SARS-COV-2, Influenza y VSR en Internado y/o fallecido”. |
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+#### \*/ {#section}
+
+|  |
+|------------------------------------------------------------------------|
+| IMPORTANTE: |
+| Todo caso internado y/o fallecido con diagnóstico por laboratorio de SARS-CoV-2, Influenza y/o VSR (fuera de la estrategia de las Unidades centinela de IRAG) debe ser notificado bajo el evento de vigilancia universal: “SARS-COV-2, Influenza y VSR en Internado y/o fallecido”. |
 
 Para mayor información de la estrategia de vigilancia centinela de IRAG consultar en: <https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-vff.pdf>
 
 ## Vigilancia centinela de IRAG - Notificación agrupada
 
-Gráfico 1. Ingresos totales a internacion por otras causas y por IRAG por semana y Año. Hasta `r ultima_semana_incluida`.N= Ver que n poner
+Gráfico 1. Ingresos totales a internacion por otras causas y por IRAG por semana y Año. Hasta `r ultima_semana_valida`.N= Ver que n poner
 
 ```{r agrupado 1}
 #| echo: false
@@ -175,7 +174,7 @@ Gráfico 1. Ingresos totales a internacion por otras causas y por IRAG por seman
 
 ## Vigilancia centinela de IRAG - Notificación nominal
 
-**Figura 2: Casos acumulados y % de positividad de IRAG notificados, estudiados por laboratorio y confirmados para SARS-CoV-2, Influenza y/o VSR, según agente etiológico. UCIRAG** `r nombre_establecimiento_centinela`**,**`r nombre_provincia.`**SE `r SE_MIN_UCI` a SE`r SE_MAX_UCI`. Año `r anio_de_analisis`. N= `r N_testeos_UCI`.**
+**Figura 2: Casos acumulados y % de positividad de IRAG notificados, estudiados por laboratorio y confirmados para SARS-CoV-2, Influenza y/o VSR, según agente etiológico. UCIRAG** `r nombre_establecimiento_centinela`**,**`r nombre_provincia`**SE `r SE_MIN_UCI` a SE`r SE_MAX_UCI`. Año `r anio_de_analisis`. N= `r N_testeos_UCI`.**
 
 ```{r tabla 4}
 #| echo: false
@@ -219,7 +218,7 @@ tabla_estilizada2
 
 ### Análisis por semana epidemiológica
 
-**Figura 3: Distribución temporal de Casos de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por semana epidemiológica. UCIRAG** `r nombre_establecimiento_centinela`**,** `r nombre_provincia.`**SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`.**
+**Figura 3: Distribución temporal de Casos de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por semana epidemiológica. UCIRAG** `r nombre_establecimiento_centinela`**,** `r nombre_provincia`**SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`.**
 
 ```{r}
 #| echo: false
@@ -259,7 +258,7 @@ Fuente: elaboración propia con datos de .....
 
 #### Por agente etiológico
 
-**Figura 5. Distribución temporal de % de positividad y determinaciones notificadas de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por semana epidemiológica y agente etiológico. UCIRAG `r nombre_establecimiento_centinela`,** `r nombre_provincia.` **SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
+**Figura 5. Distribución temporal de % de positividad y determinaciones notificadas de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por semana epidemiológica y agente etiológico. UCIRAG `r nombre_establecimiento_centinela`,** `r nombre_provincia` **SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
 
 ```{r Gráfico 13}
 #| echo: false
@@ -310,7 +309,7 @@ highchart() %>%
 
 ```
 
-**Figura 6. Distribución de proporcion semanal de determinaciones de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por semana epidemiológica y etiología. UCIRAG `r nombre_establecimiento_centinela`,** `r nombre_provincia.`**SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
+**Figura 6. Distribución de proporcion semanal de determinaciones de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR, por semana epidemiológica y etiología. UCIRAG `r nombre_establecimiento_centinela`,** `r nombre_provincia`**SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
 
 ```{r}
 #| echo: false
@@ -368,7 +367,7 @@ hc
 
 ### Análisis por grupo de edad
 
-**Figura 7: Distribución por grupo de edad de Casos de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR,. UCIRAG `r nombre_establecimiento_centinela`,** `r nombre_provincia.`**SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`.**
+**Figura 7: Distribución por grupo de edad de Casos de IRAG estudiados por laboratorio para SARS-CoV-2, Influenza y/o VSR,. UCIRAG `r nombre_establecimiento_centinela`,** `r nombre_provincia`**SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`.**
 
 ```{r}
 #| echo: false
@@ -533,7 +532,7 @@ plot
 #   )
 ```
 
-## Signos, síntomas y comorbilidades
+## Análisis de Signos, síntomas y comorbilidades
 
 ```{=html}
 <div class="recuadro-transparente">
@@ -543,7 +542,7 @@ plot
 </div>
 ```
 
-Figura 10: Combinaciones de signos y síntomas registrados en casos positivos de IRAG confirmados por laboratorio, UCIRAG XX, SE 18/24 a SE XX/25.N= `r N_testeos_positivos_UCI`
+**Figura 10: Combinaciones de signos y síntomas registrados en casos positivos de IRAG confirmados por laboratorio, UCIRAG `r nombre_establecimiento_centinela`, SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
 
 ```{r}
 #| echo: false
@@ -553,7 +552,7 @@ signos_upset
 
 ```
 
-Figura 11: Combinaciones de comorbilidades registradas en casos positivos de IRAG confirmados por laboratorio, UCIRAG XX, SE 18/24 a SE XX/25.N= `r N_testeos_positivos_UCI`
+**Figura 11: Combinaciones de comorbilidades registradas en casos positivos de IRAG confirmados por laboratorio, UCIRAG `r nombre_establecimiento_centinela`, SE `r SE_MIN_UCI`/`r anio_de_analisis` a SE `r SE_MAX_UCI`/`r anio_de_analisis`. N= `r N_testeos_positivos_UCI`**
 
 ```{r}
 #| echo: false
@@ -562,9 +561,9 @@ Figura 11: Combinaciones de comorbilidades registradas en casos positivos de IRA
 comorb_upset
 ```
 
-### Días de internación
+## Análisis de días de internación 
 
-Figura 12. Dias de internación según tipo de requerimiento de cuidado y determinación en casos positivos para la Unidad Centinela de Infección Respiratoria Aguda Grave (UC-IRAG) notificados en la Región del Pehuén. SE `r SE_MIN_UCI` a `r SE_MAX_UCI`.Año 2024. N= `r N_testeos_positivos_UCI`
+**Figura 12. Dias de internación según tipo de requerimiento de cuidado y determinación en casos positivos para la Unidad Centinela de Infección Respiratoria Aguda Grave (UC-IRAG) notificados en la Región del Pehuén. SE `r SE_MIN_UCI` a `r SE_MAX_UCI`.Año 2024. N= `r N_testeos_positivos_UCI`**
 
 ```{r tabla 5}
 #| echo: false
@@ -593,7 +592,9 @@ tabla_estilizada
 
 ```
 
-Tabla 6. N° de hisopados realizados en la Unidad Centinela de Infección Respiratoria Aguda Grave (UC-IRAG) según servicio. SE `r SE_MIN_UCI` a `r SE_MAX_UCI`. Año 2024.N= `r N_testeos_positivos_UCI`
+## Análisis por servicio 
+
+Tabla 6. N° de hisopados realizados en la Unidad Centinela de Infección Respiratoria Aguda Grave (UC-IRAG) según servicio. SE `r SE_MIN_UCI` a `r SE_MAX_UCI`. Año 2024. N= `r N_testeos_positivos_UCI`
 
 ```{r tabla 6}
 #| echo: false

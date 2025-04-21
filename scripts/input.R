@@ -35,8 +35,8 @@ DEPTOS_ANALISIS <- c("58007","58021","58105","58112") # SELECCION DE LA REGION D
 
 EFECTOR_CARGA <- c("nombre completo de establecimiento1","nombre completo de establecimiento2")#### variables de nombre del establecimeinto."ESTABLECIMIENTO_CARGA"
 
-area_seleccionada_titulos <- "la Región del Pehuén"
-nombre_establecimiento_centinela <- "Hospital de Zapala blablabla y bccc"
+area_seleccionada_titulos <- "Región del Pehuén"
+nombre_establecimiento_centinela <- "Hospital de Zapala"
 
 # Limite de edad para considerar a un registro sin dato de edad
 edad_max <- 110
