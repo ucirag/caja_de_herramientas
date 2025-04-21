@@ -277,11 +277,14 @@ En cambio, en el caso de <code>DETERMINACIÓN</code>, cada categoría se transfo
 </ul>
 <p>
 
+<div style="background-color: #fef7e0; border-left: 6px solid #f39c12; padding: 1em; margin: 1.5em 0; font-family: 'IBM Plex Mono', monospace;">
+  <strong>Nota sobre resultados contradictorios:</strong><br><br>
+  Cuando una determinación presenta <strong>resultados contradictorios</strong> para un mismo <code>IDEVENTOCASO</code> (por ejemplo, "Detectable" y "No detectable"), se prioriza el valor <strong>Detectable</strong>, siempre que exista una <code>FECHA_ESTUDIO</code> cargada para esa determinación.<br><br>
+  Si la fecha de estudio no estuviera disponible, la celda correspondiente toma el valor:<br>
+  <code>Detectable,No detectable;Pendiente de revisión</code>.<br><br>
+  Además, se creará una columna adicional llamada <code>Pendiente_de_revision</code> y se asignará el valor <code>1</code> para esos <code>IDEVENTOCASO</code>, indicando que requieren una <strong>corrección manual</strong>.
+</div>
 
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline drawings not supported directly from Docs. You may want to copy the inline drawing to a standalone drawing and export by reference. See <a href="https://github.com/evbacher/gd2md-html/wiki/Google-Drawings-by-reference">Google Drawings by reference</a> for details. The img URL below is a placeholder. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-<img src="https://docs.google.com/drawings/d/12345/export/png" width="80%" alt="drawing">
 
 </p>
 <h4><strong>Variables complementarias generadas</strong></h4>
