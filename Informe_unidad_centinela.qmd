@@ -33,11 +33,9 @@ editor_options:
 source("scripts/install.packages.R")
 source("scripts/input_colors.R")
 source("scripts/generacion_css.R")
-source("scripts/procesamiento_IRA.R")
+source("scripts/Inicial.R")
 source("scripts/analisis_UCIRAG.R")
 source("scripts/nombre_prov.R")
-#source("scripts/CLI.r")
-
 
 knitr::opts_chunk$set(
   dev = "png",
@@ -52,11 +50,11 @@ La vigilancia centinela implica la recolección de datos en forma sistemática y
 
 El hospital `r nombre_establecimiento_centinela` , de la provincia `r nombre_provincia`, fue seleccionado para pertenecer a la Red Argentina de Vigilancia Centinela de IRAG.
 
-Dentro de este marco, se realizó el presente reporte, el cual contiene un análisis de la información epidemiológica, clínica y de laboratorio de la estrategia de vigilancia centinela de infecciones respiratorias agudas graves (IRAG) del Hospital `r nombre_establecimiento_centinela`, de la provincia de `r PROVINCIA`, desde la SE `r SE_MIN_UCI`al `r SE_MAX_UCI` del año `r max_anio`.\
+Dentro de este marco, se realizó el presente reporte, el cual contiene un análisis de la información epidemiológica, clínica y de laboratorio de la estrategia de vigilancia centinela de infecciones respiratorias agudas graves (IRAG) del `r nombre_establecimiento_centinela`, de la provincia de `r nombre_provincia`, desde la SE `r SE_MIN_UCI` a la SE `r SE_MAX_UCI` del año `r max_anio`.\
 
 En resumen, este material tiene el objetivo de difundir la información a los equipos de salud sobre el monitoreo de indicadores de transmisibilidad, severidad e impacto de las IRAG, así como la estimación de la efectividad de las intervenciones contribuyendo a la toma de decisiones e implementación de medidas de prevención y control ante eventos causados por virus respiratorios (VR) (Ver [Anexo I](#anexo-i) para mayor detalle).
 
-**Figura 1: Mapa de establecimiento de salud d ela provincia: Distribución geográfica y caracterización según tipo . `r nombre_provincia`, `r mes_SE_MAX_UCI_nombre` año `r mes_SE_MAX_UCI_nombre`.**
+**Figura 1: Mapa de establecimiento de salud d ela provincia: Distribución geográfica y caracterización según tipo . `r nombre_provincia`, `r mes_SE_MAX_UCI_nombre`/`r anio_de_analisis.**
 
 ```{r}
 #| echo: false
@@ -165,11 +163,53 @@ Para mayor información de la estrategia de vigilancia centinela de IRAG consult
 
 ## Vigilancia centinela de IRAG - Notificación agrupada
 
-Gráfico 1. Ingresos totales a internacion por otras causas y por IRAG por semana y Año. Hasta `r ultima_semana_valida`.N= Ver que n poner
+**Gráfico 1. Cantidad de Ingresos totales a internación por otras causas y por IRAG/IRAG Extendida por Semana Epidemiológica. UCIRAG `r nombre_establecimiento_centinela`,`r nombre_provincia`SE `r SE_MIN_UCI` a SE`r SE_MAX_UCI`. Año `r anio_de_analisis`. N= `r n_tabla_agrupado1`**
 
 ```{r agrupado 1}
 #| echo: false
-# grafico_1
+
+highchart() %>%
+  hc_chart(type = "column") %>%
+  hc_xAxis(categories = tabla_agrupado1$semana_label, title = list(text = "Semana")) %>%
+  hc_yAxis(title = list(text = "Número de ingresos")) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    pointPadding = 0.05,   # ↓ menor padding = columnas más anchas
+    groupPadding = 0.05    # ↓ menos espacio entre grupos
+  )) %>%
+  hc_add_series(name = "Otros ingresos", data = tabla_agrupado1$ingresos_otros, type = "column", color = "lightgrey" ) %>%
+  hc_add_series(name = "IRAG extendida", data = tabla_agrupado1$ingresos_irag_ext, type = "column", color = "#7ac2a3") %>%
+  hc_add_series(name = "IRAG", data = tabla_agrupado1$ingresos_irag, type = "column", color = "#C27E79") %>%
+  hc_tooltip(shared = TRUE)
+
+```
+
+**Gráfico 1. Distribucion porcentual semanal de Ingresos totales a internación por otras causas y por IRAG/IRAG Extendida por Semana Epidemiológica. UCIRAG `r nombre_establecimiento_centinela`,`r nombre_provincia`SE `r SE_MIN_UCI` a SE`r SE_MAX_UCI`. Año `r anio_de_analisis`. N= `r n_tabla_agrupado1`**
+
+```{r}
+#| echo: false
+
+highchart() %>%
+  hc_chart(type = "column") %>%
+  hc_xAxis(categories = tabla_agrupado1$semana_label, title = list(text = "Semana")) %>%
+  hc_yAxis(
+    title = list(text = "Porcentaje de ingresos"),
+    labels = list(format = "{value}%"),  # muestra el eje Y en porcentaje
+    max = 100  # escala de 0 a 1 para stacking "percent"
+  ) %>%
+  hc_plotOptions(column = list(
+    stacking = "percent",    # <- apilado al 100%
+    pointPadding = 0.05,
+    groupPadding = 0.05
+  )) %>%
+  hc_add_series(name = "Otros ingresos", data = tabla_agrupado1$ingresos_otros, type = "column", color = "lightgrey") %>%
+  hc_add_series(name = "IRAG extendida", data = tabla_agrupado1$ingresos_irag_ext, type = "column", color = "#7ac2a3") %>%
+  hc_add_series(name = "IRAG", data = tabla_agrupado1$ingresos_irag, type = "column", color = "#C27E79") %>%
+  hc_tooltip(
+    shared = TRUE,
+    pointFormat = "<span style='color:{point.color}'>●</span> {series.name}: <b>{point.percentage:.1f}%</b> ({point.y})<br/>"
+  ) 
+
 ```
 
 ## Vigilancia centinela de IRAG - Notificación nominal
@@ -266,8 +306,10 @@ Fuente: elaboración propia con datos de .....
 
 # Preparar los datos para el gráfico
 DATOS_UCI <- CASOS_UCI_SE_det %>%
-  select(-No_detectable, -Total_testeos, -positividad) %>% 
-pivot_wider(names_from = DETERMINACION, values_from = Detectable)
+  select(-No_detectable, -Total_testeos, -positividad, -Sin_resultado) %>%
+  pivot_wider(names_from = DETERMINACION, values_from = Detectable) %>%
+  mutate(semana_label = paste0(AÑO, " - SE ", str_pad(SEPI_CREADA, 2, pad = "0")))
+
 
 colores <- c(
   "Influenza A" = "#1f77b4",   # azul
@@ -280,7 +322,7 @@ colores <- c(
 highchart() %>%
   hc_chart(type = "column") %>%
   hc_colors(unname(colores)) %>%
-  hc_xAxis(categories = DATOS_UCI$SEPI_CREADA, title = list(text = "SE")) %>%
+  hc_xAxis(categories = DATOS_UCI$semana_label, title = list(text = "SE")) %>%
   hc_yAxis_multiples(
     list( # Eje primario (izquierda)
       title = list(text = "Nº de determinaciones positivas"),
@@ -292,7 +334,11 @@ highchart() %>%
       max = 100 # Si estás usando porcentaje
     )
   ) %>%
-  hc_plotOptions(column = list(stacking = "normal")) %>%
+  hc_plotOptions(column = list(
+    stacking = "normal",
+    pointPadding = 0.05,   # ↓ menor padding = columnas más anchas
+    groupPadding = 0.05    # ↓ menos espacio entre grupos
+  )) %>%
   hc_add_series(name = "Influenza A", data = DATOS_UCI$`Influenza A`) %>%
   hc_add_series(name = "Influenza B", data = DATOS_UCI$`Influenza B`) %>%
   hc_add_series(name = "Sars-Cov-2", data = DATOS_UCI$`Sars-Cov-2`) %>%
@@ -320,21 +366,21 @@ virus_validos <- c("Influenza A", "Influenza B", "Sars-Cov-2", "VSR")
 # Preparar datos
 df_plot <- CASOS_UCI_SE_det %>%
   filter(DETERMINACION %in% virus_validos) %>%
-  group_by(SEPI_CREADA) %>%
+  group_by(SEPI_CREADA, AÑO) %>%
   mutate(Detectable_label = DETERMINACION) %>%
   ungroup() %>%
-  select(SEPI_CREADA, Detectable_label, Detectable, No_detectable) %>%
+  select(SEPI_CREADA,AÑO, Detectable_label, Detectable, No_detectable) %>%
   
   # Agrupar los no detectables en una sola categoría
-  group_by(SEPI_CREADA) %>%
+  group_by(SEPI_CREADA, AÑO) %>%
   mutate(No_detectables_total = sum(No_detectable, na.rm = TRUE)) %>%
   ungroup() %>%
   
-  select(SEPI_CREADA, Detectable_label, Detectable, No_detectables_total) %>%
+  select(SEPI_CREADA,AÑO, Detectable_label, Detectable, No_detectables_total) %>%
   distinct() %>%  # Evita duplicados por grupo y virus
   pivot_wider(names_from = Detectable_label, values_from = Detectable, values_fill = 0) %>%
   distinct() %>%
-  relocate(No_detectables_total, .after = SEPI_CREADA)
+  mutate(semana_label = paste0(AÑO, " - SE ", str_pad(SEPI_CREADA, 2, pad = "0")))
 
 # Crear vector de colores: virus por color y gris para los no detectables
 colores_series <- c(
@@ -349,12 +395,12 @@ colores_series <- c(
 hc <- highchart() %>%
   hc_chart(type = "column") %>%
   hc_plotOptions(column = list(stacking = "percent")) %>%
-  hc_xAxis(categories = df_plot$SEPI_CREADA, title = list(text = "Semana Epi")) %>%
+  hc_xAxis(categories = df_plot$semana_label, title = list(text = "Semana Epi")) %>%
   hc_yAxis(title = list(text = "% de determinanciones"), labels = list(format = "{value}%")) %>%
   hc_colors(unname(colores_series))
 
 # Agregar series (la columna de no detectables + cada virus detectable)
-for (serie in names(df_plot)[-1]) {
+for (serie in names(df_plot)[-c(1:2,8)]) {
   nombre_legible <- ifelse(serie == "No_detectables_total", "No detectables", serie)
   hc <- hc %>% hc_add_series(name = nombre_legible, data = df_plot[[serie]])
 }
@@ -371,11 +417,12 @@ hc
 
 ```{r}
 #| echo: false
-    
-  highchart() %>%
+  
+casos_gru_edad_graf <- casos_gru_edad_graf %>% select(-AÑO)
+highchart() %>%
   hc_chart(type = "bar") %>%  # <- CAMBIO CLAVE: de column a bar
   hc_xAxis(
-    categories = casos_gru_edad_graf$GRUPO_ETARIO2,
+    categories = casos_gru_edad_graf$GRUPO_ETARIO,
     title = list(text = "Grupo de edad")
   ) %>%
   hc_yAxis(title = list(text = "Cantidad de casos")) %>%
@@ -404,28 +451,28 @@ virus_validos <- c("Influenza A", "Influenza B", "Sars-Cov-2", "VSR")
 # Preparar datos
 df_plot <- CONTEO_UCI_edad %>%
   filter(DETERMINACION %in% virus_validos) %>%
-  group_by(GRUPO_ETARIO2) %>%
+  group_by(GRUPO_ETARIO) %>%
   mutate(Detectable_label = DETERMINACION) %>%
   ungroup() %>%
-  select(GRUPO_ETARIO2, Detectable_label, Detectable, No_detectable) %>%
+  select(GRUPO_ETARIO, Detectable_label, Detectable, No_detectable) %>%
   
   # Agrupar los no detectables en una sola categoría
-  group_by(GRUPO_ETARIO2) %>%
+  group_by(GRUPO_ETARIO) %>%
   mutate(No_detectables_total = sum(No_detectable, na.rm = TRUE)) %>%
   ungroup() %>%
   
-  select(GRUPO_ETARIO2, Detectable_label, Detectable, No_detectables_total) %>%
+  select(GRUPO_ETARIO, Detectable_label, Detectable, No_detectables_total) %>%
   distinct() %>%  # Evita duplicados por grupo y virus
   pivot_wider(names_from = Detectable_label, values_from = Detectable, values_fill = 0) %>%
   distinct() %>%
-  relocate(No_detectables_total, .after = GRUPO_ETARIO2)
+  relocate(No_detectables_total, .after = GRUPO_ETARIO)
 
 # Crear el gráfico
 # Crear el gráfico rotado (barras horizontales)
 hc_horizontal <- highchart() %>%
   hc_chart(type = "bar") %>%  # ✅ Cambia de 'column' a 'bar' para barras horizontales
   hc_plotOptions(bar = list(stacking = "normal")) %>%  # ✅ plotOptions ajustado a 'bar'
-  hc_xAxis(categories = df_plot$GRUPO_ETARIO2, title = list(text = "Grupo de edad")) %>%  # ✅ Grupo etario en eje Y
+  hc_xAxis(categories = df_plot$GRUPO_ETARIO, title = list(text = "Grupo de edad")) %>%  # ✅ Grupo etario en eje Y
   hc_yAxis(title = list(text = "Número de casos"), labels = list(format = "{value}")) %>%  # ✅ Casos en eje X
   hc_colors(unname(colores_series))  # Colores predefinidos
 
@@ -460,7 +507,7 @@ pivot_wider(names_from = `DETERMINACION`, values_from = positividad)
 plot <- highchart() %>%
 hc_chart(type = "line") %>%
 hc_colors(unname(colores))%>%
-hc_xAxis(categories = DATOS_EDAD_UCI$GRUPO_ETARIO2, 
+hc_xAxis(categories = DATOS_EDAD_UCI$GRUPO_ETARIO, 
          title = list(text = "Rango etario"),
          labels = list(rotation = -45, style = list(fontSize = "12px"))) %>% 
 hc_yAxis(title = list(text = "% de positividad")) %>%
@@ -471,65 +518,6 @@ hc_add_series(name = "Sars-Cov-2", data = DATOS_EDAD_UCI$`Sars-Cov-2`) %>%
 hc_add_series(name = "VSR", data = DATOS_EDAD_UCI$VSR)
 plot
 
-```
-
-```{r}
-#| echo: false
-
-
-# # Crear vector de colores: virus por color y gris para los no detectables
-# colores_series <- c(
-#   "No_detectables_total" = "#D3D3D3",  # gris
-#   "Influenza A" = "#1f77b4",           # azul
-#   "Influenza B" = "#ff7f0e",           # naranja
-#   "Sars-Cov-2" = "#2ca02c",            # verde
-#   "VSR" = "#d62728"                    # rojo
-# )
-# 
-# # Crear el gráfico
-# hc <- highchart() %>%
-#   hc_chart(type = "column") %>%
-#   hc_plotOptions(column = list(stacking = "percent")) %>%
-#   hc_xAxis(categories = df_plot$GRUPO_ETARIO2, title = list(text = "Grupo etario")) %>%
-#   hc_yAxis(title = list(text = "% de positividad"), labels = list(format = "{value}%")) %>%
-#   hc_colors(unname(colores_series))
-# 
-# # Agregar series (la columna de no detectables + cada virus detectable)
-# for (serie in names(df_plot)[-1]) {
-#   nombre_legible <- ifelse(serie == "No_detectables_total", "No detectables", serie)
-#   hc <- hc %>% hc_add_series(name = nombre_legible, data = df_plot[[serie]])
-# }
-# 
-# # Tooltip
-# hc <- hc %>% hc_tooltip(shared = TRUE, pointFormat = "{series.name}: <b>{point.y}</b><br/>")
-# hc
-```
-
-```{r}
-#| echo: false
-
-# resultado_centinela %>%
-#   filter(DETERMINACION != "Otro", Detectable > 0) %>%
-#   ggplot(aes(x = GRUPO_ETARIO2, y = Detectable, fill = DETERMINACION)) +
-#   geom_col(position = "stack") +
-#   labs(
-#     title = "Determinaciones Detectables por Grupo Etario",
-#     x = "Grupo Etario",
-#     y = "Cantidad de Determinaciones Detectables",
-#     fill = "Determinación"
-#   ) +
-#   facet_wrap(vars(DETERMINACION))+
-#   coord_flip()+
-#   theme_minimal() +
-#   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-#   theme(
-#     axis.text.x = element_text(angle = 0, vjust = 0.5, size = 7),
-#     legend.position = "bottom",
-#     plot.background = element_rect(fill = "transparent", color = NA),
-#     panel.background = element_rect(fill = "transparent", color = NA),
-#     legend.background = element_rect(fill = "transparent", color = NA),
-#     legend.box.background = element_rect(fill = "transparent", color = NA)
-#   )
 ```
 
 ## Análisis de Signos, síntomas y comorbilidades
@@ -548,6 +536,7 @@ plot
 #| echo: false
 #| fig-height: 10
 #| fig-width: 10
+
 signos_upset
 
 ```
@@ -561,7 +550,7 @@ signos_upset
 comorb_upset
 ```
 
-## Análisis de días de internación 
+## Análisis de días de internación
 
 **Figura 12. Dias de internación según tipo de requerimiento de cuidado y determinación en casos positivos para la Unidad Centinela de Infección Respiratoria Aguda Grave (UC-IRAG) notificados en la Región del Pehuén. SE `r SE_MIN_UCI` a `r SE_MAX_UCI`.Año 2024. N= `r N_testeos_positivos_UCI`**
 
@@ -592,7 +581,7 @@ tabla_estilizada
 
 ```
 
-## Análisis por servicio 
+## Análisis por servicio
 
 Tabla 6. N° de hisopados realizados en la Unidad Centinela de Infección Respiratoria Aguda Grave (UC-IRAG) según servicio. SE `r SE_MIN_UCI` a `r SE_MAX_UCI`. Año 2024. N= `r N_testeos_positivos_UCI`
 

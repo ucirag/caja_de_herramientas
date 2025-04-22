@@ -1,9 +1,14 @@
 #####Parte a modificar#########
 
-
 ###parte 1, lectura de datos------------
 #VR_NOMINAL
+
+
+FORMATO_MULTIREGISTRO <-  "NO" # C("SI","NO")
+
 VR_NOMINAL <- read.csv2("templates/VR_NOMINAL.csv",encoding = "UTF-8", na.strings = c("","*SIN DATO* (*SIN DATO*)"))
+VR_NOMINAL_UCIRAG <-read.csv2("templates/UC_IRAG_CHUBUT.csv",encoding = "latin1", na.strings = c("","*SIN DATO* (*SIN DATO*)"))
+
 
 dia_de_corte_de_datos <- "03-04-2025" # explicar que es en este formato
 
@@ -16,7 +21,7 @@ ruta_excel_area <- "templates/AREA PROGRAMA.xls"
 LISTADO_EFECTORES <- read_excel("templates/EFECTORES.xlsx")
 
 ##lectura de datos agrupados
-CLI_agrupados <- read.csv("templates/NEUQUEN_CLI_INTERNACIONES.csv", sep = ";", encoding = "latin1")# Reemplazar por el nombre correcto del archivo segun la provincia analizada
+carga_agrupada_ucirag <- read_excel("templates/UC IRAG - Carga Agrupada -Chubut- TRELEW MARGARA.xlsx")# Reemplazar por el nombre correcto del archivo segun la provincia analizada
 
 # Datos por servicio opcional (Cantidad de iras y % de hisopados por servicio) - con template
 

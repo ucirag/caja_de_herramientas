@@ -1,0 +1,189 @@
+La provincia seleccionada para este análisis es:  58
+
+
+Los deptos. incluidos en este análisis fueron: 58007, 58021, 58105, 58112
+
+
+Localidades no encontradas para asignar un Área Programa: NA
+
+
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36427821 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 38253037 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36409708 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35823727 - Catán Lil (58021)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 38074598 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 37893113 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35583385 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36512246 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36721298 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36577433 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36170484 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36599451 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36619403 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35705003 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 38037477 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 37893115 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 38090688 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35559629 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 37882964 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36917827 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36475418 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35750915 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36428463 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36513466 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36379430 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 38040118 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35556478 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 38078802 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35800750 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35586285 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36304207 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35685097 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36733501 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 38083687 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 38171098 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35544671 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36496104 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35706163 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35574363 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35755726 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35800757 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 37861103 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35565676 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35596281 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35933047 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 37916190 - Picunches (58105)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 38107197 - Catán Lil (58021)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 37795669 - Catán Lil (58021)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35736281 - Catán Lil (58021)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36687797 - Catán Lil (58021)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35704939 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35704218 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35750912 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36368296 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35830894 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35880330 - Catán Lil (58021)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35770520 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35800578 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 38152080 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35800473 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35613558 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35736276 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 36304296 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35800289 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35704483 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35838510 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35651129 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35537036 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35720839 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35704752 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 38078790 - Catán Lil (58021)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35770209 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35705084 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35890366 - Catán Lil (58021)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35800446 - Zapala  (58112)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35635276 - Aluminé (58007)
+IDEVENTOCASO de registros sin dato de Localidad de Residencia. Se lista ID - nombre Depto (ID depto):
+ ID: 35800272 - Zapala  (58112)
+
+
+Fue aplicado correctamente el algoritmo que transforma el dataset multiregistro para obtener un IDEVENTOCASO por fila (Ver documento xxx),
+ Fueron corregidos (segun algoritmo detallado en la documentación) los ID que presentaban resultados diferentes para una misma determinacion. Estos IDs son: 35704521, 36303269, 37831589, 37822833, 37834984, 37862303 
+ Aquellos IDs que no pudieron corregirse quedaron pendientes de revision: 36303269
+
+
+ID de registros con edades por fuera del rango Especificado (0-110). IDEVENTOCASO:
+
+
+Las siguientes determinaciones incluidas para Estrategia Centinela no existen en el dataframe y fueron omitidas.
+Es importante revisar que no existan errores de tipeo:
+"Genoma viral de Influenza"
+
+Determinaciones incluidas utilizadas en el análisis:
+"Genoma viral SARS-CoV-2"
+"Genoma viral de Influenza B (sin linaje)"
+"Genoma viral de Influenza A (sin subtipificar)"
+"Genoma viral de VSR"
+"Genoma viral de VSR A"
+"Genoma viral de VSR B"
+"Genoma viral de Influenza A H3N2"
+"Genoma viral de Influenza A H1N1pdm"
+"Genoma viral de Influenza B, linaje Victoria"
+
+

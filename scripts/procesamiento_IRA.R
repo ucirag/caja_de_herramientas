@@ -1,10 +1,5 @@
 
-# Activo paquetes y carlo los inputs
-source("scripts/install.packages.R")
-source("scripts/input.R")
 
-#LEO LAS FUNCIONES Y aplico algoritmo 1 al dataset multiregistro
-source("scripts/funciones.R")
 
 mensaje1 <-  paste0("La provincia seleccionada para este análisis es:  ", PROVINCIA)
 
@@ -15,7 +10,7 @@ VR_NOMINAL <- VR_NOMINAL %>%
 
 if (filtro_depto_o_estab == "DEPARTAMENTO") {
   VR_NOMINAL <- VR_NOMINAL %>%
-    filter(ID_DEPTO_INDEC_RESIDENCIA %in% DEPTOS_ANALISIS)
+    dplyr::filter(ID_DEPTO_INDEC_RESIDENCIA %in% DEPTOS_ANALISIS)
   mensaje2 <- paste0("Los deptos. incluidos en este análisis fueron: ", paste(DEPTOS_ANALISIS, collapse = ", "))
 } else if (filtro_depto_o_estab == "ESTABLECIMIENTO") {
   VR_NOMINAL <- VR_NOMINAL %>%
@@ -24,6 +19,7 @@ if (filtro_depto_o_estab == "DEPARTAMENTO") {
 } else {
   stop("El valor de 'filtro_depto_o_estab' debe ser 'DEPARTAMENTO' o 'ESTABLECIMIENTO'")
 }
+
 
 # TRANSFORMACIÓN DE VARIABLES
 VR_NOMINAL <- VR_NOMINAL %>%
@@ -237,16 +233,6 @@ VR_NOMINAL_EVENTOCASO <- VR_NOMINAL_EVENTOCASO %>%
 # aCA DEFINIR QUE OTRAS DETERMINACION AGRUPADAS HAY: POR EJEMPLO INFLUENZA a, COVID. aRMARLAS D ELA MISMA FORMA
 
 
-clasificar_virus <- function(x) {
-  case_when(
-    str_detect(x, "Genoma viral de VSR") ~ "VSR",
-    str_detect(x,  "Genoma viral de VSR A") ~ "VSR",
-    str_detect(x,  "Genoma viral de VSR B") ~ "VSR",
-    str_detect(x, "Genoma viral SARS-CoV-2") ~ "SARS-CoV-2",
-    str_detect(x, "Genoma viral de Influenza") ~ "Influenza",
-    TRUE ~ "Otro"
-  )
-}
 
 VR_NOMINAL_EVENTOCASO$DETERMINACION_SIN_DATO <- as.character(VR_NOMINAL_EVENTOCASO$DETERMINACION_SIN_DATO)
 
@@ -258,7 +244,7 @@ nombre_archivo <- paste0("salidas/VR_NOMINAL_EVENTOCASO_generado_el_", fecha_hoy
 
 # Guardar el archivo
 write_xlsx(VR_NOMINAL_EVENTOCASO, nombre_archivo)
-
+VR_NOMINAL_EVENTOCASO$GRUPO_ETARIO <- VR_NOMINAL_EVENTOCASO$GRUPO_ETARIO2## aca elegir con que grupo etario graficar
 
 source("scripts/output_file_consideraciones.R")
 

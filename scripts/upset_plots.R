@@ -4,7 +4,7 @@
 # ========================
 
 # Filtrar casos positivos
-positivos <- IRA_UCI %>% filter(DETERMINACION_DICO == 1)
+positivos <- IRA_UCI %>% filter(DETERMINACION_DICO_centinela == 1)
 
 # Seleccionar variables de síntomas y renombrar sin prefijo
 datos_sintomas <- positivos %>%
