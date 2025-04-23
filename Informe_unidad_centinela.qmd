@@ -36,6 +36,7 @@ source("scripts/generacion_css.R")
 source("scripts/Inicial.R")
 source("scripts/analisis_UCIRAG.R")
 source("scripts/nombre_prov.R")
+#source("scripts/analisis_por_servicio.R")
 
 knitr::opts_chunk$set(
   dev = "png",
@@ -583,6 +584,14 @@ tabla_estilizada
 ## Análisis por servicio
 
 Figura 14. N° de hisopados realizados en la Unidad Centinela de Infección Respiratoria Aguda Grave (UC-IRAG) según servicio. SE `r SE_MIN_UCI` a `r SE_MAX_UCI`. Año 2024. N= `r N_testeos_positivos_UCI`
+
+```{r}
+#| echo: false
+
+#tabla_servicio
+
+```
+
 
 ```{r tabla 6}
 #| echo: false

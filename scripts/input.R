@@ -5,11 +5,12 @@
 
 FORMATO_MULTIREGISTRO <-  "NO" # C("SI","NO")
 
-VR_NOMINAL <- read.csv2("templates/VR_NOMINAL.csv",encoding = "UTF-8", na.strings = c("","*SIN DATO* (*SIN DATO*)"))
-VR_NOMINAL_UCIRAG <-read.csv2("templates/UC_IRAG_CHUBUT.csv",encoding = "latin1", na.strings = c("","*SIN DATO* (*SIN DATO*)"))
+#VR_NOMINAL <- read.csv2("templates/VR_NOMINAL.csv",encoding = "UTF-8", na.strings = c("","*SIN DATO* (*SIN DATO*)"))
+
 #UC_IRAG
-VR_NOMINAL_UCIRAG <-read.csv2("templates/UC_IRAG_CHUBUT.csv",encoding = "latin1", na.strings = c("","*SIN DATO* (*SIN DATO*)"))
+VR_NOMINAL_UCIRAG <- read.csv2("templates/UC_IRAG_CHUBUT.csv", sep = ";" ,encoding = "latin1", na.strings = c("","*SIN DATO* (*SIN DATO*)"))
 head(VR_NOMINAL_UCIRAG)
+
 # MAPEO LOCALIDAD
 ruta_excel_area <- "templates/AREA PROGRAMA.xls"  
 
@@ -18,11 +19,11 @@ ruta_excel_area <- "templates/AREA PROGRAMA.xls"
 LISTADO_EFECTORES <- read_excel("templates/EFECTORES.xlsx")
 ##lectura de datos agrupados
 ##lectura de datos agrupados
-carga_agrupada_ucirag <- read_excel("templates/UC IRAG - Carga Agrupada -Chubut- TRELEW MARGARA.xlsx")# Reemplazar por el nombre correcto del archivo segun la provincia analizada
+carga_agrupada_ucirag <- read_excel("templates/UC IRAG - Carga Agrupada -Chubut- TRELEW MARGARA2.xlsx")# Reemplazar por el nombre correcto del archivo segun la provincia analizada
 
 # Datos por servicio opcional (Cantidad de iras y % de hisopados por servicio) - con template
 
-datos_servicio <- read.csv("templates/INTERNACION POR SERVICIO.csv", sep=";")
+#datos_servicio <- read_excel("templates/INTERNACION_POR_SERVICIO.xlsx")
 
 
 
@@ -44,7 +45,7 @@ nombre_establecimiento_centinela <- "HOSPITAL ZONAL TRELEW DR. ADOLFO MARGARA"
 # Limite de edad para considerar a un registro sin dato de edad
 edad_max <- 110
 
-anio_de_analisis <- c(2025,2024) #agregar en algun lado que las dos sepis previas se borran
+anio_de_analisis <- c(2025) #agregar en algun lado que las dos sepis previas se borran
 
 dia_de_corte_de_datos <- "03-04-2025"
 

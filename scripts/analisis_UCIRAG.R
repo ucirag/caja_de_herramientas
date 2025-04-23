@@ -105,8 +105,7 @@ larga_agrupada_ucirag <- carga_agrupada_ucirag %>%
 names(larga_agrupada_ucirag)
 
 larga_agrupada_ucirag <- larga_agrupada_ucirag %>%
-  filter(ANIO %in% anio_de_analisis | ANIO == anio_de_analisis[1] - 1) %>%
-  filter((ANIO < anio_corte) | (ANIO == anio_corte & SEMANA <= ultima_semana_valida))
+  filter(ANIO %in% anio_de_analisis | ANIO == anio_de_analisis[1] - 1) 
 
 table(larga_agrupada_ucirag$NOMBREEVENTOAGRP)
 
