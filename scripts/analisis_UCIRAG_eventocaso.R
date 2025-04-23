@@ -129,7 +129,7 @@ casos_sepi_graf1 <- IRA_UCI %>%
 casos_gru_edad_graf <- IRA_UCI %>%
   filter(DETERMINACION_DICO_centinela %in% c(0, 1, 99)) %>%
   filter(AÑO%in% anio_de_analisis) %>%
-  group_by(GRUPO_ETARIO, AÑO, DETERMINACION_DICO_centinela) %>%
+  group_by(GRUPO_ETARIO, DETERMINACION_DICO_centinela) %>%
   summarise(n = n(), .groups = "drop") %>%
   mutate(DETERMINACION_DICO_centinela = fct_recode(as.factor(DETERMINACION_DICO_centinela),
                                                    "Detectable" = "1", "No detectable" = "0", "Sin datos" = "99")) %>%

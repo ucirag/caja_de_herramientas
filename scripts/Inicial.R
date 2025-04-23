@@ -2,7 +2,7 @@
 
 # Activo paquetes y carlo los inputs
 source("scripts/install.packages.R")
-source("scripts/input2.R")
+source("scripts/input.R")
 
 #LEO LAS FUNCIONES Y aplico algoritmo 1 al dataset multiregistro
 source("scripts/funciones.R")
