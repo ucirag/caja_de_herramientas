@@ -10,7 +10,7 @@ format:
     toc-title: "Índice de Contenidos"  # Título del índice
     toc-depth: 3             # Nivel de profundidad del índice (hasta h3)
     toc-location: left       # Ubicación del índice (izquierda)
-    include-in-header: templates/header.html
+    include-in-header: header2.html
     css: templates/CSS/styles.css
 editor: visual
 execute:
@@ -55,7 +55,7 @@ Dentro de este marco, se realizó el presente reporte, el cual contiene un anál
 
 En resumen, este material tiene el objetivo de difundir la información a los equipos de salud sobre el monitoreo de indicadores de transmisibilidad, severidad e impacto de las IRAG, así como la estimación de la efectividad de las intervenciones contribuyendo a la toma de decisiones e implementación de medidas de prevención y control ante eventos causados por virus respiratorios (VR) (Ver [Anexo I](#anexo-i) para mayor detalle).
 
-**Figura 1: Mapa de establecimiento de salud d ela provincia: Distribución geográfica y caracterización según tipo . `r nombre_provincia`, `r mes_SE_MAX_UCI_nombre`/`r anio_de_analisis.**
+**Figura 1: Mapa de establecimiento de salud d ela provincia: Distribución geográfica y caracterización según tipo . `r nombre_provincia`, `r mes_SE_MAX_UCI_nombre`/`r anio_de_analisis.`**
 
 ```{r}
 #| echo: false
@@ -178,7 +178,7 @@ highchart() %>%
     pointPadding = 0.05,   # ↓ menor padding = columnas más anchas
     groupPadding = 0.05    # ↓ menos espacio entre grupos
   )) %>%
-  hc_add_series(name = "Otros ingresos", data = tabla_agrupado1$ingresos_otros, type = "column", color = "lightgrey" ) %>%
+  hc_add_series(name = "Otros ingresos", data = tabla_agrupado1$ingresos_otros, type = "column", color = "black" ) %>%
   hc_add_series(name = "IRAG extendida", data = tabla_agrupado1$ingresos_irag_ext, type = "column", color = "#7ac2a3") %>%
   hc_add_series(name = "IRAG", data = tabla_agrupado1$ingresos_irag, type = "column", color = "#C27E79") %>%
   hc_tooltip(shared = TRUE)
