@@ -48,18 +48,18 @@ VR_NOMINAL_EVENTOCASO <- VR_NOMINAL_UCIRAG %>%
   rename_with(~ paste0("COMORB_", .x), all_of(comorbilidades_vars)) %>%
   rename_with(~ paste0("DETERMINACION_", .x), all_of(determinaciones_vars))
 
-
-VR_NOMINAL_EVENTOCASO <-VR_NOMINAL_EVENTOCASO %>%
-  mutate(
-    FECHA_CONSULTA = convertir_a_fecha(FECHA_CONSULTA),
-    FIS = convertir_a_fecha(FIS),
-    FECHA_APERTURA = convertir_a_fecha(FECHA_APERTURA),
-    FECHA_ALTA_MEDICA = convertir_a_fecha(FECHA_ALTA_MEDICA),
-    FECHA_INTERNACION = convertir_a_fecha(FECHA_INTERNACION),
-    FECHA_CUI_INTENSIVOS = convertir_a_fecha(FECHA_CUI_INTENSIVOS),
-    FECHA_FALLECIMIENTO = convertir_a_fecha(FECHA_FALLECIMIENTO)
-    
-  )
+# 
+# VR_NOMINAL_EVENTOCASO <-VR_NOMINAL_EVENTOCASO %>%
+#   mutate(
+#     FECHA_CONSULTA = convertir_a_fecha(FECHA_CONSULTA),
+#     FIS = convertir_a_fecha(FIS),
+#     FECHA_APERTURA = convertir_a_fecha(FECHA_APERTURA),
+#     FECHA_ALTA_MEDICA = convertir_a_fecha(FECHA_ALTA_MEDICA),
+#     FECHA_INTERNACION = convertir_a_fecha(FECHA_INTERNACION),
+#     FECHA_CUI_INTENSIVOS = convertir_a_fecha(FECHA_CUI_INTENSIVOS),
+#     FECHA_FALLECIMIENTO = convertir_a_fecha(FECHA_FALLECIMIENTO)
+#     
+#   )
 
 
 niveles_ordenados <- c(
@@ -85,4 +85,15 @@ niveles_ordenados <- c(
 VR_NOMINAL_EVENTOCASO<- VR_NOMINAL_EVENTOCASO %>%
   mutate(GRUPO_ETARIO = factor(GRUPO_ETARIO, levels = niveles_ordenados, ordered = TRUE)) %>%
   arrange(GRUPO_ETARIO)
+VR_NOMINAL_EVENTOCASO <-VR_NOMINAL_EVENTOCASO %>%
+  mutate(
+    FECHA_CONSULTA = ymd(FECHA_CONSULTA),
+    FIS = ymd(FIS),
+    FECHA_APERTURA = ymd(FECHA_APERTURA),
+    FECHA_ALTA_MEDICA = ymd(FECHA_ALTA_MEDICA),
+    FECHA_INTERNACION = ymd(FECHA_INTERNACION),
+    FECHA_CUI_INTENSIVOS = ymd(FECHA_CUI_INTENSIVOS),
+    FTM = ymd(FTM),
+    FECHA_FALLECIMIENTO = ymd(FECHA_FALLECIMIENTO)
 
+  )

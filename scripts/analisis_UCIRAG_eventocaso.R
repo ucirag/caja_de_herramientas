@@ -183,7 +183,7 @@ clasificar_virus <- function(x) {
 }
 
 # 3. Generar tabla de resultados centinela por grupo etario y virus
-resultado_centinela <- VR_NOMINAL_EVENTOCASO %>%
+resultado_centinela <- IRA_UCI %>%
   filter(AÑO%in% anio_de_analisis) %>%
   pivot_longer(cols = all_of(columnas_determinacion),
                names_to = "Tipo_Determinacion",
@@ -202,3 +202,9 @@ resultado_centinela <- VR_NOMINAL_EVENTOCASO %>%
   )
 
 columnas_existentes <- columnas_determinacion
+
+
+source("scripts/analisis_calidad_ucirag.R")
+
+
+
