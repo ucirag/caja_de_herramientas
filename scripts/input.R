@@ -22,13 +22,13 @@
 ### 1. FORMATO DE DATOS --------------------------------------------------------
 
 # ¿El dataset nominal es MULTIREGISTRO? ("SI" o "NO")
-FORMATO_MULTIREGISTRO <- "SI" #🛑
+FORMATO_MULTIREGISTRO <- "NO" #🛑
 
 ### 2. ARCHIVOS A CARGAR -------------------------------------------------------
 
 # Dataset nominal (cargar uno solo y comentar el otro)🛑
 
-VR_NOMINAL <- read.csv2("templates/VR_NOMINAL_Chubut.csv", encoding = "latin1", na.strings = c("", "*SIN DATO* (*SIN DATO*)"))
+#VR_NOMINAL <- read.csv2("templates/VR_NOMINAL_Chubut.csv", encoding = "latin1", na.strings = c("", "*SIN DATO* (*SIN DATO*)"))
 
 VR_NOMINAL_UCIRAG <- read.csv2("templates/UC_IRAG_CHUBUT.csv", sep = ";", encoding = "latin1", na.strings = c("", "*SIN DATO* (*SIN DATO*)"))
 

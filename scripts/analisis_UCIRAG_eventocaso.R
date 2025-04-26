@@ -38,8 +38,8 @@ CONTEO_IRA_UCI_SE <- IRA_UCI %>%
     Sin_resultado = sum(is.na(Resultado)),
     .groups = "drop"
   ) %>%
-  right_join(semanas_completas, by = "SEPI_CREADA") %>%
-  complete(SEPI_CREADA,AÑO, Tipo_Determinacion,
+  right_join(semanas_completas, by = c("AÑO" ,"SEPI_CREADA") )%>%
+  complete(SEPI_CREADA,AÑO,  Tipo_Determinacion,
            fill = list(Detectable = 0, No_detectable = 0, Sin_resultado = 0)) %>%
   mutate(Total_testeos = Detectable + No_detectable)
 
