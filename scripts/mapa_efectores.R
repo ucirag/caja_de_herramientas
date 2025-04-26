@@ -1,5 +1,3 @@
-library(leaflet)
-library(dplyr)
 
 # Separar coordenadas en latitud y longitud
 LISTADO_EFECTORES <- LISTADO_EFECTORES %>%
@@ -16,7 +14,7 @@ mapa_efectores <- leaflet() %>%
 # Agregar hospitales (azules)
 mapa_efectores <- mapa_efectores %>%
   addCircleMarkers(
-    data = LISTADO_EFECTORES %>% filter(`tipo de establecimiento` == "HOSPITAL"),
+    data = LISTADO_EFECTORES %>% dplyr::filter(`tipo de establecimiento` == "HOSPITAL"),
     ~lon, ~lat,
     popup = ~paste0("<b>Nombre:</b> ", Nombre, "<br>",
                     "<b>Código SISA:</b> ", `Código SISA EFECTOR`, "<br>",
@@ -33,7 +31,7 @@ mapa_efectores <- mapa_efectores %>%
 # Agregar laboratorios (verdes y más pequeños)
 mapa_efectores <- mapa_efectores %>%
   addCircleMarkers(
-    data = LISTADO_EFECTORES %>% filter(`tipo de establecimiento` == "LABORATORIO"),
+    data = LISTADO_EFECTORES %>% dplyr::filter(`tipo de establecimiento` == "LABORATORIO"),
     ~lon, ~lat,
     popup = ~paste0("<b>Nombre:</b> ", Nombre, "<br>",
                     "<b>Código SISA:</b> ", `Código SISA EFECTOR`, "<br>",
@@ -50,7 +48,7 @@ mapa_efectores <- mapa_efectores %>%
 # Agregar otros establecimientos (naranja y gris)
 mapa_efectores <- mapa_efectores %>%
   addCircleMarkers(
-    data = LISTADO_EFECTORES %>% filter(!`tipo de establecimiento` %in% c("HOSPITAL", "LABORATORIO")),
+    data = LISTADO_EFECTORES %>% dplyr::filter(!`tipo de establecimiento` %in% c("HOSPITAL", "LABORATORIO")),
     ~lon, ~lat,
     popup = ~paste0("<b>Nombre:</b> ", Nombre, "<br>",
                     "<b>Código SISA:</b> ", `Código SISA EFECTOR`, "<br>",
@@ -70,7 +68,7 @@ mapa_efectores <- mapa_efectores %>%
 # Agregar los establecimientos centinela (cruces rojas)
 mapa_efectores <- mapa_efectores %>%
   addAwesomeMarkers(
-    data = LISTADO_EFECTORES %>% filter(Estrategia == "CENTINELA"),
+    data = LISTADO_EFECTORES %>% dplyr::filter(Estrategia == "CENTINELA"),
     ~lon, ~lat,
     popup = ~paste0("<b>Nombre:</b> ", Nombre, "<br>",
                     "<b>Código SISA:</b> ", `Código SISA EFECTOR`, "<br>",

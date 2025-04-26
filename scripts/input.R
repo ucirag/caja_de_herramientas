@@ -1,61 +1,79 @@
-#####Parte a modificar#########
+################################################################################
+# IMPORTANTE - LEER ANTES DE EDITAR
+################################################################################
 
-###parte 1, lectura de datos------------
+# ⚠️ ATENCIÓN:
+# Solo debe modificar las variables dentro de la sección "CONFIGURACIÓN INICIAL".
+# No debe cambiar el nombre de los objetos que están antes de la flecha de asignación "<-".
+# Es decir, modificar SOLO el valor que está a la derecha del "<-", pero NO el nombre de la variable.
+#
+# Ejemplo correcto:
+#   PROVINCIA <- 26     # (✅ Correcto: cambiar el número)
+#
+# Ejemplo incorrecto:
+#   PROVINCIA_CHUBUT <- 26    # (❌ Incorrecto: NO cambiar el nombre de PROVINCIA)
 
+# Verán este simbolo 🛑 en loa campos obligatorios de modificar o cargar
 
-FORMATO_MULTIREGISTRO <-  "NO" # C("SI","NO")
+################################################################################
+# CONFIGURACIÓN INICIAL: SOLO EDITAR ESTA SECCIÓN
+################################################################################
 
-#VR_NOMINAL <- read.csv2("templates/VR_NOMINAL.csv",encoding = "UTF-8", na.strings = c("","*SIN DATO* (*SIN DATO*)"))
+### 1. FORMATO DE DATOS --------------------------------------------------------
 
-#UC_IRAG
-VR_NOMINAL_UCIRAG <- read.csv2("templates/UC_IRAG_CHUBUT.csv", sep = ";" ,encoding = "latin1", na.strings = c("","*SIN DATO* (*SIN DATO*)"))
-head(VR_NOMINAL_UCIRAG)
+# ¿El dataset nominal es MULTIREGISTRO? ("SI" o "NO")
+FORMATO_MULTIREGISTRO <- "SI" #🛑
 
-# MAPEO LOCALIDAD
-ruta_excel_area <- "templates/AREA PROGRAMA.xls"  
+### 2. ARCHIVOS A CARGAR -------------------------------------------------------
 
-#mapas tabla de establecimientos (con template)
-#LISTADO_EFECTORES <- read_excel("templates/EFECTORESCHUBUT.xlsx")
-LISTADO_EFECTORES <- read_excel("templates/EFECTORES.xlsx")
-##lectura de datos agrupados
-##lectura de datos agrupados
-carga_agrupada_ucirag <- read_excel("templates/UC IRAG - Carga Agrupada -Chubut- TRELEW MARGARA2.xlsx")# Reemplazar por el nombre correcto del archivo segun la provincia analizada
+# Dataset nominal (cargar uno solo y comentar el otro)🛑
 
-# Datos por servicio opcional (Cantidad de iras y % de hisopados por servicio) - con template
+VR_NOMINAL <- read.csv2("templates/VR_NOMINAL_Chubut.csv", encoding = "latin1", na.strings = c("", "*SIN DATO* (*SIN DATO*)"))
 
-#datos_servicio <- read_excel("templates/INTERNACION_POR_SERVICIO.xlsx")
+VR_NOMINAL_UCIRAG <- read.csv2("templates/UC_IRAG_CHUBUT.csv", sep = ";", encoding = "latin1", na.strings = c("", "*SIN DATO* (*SIN DATO*)"))
 
+# Mapeo de Área Programa (solo necesario si es multiregistro) No es necesario comentarlo
+ruta_excel_area <- "templates/AREA PROGRAMA.xls"
 
+# Listado de efectores (siempre necesario)🛑
+LISTADO_EFECTORES <- readxl::read_excel("templates/EFECTORES.xlsx")
 
-###parte dos, parametros a madificar######
+# Datos por servicio (opcional)
+archivo_datos_servicios <- "templates/INTERNACION_POR_SERVICIO.xlsx"
 
-PROVINCIA <- 26 # CODIGO DE LA PROVINCIA DE chubut
+# Carga agrupada (siempre necesario)🛑
+carga_agrupada_ucirag <- readxl::read_excel("templates/UC IRAG - Carga Agrupada -Chubut- TRELEW MARGARA2.xlsx")
 
-filtro_depto_o_estab <- c("ESTABLECIMIENTO") #aca elegir poner o DEPTO o Establecimeinto,"DEPARTAMENTO" o "ESTABLECIMIENTO"
+# Datos por servicio (opcional) No es necesario comentarlo. Si no existe no se utiliza.
+#⚠️ LA COLUMNA FECHA DEBE ESTAR EN FORMATO **FECHA CORTA** DESDE EL EXCEL"
+ruta_datos_servicios <- "templates/INTERNACION_POR_SERVICIO.xlsx"
 
-area_progama_depto_localidad <- c("DEPARTAMENTO") #aca elegir poner "DEPARTAMENTO"o "LOCALIDAD"
+### 3. PARÁMETROS DEL ANÁLISIS -------------------------------------------------
 
-DEPTOS_ANALISIS <- c("58007","58021","58105","58112") # SELECCION DE LA REGION DEL PEHUEN A PARTIR DE LOS id de DEPTOS
+PROVINCIA <- 26  # 🛑Código de provincia (Chubut = 26)
 
-EFECTOR_CARGA <- c("HOSPITAL ZONAL TRELEW DR. ADOLFO MARGARA")#### variables de nombre del establecimeinto."ESTABLECIMIENTO_CARGA"
+# Definir qué filtro usar ("DEPARTAMENTO" o "ESTABLECIMIENTO")🛑
+filtro_depto_o_estab <- "ESTABLECIMIENTO"
 
-area_seleccionada_titulos <- "Trelew"
-nombre_establecimiento_centinela <- "HOSPITAL ZONAL TRELEW DR. ADOLFO MARGARA"
+# Definir agrupador para áreas ("DEPARTAMENTO" o "LOCALIDAD")🛑
+area_progama_depto_localidad <- "DEPARTAMENTO"
 
-# Limite de edad para considerar a un registro sin dato de edad
-edad_max <- 110
+# Nombre del establecimiento centinela
+EFECTOR_CARGA <- "HOSPITAL ZONAL TRELEW DR. ADOLFO MARGARA"#🛑
+nombre_establecimiento_centinela <- "HOSPITAL ZONAL TRELEW DR. ADOLFO MARGARA"#🛑
 
-anio_de_analisis <- c(2025) #agregar en algun lado que las dos sepis previas se borran
+# Nombre de la región para títulos y gráficos que luego se vera en el reporte
+area_seleccionada_titulos <- "Trelew"#🛑
 
-dia_de_corte_de_datos <- "03-04-2025"
+# Configuraciones adicionales
+edad_max <- 110  # Edad máxima aceptada
+anio_de_analisis <- 2025  # Año del análisis🛑
+dia_de_corte_de_datos <- "21-04-2025"  # 🛑 Fecha de corte de datos IMPORTANTE: NO OLVIDAR⚠️
+num_ultimas_semana_no_incluidas <- 1  # Número de semanas previas a excluir
 
-num_ultimas_semana_no_incluidas <- 1 #agregar en explicacion que son las semanas q no se incluyen en caso que se elija el anio actual.
-
-
-#Definir las columnas a evaluar para centinela
-#cambiar nombre por determinacion_UCIRAG
-# Importante!!! Verificar que este igual escritas que en el dataset original
-
+# Listado de determinaciones centinela.
+# Deben estar escritas igual que en el dataset. 
+# SOLO NECESARIO PARA MULTIREGISTRO.
 determinacion_UCIRAG <- c(
   "Genoma viral SARS-CoV-2",
   "Genoma viral de Influenza B (sin linaje)",
@@ -69,4 +87,7 @@ determinacion_UCIRAG <- c(
   "Genoma viral de Influenza"
 )
 
-############# fin de parte a modificar#######
+################################################################################
+# LECTURA AUTOMÁTICA DE DATOS: FIN DE SECCION PARA EDITAR. 
+################################################################################
+

@@ -1,10 +1,8 @@
-library(dplyr)
-library(openxlsx)
 
 # --- 1. Filtrar por el último año disponible ---
 ultimo_anio <- max(VR_NOMINAL_EVENTOCASO$AÑO, na.rm = TRUE)
 VR_NOMINAL_EVENTOCASO_filtrada <- VR_NOMINAL_EVENTOCASO %>%
-  filter(AÑO == ultimo_anio)
+  dplyr::filter(AÑO == ultimo_anio)
 
 # --- 2. Calcular indicadores para todo el año ---
 VR_NOMINAL_EVENTOCASO_filtrada <- VR_NOMINAL_EVENTOCASO_filtrada %>%
@@ -19,12 +17,12 @@ porcentaje_na_apertura <- mean(is.na(VR_NOMINAL_EVENTOCASO_filtrada$diff_apertur
 porcentaje_na_muestra  <- mean(is.na(VR_NOMINAL_EVENTOCASO_filtrada$diff_muestra_internacion)) * 100
 
 casos_irag <- VR_NOMINAL_EVENTOCASO_filtrada %>%
-  filter(CLASIFICACION_MANUAL == "Infección respiratoria aguda grave (IRAG)")
+  dplyr::filter(CLASIFICACION_MANUAL == "Infección respiratoria aguda grave (IRAG)")
 
 total_irag <- nrow(casos_irag)
 
 clasificados_con_resultado <- casos_irag %>%
-  filter(
+  dplyr::filter(
       SINTOMA_FIEBRE_MAY_38== 1 &
         SINTOMA_TOS== 1
   ) %>%
@@ -50,7 +48,7 @@ tabla_anual <- tibble(
 max_semana <- max(VR_NOMINAL_EVENTOCASO_filtrada$SEPI_CREADA, na.rm = TRUE)
 
 ultimas_4s <- VR_NOMINAL_EVENTOCASO_filtrada %>%
-  filter(SEPI_CREADA >= (max_semana - 3)) %>%
+  dplyr::filter(SEPI_CREADA >= (max_semana - 3)) %>%
   mutate(
     diff_apertura_internacion = ifelse(is.na(FECHA_APERTURA) | is.na(FECHA_INTERNACION), NA, as.numeric(FECHA_APERTURA - FECHA_INTERNACION)),
     diff_muestra_internacion = ifelse(is.na(FTM) | is.na(FECHA_INTERNACION), NA, as.numeric(FTM - FECHA_INTERNACION))
@@ -62,7 +60,7 @@ porcentaje_na_apertura_4s <- mean(is.na(ultimas_4s$diff_apertura_internacion)) *
 porcentaje_na_muestra_4s  <- mean(is.na(ultimas_4s$diff_muestra_internacion)) * 100
 
 casos_irag_4s <- ultimas_4s %>%
-  filter(CLASIFICACION_MANUAL == "Infección respiratoria aguda grave (IRAG)")
+  dplyr::filter(CLASIFICACION_MANUAL == "Infección respiratoria aguda grave (IRAG)")
 
 total_irag_4s <- nrow(casos_irag_4s)
 
@@ -78,7 +76,7 @@ casos_irag_4s$SINTOMA_FIEBRE_MAY_38
 casos_irag_4s$SINTOMA_TOS
 
 clasificados_con_resultado_4s <- casos_irag_4s %>%
-  filter(
+  dplyr::filter(
     SINTOMA_FIEBRE_MAY_38== 1 &
       SINTOMA_TOS== 1
   ) %>%

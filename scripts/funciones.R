@@ -123,13 +123,35 @@ algoritmo_1 <- function(data, col_signos, col_comorbilidades, col_determinacion,
 ## Funcion para fecha
 
 # Función para convertir a fecha solo si es necesario
+# Función para convertir a fecha, detectando el formato
 convertir_a_fecha <- function(columna) {
-  if (!inherits(columna, "Date")) {  # Verifica si la columna no es de tipo Date
-    return(as.Date(columna, format="%d/%m/%Y")) 
-  } else {
-    return(columna)  # Si ya es Date, la deja como está
+  if (inherits(columna, "Date")) {
+    return(columna)  # Si ya es tipo Date, devolver como está
   }
+  
+  # Si no es Date, convertir
+  columna <- as.character(columna)  # Asegurarse que sea character
+  
+  # Función interna para cada valor
+  parsear_fecha <- function(x) {
+    if (is.na(x) || x == "") {
+      return(NA_Date_)  # Si es NA o vacío, devolver NA
+    } else if (grepl("^\\d{4}-\\d{2}-\\d{2}$", x)) {
+      # Formato ISO: Año-Mes-Día
+      return(as.Date(x, format = "%Y-%m-%d"))
+    } else if (grepl("^\\d{2}/\\d{2}/\\d{4}$", x)) {
+      # Formato Día/Mes/Año
+      return(as.Date(x, format = "%d/%m/%Y"))
+    } else {
+      warning(paste("Formato de fecha desconocido:", x))
+      return(NA_Date_)  # Si no matchea ninguno, devuelve NA
+    }
+  }
+  
+  # Aplicar a toda la columna
+  return(as.Date(sapply(columna, parsear_fecha), origin = "1970-01-01"))
 }
+
 
 
 

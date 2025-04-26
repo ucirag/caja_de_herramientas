@@ -13,17 +13,20 @@ ultima_semana_valida <- semana_epi_corte - num_ultimas_semana_no_incluidas
 
 ### FILTRADO DE BASE: UC-IRAG ###
 IRA_UCI <- VR_NOMINAL_EVENTOCASO %>%
-  filter(EVENTO == "Unidad Centinela de Infección Respiratoria Aguda Grave (UC-IRAG)"|EVENTO=="UCIRAG") %>%
-  filter(AÑO%in% anio_de_analisis | AÑO == anio_de_analisis[1] - 1) %>%
-  filter((AÑO < anio_corte) | (AÑO == anio_corte & SEPI_CREADA <= ultima_semana_valida)) %>%
+  dplyr::filter(EVENTO == "Unidad Centinela de Infección Respiratoria Aguda Grave (UC-IRAG)"|EVENTO=="UCIRAG") %>%
+  dplyr::filter(AÑO%in% anio_de_analisis | AÑO == anio_de_analisis[1] - 1) %>%
+  dplyr::filter((AÑO < anio_corte) | (AÑO == anio_corte & SEPI_CREADA <= ultima_semana_valida)) %>%
   mutate(
     DIAS_TOTALES_INTERNACION = as.numeric(FECHA_ALTA_MEDICA - FECHA_INTERNACION),
     DIAS_INTERNACION_UTI = as.numeric(coalesce(FECHA_ALTA_MEDICA, FECHA_FALLECIMIENTO) - FECHA_CUI_INTENSIVOS)
   )
+
+
 ### CALCULO DE AÑO Y SEMANA EPIDEMIOLÓGICA MÁXIMA ###
 max_anio <- max(IRA_UCI$AÑO, na.rm = TRUE)
-SE_MAX_UCI <- IRA_UCI %>% filter(AÑO == max_anio) %>% summarise(max_sepi = max(SEPI_CREADA, na.rm = TRUE)) %>% pull()
-SE_MIN_UCI <- IRA_UCI %>% filter(AÑO == max_anio) %>% summarise(min_sepi = min(SEPI_CREADA, na.rm = TRUE)) %>% pull()
+SE_MAX_UCI <- IRA_UCI %>% dplyr::filter(AÑO == max_anio) %>% summarise(max_sepi = max(SEPI_CREADA, na.rm = TRUE)) %>% pull()
+SE_MIN_UCI <- IRA_UCI %>% dplyr::filter(AÑO == max_anio) %>% summarise(min_sepi = min(SEPI_CREADA, na.rm = TRUE)) %>% pull()
+
 
 fecha_inicio_semana <- ISOweek::ISOweek2date(paste0(max_anio, "-W", str_pad(SE_MAX_UCI, 2, pad = "0"), "-1"))
 
@@ -57,7 +60,7 @@ internados <- IRA_UCI %>%
     str_detect(Tipo_Determinacion, "VSR") ~ "VSR",
     TRUE ~ "Otro"
   )) %>%
-  filter(str_to_lower(Resultado) %in% c("detectable", "positivo", 1), na.rm = TRUE)
+  dplyr::filter(str_to_lower(Resultado) %in% c("detectable", "positivo", 1), na.rm = TRUE)
 
 Tabla_dias_internacion_determinacion <- internados %>%
   group_by(DETERMINACION) %>%
@@ -93,6 +96,7 @@ Tabla_dias_internacion_determinacion <- bind_rows(Tabla_dias_internacion_determi
 
 carga_agrupada_ucirag <- carga_agrupada_ucirag[-1,]
 
+
 larga_agrupada_ucirag <- carga_agrupada_ucirag %>%
   pivot_longer(
     cols = `0 a 2 m`:`Sin especificar`,   # todas las columnas de edad
@@ -102,12 +106,11 @@ larga_agrupada_ucirag <- carga_agrupada_ucirag %>%
   mutate(
     conteo = as.numeric(conteo)           # convertir la variable conteo a numérica
   )
-names(larga_agrupada_ucirag)
 
+larga_agrupada_ucirag$ANIO <- as.character(as.integer(larga_agrupada_ucirag$ANIO))
+larga_agrupada_ucirag$SEMANA <- as.integer(larga_agrupada_ucirag$ANIO)
 larga_agrupada_ucirag <- larga_agrupada_ucirag %>%
-  filter(ANIO %in% anio_de_analisis | ANIO == anio_de_analisis[1] - 1) 
-
-table(larga_agrupada_ucirag$NOMBREEVENTOAGRP)
+  dplyr::filter(ANIO %in% anio_de_analisis | ANIO == anio_de_analisis[1] - 1)
 
 # Crear tabla de semanas completas con ANIO como character
 semanas_completas <- tibble(
@@ -117,7 +120,7 @@ semanas_completas <- tibble(
 
 # Generar tabla resumen completa
 tabla_agrupado1 <- larga_agrupada_ucirag%>%
-  filter(NOMBREEVENTOAGRP %in% c(
+  dplyr::filter(NOMBREEVENTOAGRP %in% c(
     "Casos de IRAG entre los internados",
     "Casos de IRAG extendida entre los internados",
     "Pacientes internados por todas las causas"
@@ -130,7 +133,7 @@ tabla_agrupado1 <- larga_agrupada_ucirag%>%
     ),
     conteo = as.numeric(conteo)
   ) %>%
-  filter(ANIO %in% anio_de_analisis) %>%
+  dplyr::filter(ANIO %in% anio_de_analisis) %>%
   group_by(ANIO, SEMANA, tipo_ingreso) %>%
   summarise(conteo_total = sum(conteo, na.rm = TRUE), .groups = "drop") %>%
   pivot_wider(
@@ -138,7 +141,7 @@ tabla_agrupado1 <- larga_agrupada_ucirag%>%
     values_from = conteo_total,
     values_fill = 0
   ) %>%
-  right_join(semanas_completas, by = c("ANIO", "SEMANA")) %>%
+  right_join(semanas_completas %>% mutate(SEMANA = as.numeric(SEMANA)), by = c("ANIO", "SEMANA")) %>%
   replace_na(list(
     ingresos_irag = 0,
     ingresos_irag_ext = 0,

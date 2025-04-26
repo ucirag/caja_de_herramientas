@@ -13,7 +13,7 @@ source("scripts/funciones.R")
 if (FORMATO_MULTIREGISTRO == "NO") {
   source("scripts/procesamiento_IRA_eventocaso.R")
 } else if (FORMATO_MULTIREGISTRO == "SI") {
-  source("scripts/procesamiento_IRA_eventocaso.R")
+  source("scripts/procesamiento_IRA.R")
 } else {
   stop("⚠️ El valor de FORMATO_MULTIREGISTRO debe ser 'SI' o 'NO'")
 }

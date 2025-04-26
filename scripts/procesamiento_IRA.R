@@ -6,7 +6,7 @@ mensaje1 <-  paste0("La provincia seleccionada para este análisis es:  ", PROVI
 
 # APLICO FILTROS Y TRANSFORMO VARIABLES
 VR_NOMINAL <- VR_NOMINAL %>%
-  filter(ID_PROV_INDEC_RESIDENCIA == PROVINCIA)
+  dplyr::filter(ID_PROV_INDEC_RESIDENCIA == PROVINCIA)
 
 if (filtro_depto_o_estab == "DEPARTAMENTO") {
   VR_NOMINAL <- VR_NOMINAL %>%
@@ -14,8 +14,8 @@ if (filtro_depto_o_estab == "DEPARTAMENTO") {
   mensaje2 <- paste0("Los deptos. incluidos en este análisis fueron: ", paste(DEPTOS_ANALISIS, collapse = ", "))
 } else if (filtro_depto_o_estab == "ESTABLECIMIENTO") {
   VR_NOMINAL <- VR_NOMINAL %>%
-    filter(ESTABLECIMIENTO_CARGA %in% EFECTOR_CARGA)
-  mensaje2 <- paste0("Los efectores incluidos en este análisis fueron: ", paste(ESTABLECIMIENTO_CARGA, collapse = ", "))
+    dplyr::filter(ESTABLECIMIENTO_CARGA %in% EFECTOR_CARGA)
+  mensaje2 <- paste0("Los efectores incluidos en este análisis fueron: ", paste(EFECTOR_CARGA, collapse = ", "))
 } else {
   stop("El valor de 'filtro_depto_o_estab' debe ser 'DEPARTAMENTO' o 'ESTABLECIMIENTO'")
 }
@@ -35,16 +35,17 @@ VR_NOMINAL <- VR_NOMINAL %>%
 
 #asigno area programa
 # Asignación de AREA PROGRAMA (cuando corresponda)
-df_mapeo_localidad_region <- read_excel(ruta_excel_area) %>%
-  mutate(
-    LOCALIDAD_RESIDENCIA = toupper(`LOCALIDAD DE RESIDENCIA / DEPARTAMENTO DE RESIDENCIA`),
-    AREA_PROGRAMA = toupper(`AREA PROGRAMA`)
-  )
-
-VR_NOMINAL <- VR_NOMINAL %>%
-  mutate(LOCALIDAD_RESIDENCIA = toupper(LOCALIDAD_RESIDENCIA))
 
 if (area_progama_depto_localidad == "LOCALIDAD") {
+  
+  df_mapeo_localidad_region <- readxl::read_excel(ruta_excel_area) %>%
+    mutate(
+      LOCALIDAD_RESIDENCIA = toupper(`LOCALIDAD DE RESIDENCIA / DEPARTAMENTO DE RESIDENCIA`),
+      AREA_PROGRAMA = toupper(`AREA PROGRAMA`)
+    )
+  
+  VR_NOMINAL <- VR_NOMINAL %>%
+    mutate(LOCALIDAD_RESIDENCIA = toupper(LOCALIDAD_RESIDENCIA))
   
   # Mapeo por LOCALIDAD
   VR_NOMINAL <- VR_NOMINAL %>%
@@ -59,7 +60,7 @@ if (area_progama_depto_localidad == "LOCALIDAD") {
   )
   
   registros_sin_localidad <- VR_NOMINAL %>%
-    filter(is.na(LOCALIDAD_RESIDENCIA)) %>%
+    dplyr::filter(is.na(LOCALIDAD_RESIDENCIA)) %>%
     select(IDEVENTOCASO, DEPARTAMENTO_RESIDENCIA, ID_DEPTO_INDEC_RESIDENCIA) %>%
     unique()
   
@@ -75,14 +76,22 @@ if (area_progama_depto_localidad == "LOCALIDAD") {
   
 } else if (area_progama_depto_localidad == "DEPARTAMENTO") {
   
+  df_mapeo_localidad_region <- readxl::read_excel(ruta_excel_area) %>%
+    rename(DEPARTAMENTO_RESIDENCIA = `LOCALIDAD DE RESIDENCIA / DEPARTAMENTO DE RESIDENCIA`,
+           AREA_PROGRAMA = `AREA PROGRAMA`) %>%
+    mutate(DEPARTAMENTO_RESIDENCIA = toupper(DEPARTAMENTO_RESIDENCIA),
+           AREA_PROGRAMA = toupper(AREA_PROGRAMA))
+  
   # Convertir a mayúsculas
   VR_NOMINAL <- VR_NOMINAL %>%
     mutate(DEPARTAMENTO_RESIDENCIA = toupper(DEPARTAMENTO_RESIDENCIA))
   
+  
   # Renombrar columnas del Excel
-  df_mapeo_localidad_region <- df_mapeo_localidad_region %>%
-    rename(DEPARTAMENTO_RESIDENCIA = `LOCALIDAD DE RESIDENCIA / DEPARTAMENTO DE RESIDENCIA`,
-           AREA_PROGRAMA = `AREA PROGRAMA`)
+  # df_mapeo_localidad_region <- df_mapeo_localidad_region %>%
+  #   select(-AREA_PROGRAMA) %>%
+  #   rename(DEPARTAMENTO_RESIDENCIA = `LOCALIDAD DE RESIDENCIA / DEPARTAMENTO DE RESIDENCIA`,
+  #          AREA_PROGRAMA = `AREA PROGRAMA`)
   
   # Unir por departamento
   VR_NOMINAL <- VR_NOMINAL %>%
@@ -90,7 +99,7 @@ if (area_progama_depto_localidad == "LOCALIDAD") {
   
   # Departamentos no encontrados
   no_encontrados <- VR_NOMINAL %>%
-    filter(is.na(AREA_PROGRAMA)) %>%
+    dplyr::filter(is.na(AREA_PROGRAMA)) %>%
     select(DEPARTAMENTO_RESIDENCIA) %>%
     distinct()
   
@@ -101,17 +110,18 @@ if (area_progama_depto_localidad == "LOCALIDAD") {
   
   # Registros con NA en departamento
   registros_sin_departamento <- VR_NOMINAL %>%
-    filter(is.na(DEPARTAMENTO_RESIDENCIA)) %>%
-    select(IDEVENTOCASO, LOCALIDAD_RESIDENCIA) %>%
+    dplyr::filter(is.na(DEPARTAMENTO_RESIDENCIA)) %>%
+    select(IDEVENTOCASO, DEPARTAMENTO_RESIDENCIA) %>%
     unique()
   
   mensaje4 <- paste(
     "IDEVENTOCASO de registros sin dato de Departamento de Residencia. Se lista ID - Localidad:\n",
     paste0(
-      "ID: ", registros_sin_departamento$IDEVENTOCASO, " - ",
-      registros_sin_departamento$LOCALIDAD_RESIDENCIA
-    ),
-    collapse = "\n"
+      apply(registros_sin_departamento, 1, function(x) {
+        paste0("ID: ", x["IDEVENTOCASO"], " - ", x["DEPARTAMENTO_RESIDENCIA"])
+      }),
+      collapse = "\n"
+    )
   )
   
 } else {
@@ -153,6 +163,7 @@ resultado_algoritmo_1 <- algoritmo_1(data=VR_NOMINAL,
 
 VR_NOMINAL_EVENTOCASO <-resultado_algoritmo_1$data
 
+table(VR_NOMINAL_EVENTOCASO$EVENTO)
 mensaje5 <- resultado_algoritmo_1$mensaje_revision
 
 

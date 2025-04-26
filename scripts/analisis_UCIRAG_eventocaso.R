@@ -31,7 +31,7 @@ CONTEO_IRA_UCI_SE <- IRA_UCI %>%
   pivot_longer(cols = all_of(columnas_determinacion),
                names_to = "Tipo_Determinacion",
                values_to = "Resultado") %>%
-  group_by(SEPI_CREADA, Tipo_Determinacion) %>%
+  group_by(SEPI_CREADA,AÑO, Tipo_Determinacion) %>%
   summarise(
     Detectable = sum(Resultado == 1, na.rm = TRUE),
     No_detectable = sum(Resultado == 0, na.rm = TRUE),
@@ -68,14 +68,15 @@ CASOS_UCI_SE_det <- IRA_UCI %>%
   complete(SEPI_CREADA, AÑO, DETERMINACION,
            fill = list(Detectable = 0, No_detectable = 0,
                        Sin_resultado = 0, Total_testeos = 0)) %>%
-  filter(!is.na(DETERMINACION)) %>%
+  dplyr::filter(!is.na(DETERMINACION)) %>%
   mutate(positividad = round(Detectable / Total_testeos * 100, 2)) %>% 
   arrange(AÑO, SEPI_CREADA)
 
 # 5. Métricas generales
-N_testeos_UCI <- sum(CASOS_UCI_SE_det$Total_testeos, na.rm = TRUE)
-N_testeos_positivos_UCI <- sum(CASOS_UCI_SE_det$Detectable, na.rm = TRUE)
+N_testeos_UCI <- sum(CASOS_UCI_SE_det %>% dplyr::filter(AÑO%in% anio_de_analisis) %>% select(Total_testeos) , na.rm = TRUE)
+N_testeos_positivos_UCI <- sum(CASOS_UCI_SE_det %>% dplyr::filter(AÑO%in% anio_de_analisis) %>% select(Detectable) , na.rm = TRUE)
 POSITIVIDAD_UCI <- round(N_testeos_positivos_UCI / N_testeos_UCI * 100, 2)
+
 
 # 6. Tabla resumen general
 tabla_UCI <- data.frame(
@@ -87,7 +88,8 @@ tabla_UCI <- data.frame(
 
 # 7. Tabla por virus
 tabla_UCI_por_virus <- CASOS_UCI_SE_det %>%
-  filter(DETERMINACION %in% c("Sars-Cov-2", "Influenza A", "Influenza B", "VSR", "Influenza sin tipificar")) %>%
+  dplyr::filter(DETERMINACION %in% c("Sars-Cov-2", "Influenza A", "Influenza B", "VSR", "Influenza sin tipificar")) %>%
+  dplyr::filter(AÑO%in% anio_de_analisis) %>% 
   group_by(DETERMINACION) %>%
   summarise(
     `Testeos positivos` = sum(Detectable, na.rm = TRUE),
@@ -101,7 +103,7 @@ tabla_UCI_por_virus <- CASOS_UCI_SE_det %>%
 
 
 CASOS_UCI_SE_det_totales <- CASOS_UCI_SE_det %>%
-  filter(DETERMINACION != "Otro") %>%
+  dplyr::filter(DETERMINACION != "Otro") %>%
   group_by(SEPI_CREADA, AÑO) %>%
   summarise(
     Total_testeos = sum(Total_testeos, na.rm = TRUE),
@@ -117,8 +119,8 @@ CASOS_UCI_SE_det_totales <- CASOS_UCI_SE_det %>%
 
 
 casos_sepi_graf1 <- IRA_UCI %>%
-  filter(DETERMINACION_DICO_centinela %in% c(0, 1, 99)) %>%
-  filter(AÑO %in% c(anio_de_analisis, anio_de_analisis[1] - 1)) %>%
+  dplyr::filter(DETERMINACION_DICO_centinela %in% c(0, 1, 99)) %>%
+  dplyr::filter(AÑO %in% c(anio_de_analisis, anio_de_analisis[1] - 1)) %>%
   group_by(SEPI_CREADA, AÑO, DETERMINACION_DICO_centinela) %>%
   summarise(n = n(), .groups = "drop") %>%
   mutate(DETERMINACION_DICO_centinela = fct_recode(as.factor(DETERMINACION_DICO_centinela),
@@ -127,8 +129,8 @@ casos_sepi_graf1 <- IRA_UCI %>%
 
 
 casos_gru_edad_graf <- IRA_UCI %>%
-  filter(DETERMINACION_DICO_centinela %in% c(0, 1, 99)) %>%
-  filter(AÑO%in% anio_de_analisis) %>%
+  dplyr::filter(DETERMINACION_DICO_centinela %in% c(0, 1, 99)) %>%
+  dplyr::filter(AÑO%in% anio_de_analisis) %>%
   group_by(GRUPO_ETARIO, DETERMINACION_DICO_centinela) %>%
   summarise(n = n(), .groups = "drop") %>%
   mutate(DETERMINACION_DICO_centinela = fct_recode(as.factor(DETERMINACION_DICO_centinela),
@@ -138,7 +140,7 @@ casos_gru_edad_graf <- IRA_UCI %>%
 grupos_edad_completos <- distinct(IRA_UCI, GRUPO_ETARIO)
 
 CONTEO_UCI_edad <- IRA_UCI %>%
-  filter(AÑO%in% anio_de_analisis) %>% 
+  dplyr::filter(AÑO%in% anio_de_analisis) %>% 
   pivot_longer(cols = all_of(columnas_determinacion),
                names_to = "Tipo_Determinacion",
                values_to = "Resultado") %>%
@@ -184,7 +186,7 @@ clasificar_virus <- function(x) {
 
 # 3. Generar tabla de resultados centinela por grupo etario y virus
 resultado_centinela <- IRA_UCI %>%
-  filter(AÑO%in% anio_de_analisis) %>%
+  dplyr::filter(AÑO%in% anio_de_analisis) %>%
   pivot_longer(cols = all_of(columnas_determinacion),
                names_to = "Tipo_Determinacion",
                values_to = "Resultado") %>%
