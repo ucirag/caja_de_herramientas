@@ -97,8 +97,6 @@ A continuación encontrarán enlaces de módulos, denominados “cápsulas”, q
 * ["Cápsula 9": Pivoteo de datos para la creación de gráficos.](https://vigilanciaenr.github.io/VigilanciaenR/Sesi%C3%B3n%203/C%C3%A1psula%209.html)
 * ["Cápsula tablas": Formatos y visualización de tablas](https://vigilanciaenr.github.io/VigilanciaenR/Sesi%C3%B3n%203/C%C3%A1psula%20tablas.html)
 
-[https://vigilanciaenr.github.io/VigilanciaenR/Sesi%C3%B3n%204/mapas_neuquen.html](https://vigilanciaenr.github.io/VigilanciaenR/Sesi%C3%B3n%204/mapas_neuquen.html)
-
 ## **_Enlaces nacionales y regionales de utilidad sobre la prevención, vigilancia y control de IRA_**
 * Ministerio de Salud de la Nación (AR). Diccionario de variables para la vigilancia de infecciones respiratorias agudas graves (IRAG) en unidades centinela [Internet]. Buenos Aires: Ministerio de Salud de la Nación; 2023 [citado 2025 abr 19]. Disponible en: [https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-diccionario-de-variables.pdf](https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-diccionario-de-variables.pdf)
 * Ministerio de Salud de la Nación (AR). Guía para la implementación y fortalecimiento de unidades centinela de IRAG en establecimientos de salud [Internet]. Buenos Aires: Ministerio de Salud de la Nación; 2023 [citado 2025 abr 19]. Disponible en: [https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-vff.pdf](https://www.argentina.gob.ar/sites/default/files/guia-uc-irag-vff.pdf)
