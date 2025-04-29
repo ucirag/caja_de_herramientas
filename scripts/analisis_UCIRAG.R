@@ -108,7 +108,8 @@ larga_agrupada_ucirag <- carga_agrupada_ucirag %>%
   )
 
 larga_agrupada_ucirag$ANIO <- as.character(as.integer(larga_agrupada_ucirag$ANIO))
-larga_agrupada_ucirag$SEMANA <- as.integer(larga_agrupada_ucirag$ANIO)
+larga_agrupada_ucirag$SEMANA <- as.integer(larga_agrupada_ucirag$SEMANA)
+
 larga_agrupada_ucirag <- larga_agrupada_ucirag %>%
   dplyr::filter(ANIO %in% anio_de_analisis | ANIO == anio_de_analisis[1] - 1)
 
@@ -133,7 +134,7 @@ tabla_agrupado1 <- larga_agrupada_ucirag%>%
     ),
     conteo = as.numeric(conteo)
   ) %>%
-  dplyr::filter(ANIO %in% anio_de_analisis) %>%
+  dplyr::filter(ANIO %in% as.character(anio_de_analisis)) %>%
   group_by(ANIO, SEMANA, tipo_ingreso) %>%
   summarise(conteo_total = sum(conteo, na.rm = TRUE), .groups = "drop") %>%
   pivot_wider(
