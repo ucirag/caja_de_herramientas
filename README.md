@@ -1,5 +1,8 @@
 # **<span style="text-decoration:underline;">Caja de herramientas para el análisis epidemiológico de infecciones respiratorias agudas graves (IRAG) utilizando información del Sistema Nacional de Vigilancia</span>**[^1]
 
+**Esta caja de herramientas IRAG es el resultado de la colaboración entre OPS/OMS Argentina y las Unidades Centinela de IRAG del Hospital Zapala “Dr. Juan J. Pose”, Provincia de Neuquén, y del Hospital Zonal de Trelew “Dr. Adolfo Margara”, Provincia de Chubut. 
+Abril, año 2025.**
+
 ## **_Introducción_**
 
 Las decisiones en salud pública deben basarse en la mejor evidencia científica disponible. En este sentido, las emergencias sanitarias como la gripe A(H1N1)pdm09 o la pandemia de COVID-19 resaltaron la importancia de la información generada a partir de la vigilancia rutinaria como evidencia para las recomendaciones y orientación de decisiones en la prevención y control de las infecciones respiratorias agudas (IRA). No obstante, el uso rutinario de la información epidemiológica para contribuir a la toma de estas decisiones de salud pública en la práctica diaria es limitado. 
